@@ -1,5 +1,7 @@
+import Register from "~/components/Popup/Register";
+
 function Popup() {
-    return <div>Popup</div>;
+    return <Register>Popup</Register>;
 }
 
 export default Popup;
