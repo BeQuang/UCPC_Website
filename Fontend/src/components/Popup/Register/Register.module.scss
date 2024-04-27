@@ -9,29 +9,52 @@ h1 {
     font-size: 40px;
     //Color
     color: var(--primary);
+    margin: 20px 0 10px 0;
 }
 
 .top {
-    border: 5px solid var(--primary);
-
+    border: 1px solid var(--primary);
     background-color: var(--primary);
+    padding: 5px 0 0 0;
 }
 
 .register_form {
     display: inline-block;
     border: 2px solid var(--primary);
     border-radius: 15px;
+    box-shadow: 0px 0px 10px 20px rgba(107, 107, 107, 0.2);
     //size
     width: 320px;
     height: 400px;
 
     margin-top: 70px;
+}
+.GG_sign_in {
+    display: inline-block;
+    position: relative;
+    top: -15px;
+    text-align: center;
+    padding: 0 15px 5px 0;
+}
+.GG_sign_in img {
+    position: relative;
+    top: 5px;
+    right: -40px;
+}
+.GG_sign_in_button {
+    background-color: white;
+    border-radius: 7px;
+    border: 1px solid black;
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.2);
 
+    width: 250px;
+    height: 30px;
+    
+    cursor: pointer;
 }
 
 .register_infor {
     position: relative;
-    top: 40px;
 }
 
 //input box
@@ -51,26 +74,23 @@ input[type = "text"], input[type = "password"]{
 //Show password icon
 .showPassCheckbox {
     // //Location
-    // position: relative;
+    position: relative;
     left: -50px;
     top: 6px;
     // //Size
-    width: 20px;
+    width: 60px;
     height: 20px;
     // //Icon
-    // display: inline-block;
     display: inline-block;
-    position: relative;
-    width: 60px;
-    cursor: pointer;
     
+    cursor: pointer;
 }
 
 
 .register_button {
     //Location
     position: relative;
-    top: 45px;
+    top: 5px;
     //Color
     color: white;
     background-color: var(--primary);

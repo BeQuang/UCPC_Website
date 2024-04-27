@@ -12,7 +12,13 @@ function Register() {
         </div>
 
         <form className = {cx('register_form')}>
-            <h1>ĐĂNG KÍ</h1>
+            <h1>ĐĂNG KÝ</h1>
+            <div className = {cx('GG_sign_in')}>
+                <img src = "https://i.pinimg.com/736x/74/65/f3/7465f30319191e2729668875e7a557f2.jpg"
+                width={20}
+                />
+                <button className = {cx('GG_sign_in_button')}>Đăng ký với Google</button>
+            </div>
             <div className = {cx('register_infor')}>
                 <div className = {cx('register_username')}>
                     <input type = "text" name = "username" size = "30" placeholder = "Tên đăng nhập" required />
@@ -26,7 +32,7 @@ function Register() {
 
                 </div>
             </div>
-            <button type = "submit" className = {cx('register_button')}>Đăng kí</button>
+            <button type = "submit" className = {cx('register_button')}>Đăng ký</button>
         </form>
 
     </h2>;
