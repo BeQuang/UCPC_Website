@@ -1,92 +1,157 @@
-/* Thiết lập cho phần header */
-.header {
-  height: 70px;
-  background-color: black;
-  color: white;
-  text-align: center;
-  position: fixed;
-  width: 100%;
-  z-index: 3;
-  /* Đảm bảo header hiển thị trên tất cả các phần khác */
-}
+.page1 {
 
-/* Thiết lập cho phần thân trang */
-.body {
-  background-color: yellow;
-  padding-top: 70px;
-  /* Đảm bảo phần thân trang không bị che bởi header */
-  width: 100%;
-  min-height: 100vh;
-  /* Sử dụng viewport height cho chiều cao tối thiểu */
-  background-image: url("https://s3-alpha-sig.figma.com/img/055c/964e/e871f127c57f6e13db2a9c6feaa2478b?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RusgNE1wuPgiM4931Y7QUgMicfzbeYu8I7bPCh-spgw5D9E-10xhpGB9JRgsWrSKl45Qq3OFEUpz-sBuiUZORI1mnm6D2eHmxyZ5MID7njdcgzw2IP-AibOQivdY7jqrZ~f~q3ijrLr71L32elcP9q8sPHsBdJmmRbt1aDT00qht78NH8VsGsHch4zGmN9CF5Hx6btvmgLXWyNIfQnG9BhlbuTrrrs4m6R9EUgArLSeS-ojQOYHBoiXIraOcdMztNy5gz-WTu6YZD5BeJiiq79lRMVdtB51ZYy7qcg3~nd~fHqw4ffe61gPtgRZPJzOVh13t1YaWSZmrXV89~8VlUQ__");
-  background-size: cover;
-  position: relative;
-  /* Thiết lập position relative để phục vụ cho absolute positioning của rectangle */
-}
-
-.rectangle {
-  background-color: rgba(255, 255, 255, 0.5);
-  color: white;
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  width: 100%;
-  padding: 16px;
-}
-
-
-.title {
-  h1 {
-    font-size: 64px;
-    color: #4B2882;
-    font-weight: 600;
+  /* Thiết lập cho phần header */
+  .header {
+    height: 70px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 3;
   }
 
-  h2 {
-    font-size: 64px;
-    color: black;
-    font-weight: 700;
+  /* Thiết lập cho phần thân trang */
+  .body {
+    position: relative;
+    padding-top: 70px;
+    /* Đảm bảo phần thân trang không bị che bởi header */
+    width: 100%;
+    min-height: 100vh;
+    /* Sử dụng viewport height cho chiều cao tối thiểu */
+
+    &__bgimg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("https://s3-alpha-sig.figma.com/img/055c/964e/e871f127c57f6e13db2a9c6feaa2478b?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RusgNE1wuPgiM4931Y7QUgMicfzbeYu8I7bPCh-spgw5D9E-10xhpGB9JRgsWrSKl45Qq3OFEUpz-sBuiUZORI1mnm6D2eHmxyZ5MID7njdcgzw2IP-AibOQivdY7jqrZ~f~q3ijrLr71L32elcP9q8sPHsBdJmmRbt1aDT00qht78NH8VsGsHch4zGmN9CF5Hx6btvmgLXWyNIfQnG9BhlbuTrrrs4m6R9EUgArLSeS-ojQOYHBoiXIraOcdMztNy5gz-WTu6YZD5BeJiiq79lRMVdtB51ZYy7qcg3~nd~fHqw4ffe61gPtgRZPJzOVh13t1YaWSZmrXV89~8VlUQ__");
+      background-size: cover;
+      background-position: left;
+      z-index: 1;
+      /* Đảm bảo hình ảnh nền hiển thị phía sau overlay */
+    }
+
+    &__overlay {
+      position: absolute;
+      z-index: 2;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.5);
+      height: 300px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      backdrop-filter: blur(5px);
+    }
+
+    &__title {
+      margin-left: 200px;
+      margin-right: 500px;
+      padding-bottom: 50px;
+
+      h1 {
+        font-size: 64px;
+        color: #4B2882;
+        font-weight: 600;
+        margin-top: 10px;
+        margin-bottom: -32px;
+      }
+
+      h2 {
+        font-size: 64px;
+        color: black;
+        font-weight: 700;
+      }
+
+      p {
+        color: black;
+        font-size: 16px;
+        line-height: 17.6px;
+        font-weight: 400;
+        padding-right: 200px;
+      }
+
+      .button {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 27px;
+        background-color: white;
+        border-radius: 50px;
+        border: 1px solid #000000;
+        width: 182.19px;
+        height: 40px;
+        margin-top: 16px;
+        cursor: pointer;
+        transition-duration: 0.4s;
+        margin-top: 27px;
+      }
+
+      .button:hover {
+        background-color: #e7e7e7;
+      }
+    }
   }
 
-  p {
-    font-size: 16px;
-    line-height: 17.6px;
-    font-weight: 400;
+  .footer {
+    background-color: #4B2882;
+    height: 70px;
+    color: white;
+    text-align: center;
+    line-height: 70px;
   }
 }
 
-.botton {
-  /* Sửa từ botton thành button */
-  background-color: white;
-  border-radius: 50px;
-  border: 1px solid #000000;
-  width: 182.19px;
-  /* Sửa từ 181px thành 182.19px */
-  height: 40px;
-  margin-top: 16px;
-  /* Thêm margin-top để tạo khoảng cách với phần nội dung */
-  cursor: pointer;
-  transition-duration: 0.4s;
-}
+.page2 {
+  height: 915px;
 
-.botton:hover {
-  background-color: #e7e7e7;
-}
+  .body1 {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 588px);
 
-.button {
-  transition: all 0.3s ease;
-}
+    &__box {
+      background-color: black;
+      width: 357px;
+      height: 178px;
+      border-radius: 50px;
+      margin-left: 30px;
+      gap: 8px;
+      box-shadow: -4px 8px 20px 0px #0000001A inset;
 
-.footer {
-  background-color: #4B2882;
-  height: 70px;
-  color: white;
-  /* Thêm màu chữ cho footer */
-  text-align: center;
-  /* Căn giữa nội dung trong footer */
-  line-height: 70px;
-  /* Căn giữa nội dung theo chiều dọc */
+      &__box2 {
+        background-color: #4B2882;
+      }
+
+      &__content {
+        position: absolute;
+        color: white;
+        text-align: center;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        // shifts or translate the center point (X, Y) by (X - 50% of outerWidth, Y - 50% of outerHeight)
+        transform: translate(-50%, -50%);
+        font-weight: 600;
+
+        &__text1 {
+          font-size: 16px;
+          line-height: 24px;
+        }
+
+        &__text2 {
+          font-size: 40px;
+          line-height: 60px;
+        }
+      }
+    }
+  }
+
+  .body2 {
+    background-image: url("https://s3-alpha-sig.figma.com/img/3f71/35b3/ddb38594f735509f1d00f97e0ca5c409?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=X8wVDl3sbrKKDFYdF8BuS7DXDff8oq7V-bFBy9KygnKpBeSJvB~pdKWHKnCF9g-0HivnKlSG5gsmLQI4Bkg2E97k-bm3Lp7N4NAu6wKcQmJctOoXtWcyu8Il8THjv3gIQoZuhuZm3skU1BFUPRN5BswkV2vuMGCsfGua~AbwYkn9t9yNFq-Tz9kDGnOwN21nH22viokcJBQVjBr4mc6BEQE3PvEMI-JqjcbijPvTXOta~8Ig1lnwXHTAg65Hviu8zJgzFy0qHefkOMiSF2AGjdOqPJ4R8eQCEXviXS2O7ot2rmfxKRmYSOh4GH8ocm~PGUFKljhinpPYe5~9ophv4w__");
+    display: inline-block;
+  }
 }
