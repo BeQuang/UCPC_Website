@@ -1,40 +1,84 @@
 .wrapper {
-    max-width: 400px;;
-    font-size: 40px;
-    color: var(--primary);
-
-}
-
-#register_form {
-    font-size: 40px;
     
+    //border: 5px solid pink;
+    text-align: center;
 }
 
-input[type = "text"], input[type = "password"]{
+h1 {
+    //Size
+    font-size: 40px;
+    //Color
+    color: var(--primary);
+}
 
+.top {
+    border: 5px solid var(--primary);
+
+    background-color: var(--primary);
+}
+
+.register_form {
+    display: inline-block;
+    border: 2px solid var(--primary);
+    border-radius: 15px;
+    //size
+    width: 320px;
+    height: 400px;
+
+    margin-top: 70px;
+
+}
+
+.register_infor {
+    position: relative;
+    top: 40px;
+}
+
+//input box
+input[type = "text"], input[type = "password"]{
+    //Size
     padding: 10px;
     border: 3px solid var(--primary);
     border-radius: 7px;
+    margin: 10px 0 10px 0;
 }
 
 .register_pass {
-    position: absolute;
+    position: relative;
+    left: 30px;
 }
 
+//Show password icon
 .showPassCheckbox {
-    position: relative;
-    left: -35px;
-    top: 5px;
-    cursor: pointer;
-    width: 20px; /* Chiều rộng của icon */
+    // //Location
+    // position: relative;
+    left: -50px;
+    top: 6px;
+    // //Size
+    width: 20px;
     height: 20px;
+    // //Icon
+    // display: inline-block;
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    cursor: pointer;
+    
 }
+
 
 .register_button {
+    //Location
     position: relative;
-    top: 110px;
+    top: 45px;
+    //Color
     color: white;
     background-color: var(--primary);
     border-color: var(--primary);
-    border-radius: 10px;
+    border-radius: 20px;
+    //Size
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
 }
