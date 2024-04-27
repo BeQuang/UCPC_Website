@@ -1,3 +1,11 @@
+@mixin inter-font {
+  font-family: 'Inter', sans-serif;
+}
+
+@mixin roboto-font {
+  font-family: 'Roboto', sans-serif;
+}
+
 .page1 {
 
   /* Thiết lập cho phần header */
@@ -6,7 +14,7 @@
     background-color: black;
     color: white;
     text-align: center;
-    position: fixed;
+    // position: fixed;
     width: 100%;
     z-index: 3;
   }
@@ -15,10 +23,8 @@
   .body {
     position: relative;
     padding-top: 70px;
-    /* Đảm bảo phần thân trang không bị che bởi header */
     width: 100%;
-    min-height: 100vh;
-    /* Sử dụng viewport height cho chiều cao tối thiểu */
+    height: 100vh;
 
     &__bgimg {
       position: absolute;
@@ -103,7 +109,7 @@
 }
 
 .page2 {
-  height: 915px;
+  height: 100vh;
 
   .body1 {
     display: flex;
@@ -111,7 +117,7 @@
     align-content: center;
     align-items: center;
     justify-content: center;
-    height: calc(100% - 588px);
+    height: calc(100vh - 550px);
 
     &__box {
       background-color: black;
@@ -127,13 +133,11 @@
       }
 
       &__content {
-        position: absolute;
+        position: relative;
         color: white;
         text-align: center;
-        position: relative;
         top: 50%;
         left: 50%;
-        // shifts or translate the center point (X, Y) by (X - 50% of outerWidth, Y - 50% of outerHeight)
         transform: translate(-50%, -50%);
         font-weight: 600;
 
@@ -151,7 +155,231 @@
   }
 
   .body2 {
-    background-image: url("https://s3-alpha-sig.figma.com/img/3f71/35b3/ddb38594f735509f1d00f97e0ca5c409?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=X8wVDl3sbrKKDFYdF8BuS7DXDff8oq7V-bFBy9KygnKpBeSJvB~pdKWHKnCF9g-0HivnKlSG5gsmLQI4Bkg2E97k-bm3Lp7N4NAu6wKcQmJctOoXtWcyu8Il8THjv3gIQoZuhuZm3skU1BFUPRN5BswkV2vuMGCsfGua~AbwYkn9t9yNFq-Tz9kDGnOwN21nH22viokcJBQVjBr4mc6BEQE3PvEMI-JqjcbijPvTXOta~8Ig1lnwXHTAg65Hviu8zJgzFy0qHefkOMiSF2AGjdOqPJ4R8eQCEXviXS2O7ot2rmfxKRmYSOh4GH8ocm~PGUFKljhinpPYe5~9ophv4w__");
+    background: url("https://s3-alpha-sig.figma.com/img/3f71/35b3/ddb38594f735509f1d00f97e0ca5c409?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=X8wVDl3sbrKKDFYdF8BuS7DXDff8oq7V-bFBy9KygnKpBeSJvB~pdKWHKnCF9g-0HivnKlSG5gsmLQI4Bkg2E97k-bm3Lp7N4NAu6wKcQmJctOoXtWcyu8Il8THjv3gIQoZuhuZm3skU1BFUPRN5BswkV2vuMGCsfGua~AbwYkn9t9yNFq-Tz9kDGnOwN21nH22viokcJBQVjBr4mc6BEQE3PvEMI-JqjcbijPvTXOta~8Ig1lnwXHTAg65Hviu8zJgzFy0qHefkOMiSF2AGjdOqPJ4R8eQCEXviXS2O7ot2rmfxKRmYSOh4GH8ocm~PGUFKljhinpPYe5~9ophv4w__") no-repeat center center;
+    position: relative;
     display: inline-block;
+    height: 550px;
+    background-size: cover;
+    text-align: center;
+    z-index: 0;
+    width: 100%;
+
+    &:before {
+      content: '';
+      /* Tạo một lớp overlay */
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #4B2882CC;
+      z-index: 1;
+      backdrop-filter: blur(2px);
+    }
+
+    &__content {
+      position: relative;
+      width: 441px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+
+      &__logo {
+        width: 89px;
+        height: auto;
+      }
+
+      &__title {
+        color: white;
+        font-weight: 600;
+        line-height: 87px;
+        letter-spacing: -2%;
+        font-size: 64px;
+      }
+
+      &__content {
+        color: white;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 17px;
+      }
+    }
   }
+}
+
+.page3 {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .body1 {
+    height: 15vh;
+    width: calc(100% - 300px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 150px;
+
+    &__content {
+      @include roboto-font;
+      font-weight: 700;
+      font-size: 64px;
+      line-height: 75px;
+    }
+
+    &__line {
+      width: 811px;
+      border-top: 5px solid #4B2882;
+      // width: 700px;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+  }
+
+  .body2 {
+    height: 80vh;
+    display: flex;
+    margin-top: 60px;
+    margin-bottom: 80px;
+
+    &__box1 {
+      // float: left;
+      width: 50%;
+      height: 100%;
+      background: url("https://s3-alpha-sig.figma.com/img/2bb8/6136/3ea925e2002622e5682408216dd1b630?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RO-gemrcAcmwIIrO2SBX5cY6RZV09O7w39YO2VOdkAMgFcuIN~D8mRJ3zgM9gjx9ME9x~Ww6V2djtvixtEO0DCFj4qyqZ2E7586OP8~8b9jVHJWfkLGtWdEXlbI-QAOnO4OL9YYQw2Dj53Y1cLKLNqv~KwJP~E1udVNv~WkQys8XIrjbzU3gWPFlJbEFJd-kcenKnpn336SeRYkfWOl00EuSkKh6jMx3UWP2yhLSouzTu~Yb9c5euLsgpIIAcQjB0meOv0zN~miMnB9Xwj1UvrG3vLd~XY1xTcIpp9WCoE9dnN52iMoOpeiPkUxm7koDU9sim-Z9RWJsG8jOY1LAFA__") no-repeat center center;
+      background-size: auto 100%;
+      z-index: 0;
+      position: relative;
+      margin-left: 150px;
+      margin-right: 35px;
+
+      &:before {
+        content: '';
+        /* Tạo một lớp overlay */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #4B288280;
+        z-index: 1;
+        backdrop-filter: blur(1px);
+      }
+
+      &__container {
+        position: absolute;
+        z-index: 2;
+        color: white;
+        margin-bottom: 50px;
+        margin-left: 40px;
+        bottom: 0;
+
+        &__title {
+          font-size: 43px;
+          font-weight: 800;
+          line-height: 63px;
+          width: 560px;
+        }
+
+        &__time {
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 22px;
+        }
+      }
+    }
+
+    &__box2 {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-right: 150px;
+
+      &__content {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+
+        &__container {
+          width: 75%;
+          display: flex;
+          flex-direction: column;
+          margin-right: 50px;
+
+          &__title {
+            @include inter-font;
+            font-weight: 700;
+            font-size: 30px;
+            line-height: 36px;
+            width: 355px;
+            color: #4B2882;
+
+          }
+
+          &__time {
+            @include roboto-font;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 17px;
+            width: 76px;
+            color: #949494;
+          }
+        }
+
+        &__img {
+          width: 25%;
+          left: 0;
+          background-color: #C4C4C4;
+          width: 212px;
+          height: 128px;
+          position: relative;
+          bottom: 0;
+        }
+      }
+
+      &__footer {
+        position: relative;
+        height: 100%;
+
+        &__botton {
+          width: 209px;
+          height: 52px;
+          border-radius: 8px;
+          gap: 8px;
+          background-color: #4B2882;
+          color: white;
+          box-shadow: #0000000D;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 24px;
+          position: absolute;
+          bottom: 0;
+          cursor: pointer;
+        }
+      }
+
+      &__button:hover {
+        background-color: #321c56;
+      }
+    }
+
+  }
+
+  .body3 {
+    height: 5vh;
+    position: relative; // Đảm bảo .body3__line sẽ được định vị theo .body3
+
+    &__line {
+      width: calc(100% - 300px); // Chiều rộng tương đương với .body3 trừ đi khoảng cách margin-left và margin-right
+      border-top: 5px solid #4B2882;
+      position: absolute; // Định vị tuyệt đối so với .body3
+      bottom: 0; // Đặt ở phía dưới của .body3
+      left: 50%; // Đặt ở giữa theo chiều ngang của .body3
+      transform: translateX(-50%); // Dịch chuyển 50% chiều ngang sang trái để căn giữa
+      margin-bottom: 10px;
+    }
+  }
+
 }
