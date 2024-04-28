@@ -6,6 +6,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
+@mixin opensan-font {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .page1 {
 
   /* Thiết lập cho phần header */
@@ -220,12 +224,14 @@
     align-items: center;
     justify-content: center;
     margin-left: 150px;
+    margin-top: 60px;
 
     &__content {
       @include roboto-font;
       font-weight: 700;
       font-size: 64px;
       line-height: 75px;
+      color: #4B2882;
     }
 
     &__line {
@@ -280,12 +286,21 @@
           font-weight: 800;
           line-height: 63px;
           width: 560px;
+          text-decoration: none;
+          color: white;
+          cursor: pointer;
         }
+
+        &__title:hover {
+          color: rgb(219, 218, 218);
+        }
+
 
         &__time {
           font-size: 15px;
           font-weight: 400;
           line-height: 22px;
+          margin-top: 20px;
         }
       }
     }
@@ -315,7 +330,12 @@
             line-height: 36px;
             width: 355px;
             color: #4B2882;
+            text-decoration: none;
+            cursor: pointer;
+          }
 
+          &__title:hover {
+            color: #391f64;
           }
 
           &__time {
@@ -372,14 +392,116 @@
     position: relative; // Đảm bảo .body3__line sẽ được định vị theo .body3
 
     &__line {
-      width: calc(100% - 300px); // Chiều rộng tương đương với .body3 trừ đi khoảng cách margin-left và margin-right
+      width: calc(100% - 300px);
       border-top: 5px solid #4B2882;
-      position: absolute; // Định vị tuyệt đối so với .body3
-      bottom: 0; // Đặt ở phía dưới của .body3
-      left: 50%; // Đặt ở giữa theo chiều ngang của .body3
-      transform: translateX(-50%); // Dịch chuyển 50% chiều ngang sang trái để căn giữa
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
       margin-bottom: 10px;
     }
   }
 
+}
+
+.page4 {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .body1 {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    &__container1 {
+      &__content {
+        @include inter-font;
+        color: #4B2882;
+        font-size: 55px;
+        font-weight: 700;
+        line-height: 67px;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+      }
+    }
+
+    &__container2 {
+      display: flex;
+      flex-direction: row;
+      width: 700px;
+
+      &__box {
+        width: calc(100%/3);
+        background-color: black;
+        margin-left: 20px;
+        height: 115px;
+
+        &__purplerectangle {
+          background-color: #4B2882;
+          height: 15px;
+        }
+
+        &__content {
+          @include opensan-font;
+          display: flex;
+          color: white;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          font-size: 25px;
+          font-weight: 600;
+          line-height: 28px;
+          width: 150px;
+          margin: 0 auto;
+
+          &__fixcenter {
+            padding-bottom: 30px;
+          }
+        }
+      }
+    }
+  }
+
+  .body2 {
+    background-color: #4B2882;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__container {
+      width: 800px;
+      color: white;
+      text-align: center;
+
+      &__title {
+        @include opensan-font;
+        font-size: 45px;
+        font-weight: 600;
+        line-height: 60px;
+        margin-bottom: 20px;
+      }
+
+      &__line {
+        border: 1px solid white;
+        width: 500px;
+        margin: 0 auto;
+      }
+
+      &__content {
+        @include opensan-font;
+        margin-top: 50px;
+        font-size: 19px;
+        font-weight: 600;
+        line-height: 26px;
+        text-align: justify;
+      }
+    }
+  }
 }
