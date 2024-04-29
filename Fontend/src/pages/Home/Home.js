@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
+import Popup from '~/components/Popup';
 
 const cx = classNames.bind(styles);
 
