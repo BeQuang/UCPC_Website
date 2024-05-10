@@ -1,0 +1,47 @@
+CREATE TABLE Account (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE,
+    username VARCHAR(255) UNIQUE, 
+    password VARCHAR(255),
+    role ENUM('user', 'admin'),   
+    access_token VARCHAR(255),
+    refresh_token VARCHAR(255)
+);
+CREATE TABLE Team (
+    account_id INT UNIQUE,
+    team_id INT AUTO_INCREMENT PRIMARY KEY,
+    paidImage VARCHAR(255),
+    isPaid BOOLEAN,
+    isUpdated BOOLEAN,
+    type VARCHAR(255),
+    trainername VARCHAR(255),
+    FOREIGN KEY (account_id) REFERENCES Account(id) ON DELETE CASCADE
+);
+CREATE TABLE Participant (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    team_id INT,
+    name VARCHAR(55),
+    citizenId VARCHAR(12),
+    phone VARCHAR(10),
+    birthday DATE,
+    school_name VARCHAR(255),
+    FOREIGN KEY (team_id) REFERENCES User(team_id) ON DELETE CASCADE
+);
+CREATE TABLE Request (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    team_id INT,
+    data TEXT,
+    isSolve BOOLEAN,
+    FOREIGN KEY (team_id) REFERENCES User(team_id) ON DELETE CASCADE
+);
+
+
+- Cho phép user đăng kí, đăng nhập, đăng xuất
+- 1 user là 1 team, 1 team có thể có nhiều participant
+- User có thể xem thông tin của team, participant của mình
+- User có thể gửi request, request sẽ được admin xử lý
+- Admin có thể xem tất cả các request, xem thông tin của các team, participant
+- Admin có thể xác nhận request, cập nhật thông tin của team, participant, tạo mới team, participant
+- Admin có thể xem thông tin của tất cả các user
+- Admin có thể xác nhận xem user nào đã thanh toán, user nào chưa thanh toán
+- Admin có thể xuất ra file excel thông tin của các user
