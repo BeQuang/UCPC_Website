@@ -3,7 +3,7 @@ import styles from './NewsItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function NewsItem({ link = '/', title, time, img, type = true }) {
+function NewsItem({ link = '/', title, time, img }) {
     return (
         <div className={cx('news')}>
             <div className={cx('wrapper')}>

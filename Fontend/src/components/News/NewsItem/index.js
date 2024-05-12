@@ -1,1 +1,1 @@
-export { default } from './NewItem.js';
+export { default } from './NewsItem.js';
