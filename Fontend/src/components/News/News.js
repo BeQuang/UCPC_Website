@@ -5,61 +5,57 @@ const cx = classNames.bind(styles);
 
 function News() {
     return (
-        <div className={cx('page3')}>
-            <div className={cx('body1')}>
-                <div className={cx('body1__content')}>
+        <div className={cx('container')}>
+            <div className={cx('header')}>
+                <div className={cx('title')}>
                     <p>TIN TỨC</p>
                 </div>
-                <div className={cx('body1__line')}></div>
-                <div className={cx('body1__content')}>
+                <div className={cx('line')}></div>
+                <div className={cx('title')}>
                     <p>UCPC</p>
                 </div>
             </div>
-            <div className={cx('body2')}>
-                <div className={cx('body2__box1')}>
-                    <div className={cx('body2__box1__container')}>
-                        <a href="/" className={cx('body2__box1__container__title')}>
+            <div className={cx('body')}>
+                <div className={cx('marjor-news')}>
+                    <div className={cx('wrapper')}>
+                        <a href="/" className={cx('title')}>
                             Massa tortor nibh nulla condimentum imperdiet scelerisque...
                         </a>
-                        <p className={cx('body2__box1__container__time')}>2 Hours Ago</p>
+                        <p className={cx('time')}>2 Hours Ago</p>
                     </div>
                 </div>
-                <div className={cx('body2__box2')}>
-                    <div className={cx('body2__box2__content')}>
-                        <div className={cx('body2__box2__content__container')}>
-                            <a href="/" className={cx('body2__box2__content__container__title')}>
+                <div className={cx('related-news')}>
+                    <div className={cx('news')}>
+                        <div className={cx('wrapper')}>
+                            <a href="/" className={cx('title')}>
                                 News Title Lorem Ipsum Dolor Sit Amet
                             </a>
-                            <p className={cx('body2__box2__content__container__time')}>1 Hour Ago</p>
+                            <p className={cx('time')}>1 Hour Ago</p>
                         </div>
-                        <div className={cx('body2__box2__content__img')}></div>
+                        <div className={cx('img')}></div>
                     </div>
-                    <div className={cx('body2__box2__content')}>
-                        <div className={cx('body2__box2__content__container')}>
-                            <a href="/" className={cx('body2__box2__content__container__title')}>
+                    <div className={cx('news')}>
+                        <div className={cx('wrapper')}>
+                            <a href="/" className={cx('title')}>
                                 News Title Lorem Ipsum Dolor Sit Amet
                             </a>
-                            <p className={cx('body2__box2__content__container__time')}>1 Hour Ago</p>
+                            <p className={cx('time')}>1 Hour Ago</p>
                         </div>
-                        <div className={cx('body2__box2__content__img')}></div>
+                        <div className={cx('img')}></div>
                     </div>
-                    <div className={cx('body2__box2__content')}>
-                        <div className={cx('body2__box2__content__container')}>
-                            <a href="/" className={cx('body2__box2__content__container__title')}>
+                    <div className={cx('news')}>
+                        <div className={cx('wrapper')}>
+                            <a href="/" className={cx('title')}>
                                 News Title Lorem Ipsum Dolor Sit Amet
                             </a>
-                            <p className={cx('body2__box2__content__container__time')}>1 Hour Ago</p>
+                            <p className={cx('time')}>1 Hour Ago</p>
                         </div>
-                        <div className={cx('body2__box2__content__img')}></div>
+                        <div className={cx('img')}></div>
                     </div>
-                    <div className={cx('body2__box2__footer')}>
-                        <button className={cx('body2__box2__footer__botton')}>Xem thêm</button>
-                    </div>
+                    <button className={cx('btn-see-also')}>Xem thêm</button>
                 </div>
             </div>
-            <div className={cx('body3')}>
-                <div className={cx('body3__line')}></div>
-            </div>
+            <div className={cx('line-bottom')}></div>
         </div>
     );
 }

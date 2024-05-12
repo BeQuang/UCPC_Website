@@ -1,301 +1,84 @@
 .wrapper {
-    
     //border: 5px solid pink;
     text-align: center;
-}
 
-h1 {
-    //Size
-    font-size: 40px;
-    //Color
-    color: var(--primary);
-    //Location
-    margin: 20px 0 10px 0;
-}
+    .register_form {
+        border: 2px solid var(--primary);
+        border-radius: 15px;
+        box-shadow: 0px 0px 15px 20px rgba(107, 107, 107, 0.3);
+        //size
+        width: 320px;
+        height: 450px;
+        margin: 40px auto;
 
-.top {
-    //Shape
-    border: 1px solid var(--primary);
-    background-color: var(--primary);
+        .title {
+            //Size
+            font-size: 40px;
+            //Color
+            color: var(--primary);
+            //Location
+            margin: 20px 0 10px 0;
+        }
 
-}
+        .GG_sign_in {
+            margin: auto;
+            position: relative;
+            top: -10px;
+            padding: 0 15px 5px 0;
 
-.top_icon {
-    //Shape
-    border-top: 20px solid var(--primary);
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
+            img {
+                position: relative;
+                top: 5px;
+                right: -40px;
+            }
 
-    //Size
-	height: 0;
-	width: 100px;
+            .btn-sign-in {
+                background-color: white;
+                border-radius: 7px;
+                border: 1px solid black;
+                box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.2);
+                width: 250px;
+                height: 30px;
+                cursor: pointer;
+            }
+        }
 
-    //Location
-    margin: auto;
-}
-.left_icon {
-    //Location
-    position: absolute;
-    top: 20px;
+        .register_info {
+            position: relative;
+            top: 15px;
+            border-top: 2px solid var(--primary);
+            padding-top: 30px;
 
-    //border: 1px solid blue;
-    width: 50px;
-    height: 57px;
-}
+            .register_pass {
+                position: relative;
+                //left: 30px;
+            }
+        }
 
-.l1 {
-    //Location
-    position: relative;
-    top: 2.5px;
-    left: 2px;
-    //Shape
-    border-top: 3px linear-gradient(to right, #ffffff, black);
-    border-left: 3px solid white;
-    //Size
-    width: 6.5px;
-    height: 6px;
-}
-
-.l2 {
-    //Location
-    position: relative;
-    top: 3.5px;
-    left: 1.5px;
-    //Shape
-    border-top: 3.5px solid white;
-    border-left: 3.5px solid white;
-    //Size
-    width: 7px;
-    height: 7px;
-}
-
-.l3 {
-    //Location
-    position: relative;
-    bottom: 12px;
-    left: 9px;
-    //Shape
-    border-top: 3.5px solid white;
-    border-left: 3.5px solid white;
-    //Size
-    width: 7px;
-    height: 7px;
-}
-
-.l4 {
-    //Location
-    position: relative;
-    top: 28px;
-    left: 2px;
-    //Shape
-    border-left: 3px solid white;
-    border-bottom: 3px solid white;
-    //Size
-    width: 6.5px;
-    height: 6px;
-}
-
-.l5 {
-    //Location
-    position: relative;
-    top: 14px;
-    left: 1.5px;
-    //Shape
-    border-bottom: 3.5px solid white;
-    border-left: 3.5px solid white;
-    //Size
-    width: 7px;
-    height: 7px;
-}
-
-.l6 {
-    //Location
-    position: relative;
-    top: 15px;
-    left: 9px;
-    //Shape
-    border-bottom: 3.5px solid white;
-    border-left: 3.5px solid white;
-    //Size
-    width: 7px;
-    height: 7px;
-}
-
-.right_icon {
-    //Location
-    position: absolute;
-    top: 20px;
-    right: 10px;
-
-    //border: 1px solid blue;
-    width: 50px;
-    height: 57px;
-
-    //margin: auto;
-}
-
-.r1 {
-    //Location
-    position: relative;
-    top: 2.5px;
-    left: 43px;
-    //Shape
-    border-top: 3px solid white;
-    border-right: 3px solid white;
-    //Size
-    width: 6.5px;
-    height: 6px;
-}
-
-.r2 {
-    //Location
-    position: relative;
-    top: 3.5px;
-    left: 43.5px;
-    //Shape
-    border-top: 3.5px solid white;
-    border-right: 3.5px solid white;
-    //Size
-    width: 7px;
-    height: 7px;
-}
-
-.r3 {
-    //Location
-    position: relative;
-    bottom: 12px;
-    left: 35.5px;
-    //Shape
-    border-top: 3.5px solid white;
-    border-right: 3.5px solid white;
-    //Size
-    width: 7px;
-    height: 7px;
-}
-
-.r4 {
-    //Location
-    position: relative;
-    top: 28px;
-    left: 43px;
-    //Shape
-    border-right: 3px solid white;
-    border-bottom: 3px solid white;
-    //Size
-    width: 6.5px;
-    height: 6px;
-}
-
-.r5 {
-    //Location
-    position: relative;
-    top: 14px;
-    left: 43.5px;
-    //Shape
-    border-bottom: 3.5px solid white;
-    border-right: 3.5px solid white;
-    //Size
-    width: 7px;
-    height: 7px;
-}
-
-.r6 {
-    //Location
-    position: relative;
-    top: 15px;
-    left: 35.5px;
-    //Shape
-    border-bottom: 3.5px solid white;
-    border-right: 3.5px solid white;
-    //Size
-    width: 7px;
-    height: 7px;
-}
-
-
-
-.register_form {
-
-    border: 2px solid var(--primary);
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px 20px rgba(107, 107, 107, 0.3);
-    //size
-    width: 320px;
-    height: 450px;
-
-    margin: 40px auto;
-}
-.GG_sign_in {
-    margin: auto;
-    position: relative;
-    top: -10px;
-    padding: 0 15px 5px 0;
-}
-.GG_sign_in img {
-    position: relative;
-    top: 5px;
-    right: -40px;
-}
-.GG_sign_in_button {
-    background-color: white;
-    border-radius: 7px;
-    border: 1px solid black;
-    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.2);
-
-    width: 250px;
-    height: 30px;
-    
-    cursor: pointer;
-}
-
-.register_infor {
-    position: relative;
-    top: 15px;
-    border-top: 2px solid var(--primary);
-    padding-top: 30px;
+        .register_button {
+            //Location
+            position: relative;
+            top: 30px;
+            //Color
+            color: white;
+            background-color: var(--primary);
+            border-color: var(--primary);
+            border-radius: 20px;
+            //Size
+            width: 100px;
+            height: 35px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
 }
 
 //input box
-input[type = "text"], input[type = "password"]{
+input[type='text'],
+input[type='password'] {
     //Size
     padding: 10px;
     border: 3px solid var(--primary);
     border-radius: 7px;
     margin: 10px 0 10px 0;
-}
-
-.register_pass {
-    position: relative;
-    //left: 30px;
-}
-
-//Show password icon
-.checkbox {
-    //Location
-    position: relative;
-    display: inline-block;
-    left: -53px;
-    top: 6px;
-    //Size
-    width: 60px;
-    height: 20px;
-
-    cursor: pointer;
-}
-
-
-.register_button {
-    //Location
-    position: relative;
-    top: 30px;
-    //Color
-    color: white;
-    background-color: var(--primary);
-    border-color: var(--primary);
-    border-radius: 20px;
-    //Size
-    width: 100px;
-    height: 35px;
-    font-size: 20px;
-    cursor: pointer;
 }

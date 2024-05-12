@@ -8,13 +8,13 @@ function Register() {
     return (
         <h2 className={cx('wrapper')}>
             <form className={cx('register_form')}>
-                <h1>ĐĂNG KÝ</h1>
+                <h1 className={cx('title')}>ĐĂNG KÝ</h1>
                 <div className={cx('GG_sign_in')}>
                     <img src={logoGoogle} width={20} alt="error" />
-                    <button className={cx('GG_sign_in_button')}>Đăng ký với Google</button>
+                    <button className={cx('btn-sign-in')}>Đăng ký với Google</button>
                 </div>
 
-                <div className={cx('register_infor')}>
+                <div className={cx('register_info')}>
                     <div className={cx('register_username')}>
                         <input type="text" name="username" size="30" placeholder="Tên đăng nhập" required />
                     </div>

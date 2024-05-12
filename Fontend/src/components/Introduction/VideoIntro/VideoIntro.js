@@ -5,12 +5,12 @@ const cx = classNames.bind(styles);
 
 function VideoIntro() {
     return (
-        <div className={cx('page1')}>
+        <div>
             <header className={cx('header')}>Header content</header>
             <div className={cx('body')}>
-                <div className={cx('body__bgimg')}>
-                    <div className={cx('body__overlay')}>
-                        <div className={cx('body__title')}>
+                <div className={cx('bg-img')}>
+                    <div className={cx('overlay')}>
+                        <div className={cx('title')}>
                             <h1>UIT COLLEGIATE</h1>
                             <h2>PROGRAMMING CONTEST</h2>
                             <p>

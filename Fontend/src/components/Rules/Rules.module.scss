@@ -1,101 +1,83 @@
-.page4 {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-
-    .body1 {
+.container {
+    .header {
         height: 50vh;
         display: flex;
         flex-direction: column;
         text-align: center;
         align-items: center;
-        align-content: center;
         justify-content: center;
 
-        &__container1 {
-            &__content {
-                font-family: var(--font-inter);
-                color: #4b2882;
-                font-size: 55px;
-                font-weight: 700;
-                line-height: 67px;
-                text-transform: uppercase;
-                margin-bottom: 30px;
-            }
+        .title {
+            font-family: var(--font-inter);
+            color: #4b2882;
+            font-size: 55px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
         }
 
-        &__container2 {
+        .type-list {
             display: flex;
-            flex-direction: row;
             width: 700px;
 
-            &__box {
+            .type-item {
                 width: calc(100% / 3);
                 background-color: black;
                 margin-left: 20px;
                 height: 115px;
+                position: relative;
+                font-family: var(--font-opensans);
+                color: white;
+                font-size: 25px;
+                font-weight: 600;
+                line-height: 28px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-                &__purplerectangle {
-                    background-color: #4b2882;
-                    height: 15px;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    height: 12%;
+                    width: 100%;
+                    background-color: var(--primary);
+                    top: 0;
+                    left: 0;
                 }
 
-                &__content {
-                    font-family: var(--font-opensans);
-                    display: flex;
-                    color: white;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100%;
-                    font-size: 25px;
-                    font-weight: 600;
-                    line-height: 28px;
-                    width: 150px;
-                    margin: 0 auto;
-
-                    &__fixcenter {
-                        padding-bottom: 30px;
-                    }
+                p {
+                    display: block;
+                    padding: 0 16%;
                 }
             }
         }
     }
 
-    .body2 {
+    .body {
         background-color: #4b2882;
-        height: 50vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        color: white;
+        text-align: center;
+        padding: 120px 100px;
 
-        &__container {
-            width: 800px;
-            color: white;
-            text-align: center;
+        .title {
+            font-family: var(--font-opensans);
+            font-size: 45px;
+            font-weight: 600;
+            line-height: 60px;
+            margin-bottom: 20px;
+        }
+        .line {
+            border: 1px solid white;
+            width: 60%;
+            margin: 0 auto;
+        }
 
-            &__title {
-                font-family: var(--font-opensans);
-                font-size: 45px;
-                font-weight: 600;
-                line-height: 60px;
-                margin-bottom: 20px;
-            }
-
-            &__line {
-                border: 1px solid white;
-                width: 500px;
-                margin: 0 auto;
-            }
-
-            &__content {
-                font-family: var(--font-opensans);
-                margin-top: 50px;
-                font-size: 19px;
-                font-weight: 600;
-                line-height: 26px;
-                text-align: justify;
-            }
+        .description {
+            font-family: var(--font-opensans);
+            margin-top: 50px;
+            font-size: 19px;
+            font-weight: 600;
+            line-height: 26px;
+            text-align: justify;
         }
     }
 }
