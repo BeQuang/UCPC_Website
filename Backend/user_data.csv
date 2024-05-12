@@ -1,0 +1,6 @@
+id,email,username,role,teamName,isPaid,isUpdate,isHighSchool,trainerName,participant1_fullName,participant1_citizenId,participant1_phone,participant1_birth,participant1_schoolName,participant2_fullName,participant2_citizenId,participant2_phone,participant2_birth,participant2_schoolName,participant3_fullName,participant3_citizenId,participant3_phone,participant3_birth,participant3_schoolName
+1,admin,adminAccount,ADMIN,Not updated yet / admin account,0,0,0,,,,,,,,,,,,,,,,
+2,team1,testRegis,USER,Test Team,1,1,1,Vo Nguyen Hoai Nam,Tester 1,012301231233,0123123123,10/05/2024,schoolName,Tester 2,012301231233,0123123123,10/06/2002,schoolName,Tester 3,012301231233,0123123123,10/06/2002,schoolName
+4,testNoTeam,TestNoTeam,USER,Not updated yet / admin account,0,0,0,,,,,,,,,,,,,,,,
+5,team2,testRegis,USER,Test Team 2,1,1,1,Nam Nam nam,team2 member 3,012301230123,0789789789,01/01/2002,THPT C,team2 member 3,012301230123,0789789789,01/01/2002,THPT C,team2 member 3,012301230123,0789789789,01/01/2002,THPT C
+11,team5,testRegis5,USER,Not updated yet / admin account,0,0,0,,,,,,,,,,,,,,,,

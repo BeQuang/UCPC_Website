@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     teamId: DataTypes.INTEGER,
     title: DataTypes.STRING,
     data: DataTypes.TEXT,
-    isSolve: DataTypes.BOOLEAN
+    isSolve: DataTypes.BOOLEAN,
+    response: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'Request',

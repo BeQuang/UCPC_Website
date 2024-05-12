@@ -18,6 +18,9 @@ module.exports = {
       data: {
         type: Sequelize.TEXT
       },
+      response: {
+        type: Sequelize.TEXT
+      },
       isSolve: {
         type: Sequelize.BOOLEAN
       },

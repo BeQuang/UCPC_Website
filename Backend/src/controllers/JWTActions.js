@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 const publicRoutes = ['/login', '/register'];
-const adminRoutes = ['/resetPassword', '/updateInfo', '/getAllHelpRequest', '/getHelpRequestById/:id', '/solveHelpRequest/:id', '/getAllUser', '/getUserById/:id', '/deleteUser/:id', '/confirmPayment', '/searchByEmail', '/filterUnPaid', '/filterPaid', '/filterSolved', '/filterUnSolved', '/filterIsUpdate'];
-
+const adminRoutes = ['/resetPassword/:id', '/updateInfo', '/getAllHelpRequest', '/getHelpRequestById/:id', '/solveHelpRequest', '/getAllUser', '/getUserById/:id', '/deleteUser/:id', '/confirmPayment/:id', '/searchByEmail', '/filterUnPaid', '/filterPaid', '/filterSolved', '/filterUnSolved', '/filterIsUpdate'];
+import { checkWL } from './checkWhiteList';
 const generateToken = (payload) => {
     let token = '';
     try {
@@ -39,7 +39,7 @@ const verifyToken = (token) => {
     };
 }
 
-const permissionMiddleware = (req, res, next) => {
+const permissionMiddleware = async (req, res, next) => {
     if (publicRoutes.includes(req.path)) {
         return next();
     }
@@ -56,38 +56,37 @@ const permissionMiddleware = (req, res, next) => {
         // decoded = {
         //     EC: 0,
         //     EM: 'Validate success',
-        //     DT: { username: 'admin', role: 'ADMIN' }
+        //     DT: { email: 'admin', role: 'ADMIN' }
         // }
         if (decoded.EC === 0) {
-            switch (decoded.DT.role) {
-                case 'ADMIN':
-                case 'SUPERADMIN':
-                    return next();
-                case 'USER':
-                    if (adminRoutes.includes(req.path)) {
-                        return res.status(403).json({
-                            EC: -1,
-                            EM: "You are not allow to access this path",
-                            DT: ""
-                        });
-                    } else { return next(); }
-                default:
+            let checkWhiteList = await checkWL(decoded.DT.email);
+            if (checkWhiteList.EC !== 0) {
+                return res.status(403).json({
+                    EC: -999,
+                    EM: checkWhiteList.EM,
+                    DT: ''
+                });
+            }
+            if (decoded.DT.role === 'USER') {
+                console.log(req.path);
+
+                if (!adminRoutes.includes(req.path)) {
                     return res.status(403).json({
                         EC: -1,
                         EM: "You are not allow to access this path",
                         DT: ""
                     });
-
+                } else { return next(); }
             }
         } else if (decoded.EC !== 0 && decoded.EM === 'jwt expired') {
             return res.status(403).json({
-                EC: -1,
+                EC: -999,
                 EM: "Your token is expired, please login again",
                 DT: ""
             });
         } else {
             return res.status(403).json({
-                EC: -1,
+                EC: -999,
                 EM: "There is an error with your token, please login again",
                 DT: ""
             });
