@@ -1,11 +1,18 @@
 import jwt from 'jsonwebtoken';
-const publicRoutes = ['/login', '/register'];
-const adminRoutes = ['/resetPassword/:id', '/updateInfo', '/getAllHelpRequest', '/getHelpRequestById/:id', '/solveHelpRequest', '/getAllUser', '/getUserById/:id', '/deleteUser/:id', '/confirmPayment/:id', '/searchByEmail', '/filterUnPaid', '/filterPaid', '/filterSolved', '/filterUnSolved', '/filterIsUpdate'];
+const publicRoutes = ['/login', '/register', '/forgot-password', '/resetPasswordByUser'];
+//const adminRoutes = ['/resetPassword/:id', '/updateInfo', '/getAllHelpRequest', '/getHelpRequestById/:id', '/solveHelpRequest', '/getAllUser', '/getUserById/:id', '/deleteUser/:id', '/confirmPayment/:id', '/searchByEmail', '/filterUnPaid', '/filterPaid', '/filterSolved', '/filterUnSolved', '/filterIsUpdate'];
+const userRoutes = ['/update-info', '/sendHelpRequest', '/changePassword'];
 import { checkWL } from './checkWhiteList';
 const generateToken = (payload) => {
     let token = '';
+    let exp_time = '';
     try {
-        token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+        if (payload.role === 'RESET_PASSWORD') {
+            exp_time = +process.env.RESET_PASSWORD_EXPIRE_TIME;
+        } else {
+            exp_time = process.env.JWT_EXPIRES_IN;
+        }
+        token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: exp_time });
     } catch (error) {
         console.log(error);
     }
@@ -38,12 +45,19 @@ const verifyToken = (token) => {
         DT: payload
     };
 }
-
+const checkRoute = (Routes, path) => {
+    return Routes.some(route => {
+        // Sử dụng regex để so sánh đường dẫn với route, thay thế ":id" bằng "([^/]+)" để phù hợp với mọi giá trị
+        const regex = new RegExp('^' + route.replace(/\/:id/g, '/([^/]+)') + '$');
+        return regex.test(path);
+    });
+}
 const permissionMiddleware = async (req, res, next) => {
-    if (publicRoutes.includes(req.path)) {
+    if (checkRoute(publicRoutes, req.path)) {
         return next();
     }
-    const token = req.headers && req.headers['authorization'];
+    let token = req.headers && req.headers['authorization'];
+
     if (!token) {
         return res.status(401).json({
             EM: 'Unauthorized',
@@ -58,6 +72,7 @@ const permissionMiddleware = async (req, res, next) => {
         //     EM: 'Validate success',
         //     DT: { email: 'admin', role: 'ADMIN' }
         // }
+        //console.log(req.path.includes('/resetPassword/'), req.path);
         if (decoded.EC === 0) {
             let checkWhiteList = await checkWL(decoded.DT.email);
             if (checkWhiteList.EC !== 0) {
@@ -68,9 +83,7 @@ const permissionMiddleware = async (req, res, next) => {
                 });
             }
             if (decoded.DT.role === 'USER') {
-                console.log(req.path);
-
-                if (!adminRoutes.includes(req.path)) {
+                if (!checkRoute(userRoutes, req.path)) {
                     return res.status(403).json({
                         EC: -1,
                         EM: "You are not allow to access this path",

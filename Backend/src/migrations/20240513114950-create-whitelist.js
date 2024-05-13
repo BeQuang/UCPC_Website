@@ -2,27 +2,16 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Requests', {
+    await queryInterface.createTable('Whitelists', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      teamId: {
-        type: Sequelize.INTEGER
-      },
-      title: {
-        type: Sequelize.TEXT
-      },
-      data: {
-        type: Sequelize.TEXT
-      },
-      response: {
-        type: Sequelize.TEXT
-      },
-      isSolve: {
-        type: Sequelize.BOOLEAN
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -35,6 +24,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Requests');
+    await queryInterface.dropTable('Whitelists');
   }
 };

@@ -1,11 +1,13 @@
 import db from '../models/index';
 import bycrypt from 'bcryptjs';
-import { generateToken } from '../controllers/JWTActions';
+import { Op } from 'sequelize';
+import { generateToken, verifyToken } from '../controllers/JWTActions';
 import { checkWL, clearWL, createWL } from '../controllers/checkWhiteList';
 import _ from 'lodash';
-import { raw } from 'mysql2';
 const csv = require('fast-csv');
 const fs = require('fs');
+import nodemailer from 'nodemailer';
+
 
 const DateToString = (date) => {
     const day = String(date.getDate()).padStart(2, '0');
@@ -14,6 +16,60 @@ const DateToString = (date) => {
 
     return `${day}/${month}/${year}`;
 };
+const ReplaceVariable = (htmlContent, dynamicData) => {
+    for (let key in dynamicData) {
+        const regex = new RegExp('{{' + key + '}}', 'g');
+        htmlContent = htmlContent.replace(regex, dynamicData[key]);
+    }
+    return htmlContent;
+}
+
+const generatePIN = (PinLength) => {
+    // Khai báo một biến để lưu trữ mã PIN
+    let pin = '';
+
+    // Tạo một vòng lặp để tạo ra 6 chữ số ngẫu nhiên
+    for (let i = 0; i < PinLength; i++) {
+        // Sử dụng hàm ngẫu nhiên Math.random() để chọn một chữ số từ 0 đến 9
+        // Lấy phần nguyên của kết quả nhân với 10 để đảm bảo rằng nó là một số nguyên từ 0 đến 9
+        const digit = Math.floor(Math.random() * 10);
+
+        // Thêm chữ số này vào mã PIN
+        pin += digit;
+    }
+
+    // Trả về mã PIN đã tạo
+    return pin;
+}
+const apiSendingEmailService = async (email, title, content) => {
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.EMAIL_PASSWORD
+        }
+    });
+    let mailOptions = {
+        from: `"${process.env.EMAIL_NAME}" <${process.env.EMAIL}>`,
+        to: email,
+        subject: title,
+        html: content
+    };
+    try {
+        await transporter.sendMail(mailOptions);
+        return {
+            EM: 'Send email success',
+            EC: 0,
+            DT: ''
+        }
+    } catch (error) {
+        return {
+            EM: 'Send email failed',
+            EC: 500,
+            DT: ''
+        }
+    }
+}
 
 const apiLoginService = async (email, password) => {
     try {
@@ -69,7 +125,7 @@ const apiLoginService = async (email, password) => {
                 raw: true
             });
 
-            if (teamData === null) {
+            if (teamData === null || teamData.teamName === '') {
                 let noTeamData = {
                     "id": accountInfo.id,
                     "email": accountInfo.email,
@@ -173,10 +229,23 @@ const apiRegisterService = async (email, password, username) => {
                 EC: -1,
                 DT: ''
             }
+        } else {
+            let checkUser2 = await db.User.findOne({
+                where: {
+                    username: username
+                }
+            });
+            if (checkUser2) {
+                return {
+                    EM: 'Username already registered',
+                    EC: -1,
+                    DT: ''
+                }
+            }
         }
         let salt = bycrypt.genSaltSync(10);
         let hash = bycrypt.hashSync(password, salt);
-        let newUser = await db.User.create({
+        await db.User.create({
             email: email,
             password: hash,
             username: username,
@@ -197,7 +266,7 @@ const apiRegisterService = async (email, password, username) => {
         }
         await db.Team.create({
             userId: user.id,
-            teamName: ''
+            teamName: null
         });
         let team = await db.Team.findOne({
             where: {
@@ -209,11 +278,26 @@ const apiRegisterService = async (email, password, username) => {
         await db.Process.create({
             teamId: team.id,
             isUpdate: 0,
-            paidImage: '',
+            paidImage: null,
             isPaid: 0,
             isHighSchool: null,
-            trainerName: ''
+            trainerName: null
         });
+
+        let title = 'Register Success';
+        let htmlContent = '';
+        try {
+            htmlContent = fs.readFileSync('src/services/Mail/RegisterTemplate.html', 'utf8');
+        } catch (error) {
+            return {
+                EM: "Something went wrong with email",
+                EC: 500,
+                DT: ''
+            }
+        }
+
+        await apiSendingEmailService(email, title, htmlContent)
+
         return {
             EM: 'Register Success',
             EC: 0,
@@ -285,10 +369,7 @@ const apiUpdateInfoService = async (data) => {
             DT: ''
         }
     }
-    await db.Team.create({
-        userId: data.userId,
-        teamName: data.teamName
-    });
+
     let team = await db.Team.findOne({
         where: {
             userId: data.userId
@@ -296,117 +377,134 @@ const apiUpdateInfoService = async (data) => {
         raw: true
     });
     if (!team) {
+        await db.Team.create({
+            userId: data.userId,
+            teamName: data.teamName
+        });
+        await db.Process.create({
+            teamId: team.id,
+            paidImage: data.paidImage ? data.paidImage : null,
+            isPaid: 0,
+            isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
+            trainerName: data.trainerName ? data.trainerName : null
+        });
+
+    }
+    else {
+        await db.Team.update({
+            teamName: data.teamName
+        }, {
+            where: {
+                userId: data.userId
+            }
+        });
+        await db.Process.update({
+            paidImage: data.paidImage ? data.paidImage : null,
+            isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
+            trainerName: data.trainerName ? data.trainerName : null
+        }, {
+            where: {
+                teamId: team.id
+            }
+        });
+    }
+    try {
+        for (let i = 0; i < data.Participants.length; i++) {
+            let participant = data.Participants[i];
+            await db.Participant.create({
+                teamId: team.id,
+                fullName: participant.fullName || null,
+                citizenId: participant.citizenId || null,
+                phone: participant.phone || null,
+                birth: participant.birth ? toDate(participant.birth) : new Date(),
+                schoolName: participant.schoolName || null
+            });
+        }
+        await db.Process.update({
+            isUpdate: 1
+        }, {
+            where: {
+                teamId: team.id
+            }
+        });
+    } catch (error) {
         return {
-            EM: 'Something went wrong, please try again',
+            EM: "Something went wrong, please try again",
             EC: 404,
             DT: ''
         }
+
     }
-    else {
-        await db.Process.create({
-            teamId: team.id,
-            paidImage: data.paidImage ? data.paidImage : '',
-            isPaid: 0,
-            isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
-            trainerName: data.trainerName ? data.trainerName : ''
+    try {
+        let accountInfoTemp = await db.User.findOne({
+            where: {
+                id: data.userId
+            },
+            attributes: {
+                exclude: ['password', 'updatedAt', 'createdAt']
+            },
+            raw: true
         });
-        try {
-
-            for (let i = 0; i < data.Participants.length; i++) {
-                let participant = data.Participants[i];
-                await db.Participant.create({
-                    teamId: team.id,
-                    fullName: participant.fullName || '',
-                    citizenId: participant.citizenId || '',
-                    phone: participant.phone || '',
-                    birth: participant.birth ? toDate(participant.birth) : new Date(),
-                    schoolName: participant.schoolName || ''
-                });
-            }
-            await db.Process.update({
-                isUpdate: 1
-            }, {
-                where: {
-                    teamId: team.id
-                }
-            });
-        } catch (error) {
+        //console.log('check account: ', accountInfoTemp);
+        let teamDataTemp = await db.Team.findOne({
+            where: {
+                userId: data.userId
+            },
+            attributes: ['id', 'teamName'],
+            raw: true
+        });
+        //console.log('check team: ', teamDataTemp);
+        let detailDataTemp = await db.Process.findOne({
+            where: {
+                teamId: team.id
+            },
+            attributes: ['paidImage', 'isPaid', 'isUpdate', 'isHighSchool', 'trainerName'],
+            raw: true
+        });
+        //console.log('check detail: ', detailDataTemp);
+        let participantDataTemp = await db.Participant.findAll({
+            where: {
+                teamId: team.id
+            },
+            attributes: ['id', 'fullName', 'citizenId', 'phone', 'birth', 'schoolName'],
+            raw: true
+        });
+        let participantDataTemp2 = participantDataTemp.map(participant => {
             return {
-                EM: "Something went wrong, please try again",
-                EC: 404,
-                DT: ''
+                ...participant,
+                birth: DateToString(participant.birth)
             }
+        });
+        //console.log('check parti: ', participantDataTemp);
+        let dataTemp = {
+            id: accountInfoTemp.id,
+            email: accountInfoTemp.email,
+            username: accountInfoTemp.username,
+            role: accountInfoTemp.role,
+            paidImage: detailDataTemp.paidImage,
+            access_token: generateToken({ email: accountInfoTemp.email, role: accountInfoTemp.role }),
+            isPaid: detailDataTemp.isPaid,
+            isUpdate: detailDataTemp.isUpdate,
+            isHighSchool: detailDataTemp.isHighSchool,
+            trainerName: detailDataTemp.trainerName,
+            teamName: teamDataTemp.teamName,
+            Participants: [...participantDataTemp2]
+        };
+        return {
+            EM: 'Update Success',
+            EC: 0,
+            DT: dataTemp
         }
-        try {
-            let accountInfoTemp = await db.User.findOne({
-                where: {
-                    id: data.userId
-                },
-                attributes: {
-                    exclude: ['password', 'updatedAt', 'createdAt']
-                },
-                raw: true
-            });
-            //console.log('check account: ', accountInfoTemp);
-            let teamDataTemp = await db.Team.findOne({
-                where: {
-                    userId: data.userId
-                },
-                attributes: ['id', 'teamName'],
-                raw: true
-            });
-            //console.log('check team: ', teamDataTemp);
-            let detailDataTemp = await db.Process.findOne({
-                where: {
-                    teamId: team.id
-                },
-                attributes: ['paidImage', 'isPaid', 'isUpdate', 'isHighSchool', 'trainerName'],
-                raw: true
-            });
-            //console.log('check detail: ', detailDataTemp);
-            let participantDataTemp = await db.Participant.findAll({
-                where: {
-                    teamId: team.id
-                },
-                attributes: ['id', 'fullName', 'citizenId', 'phone', 'birth', 'schoolName'],
-                raw: true
-            });
-            let participantDataTemp2 = participantDataTemp.map(participant => {
-                return {
-                    ...participant,
-                    birth: DateToString(participant.birth)
-                }
-            });
-            //console.log('check parti: ', participantDataTemp);
-            let dataTemp = {
-                id: accountInfoTemp.id,
-                email: accountInfoTemp.email,
-                username: accountInfoTemp.username,
-                role: accountInfoTemp.role,
-                paidImage: detailDataTemp.paidImage,
-                access_token: generateToken({ email: accountInfoTemp.email, role: accountInfoTemp.role }),
-                isPaid: detailDataTemp.isPaid,
-                isUpdate: detailDataTemp.isUpdate,
-                isHighSchool: detailDataTemp.isHighSchool,
-                trainerName: detailDataTemp.trainerName,
-                teamName: teamDataTemp.teamName,
-                Participants: [...participantDataTemp2]
-            };
-            return {
-                EM: 'Update Success',
-                EC: 0,
-                DT: dataTemp
-            }
-        } catch (error) {
-            return {
-                EM: 'some thing went wrong',
-                EC: 500,
-                DT: ''
-            }
+    } catch (error) {
+        return {
+            EM: 'some thing went wrong',
+            EC: 500,
+            DT: ''
         }
     }
-
 }
+
+
 
 const apiSendHelpRequestService = async (userId, title, data) => {
 
@@ -1056,21 +1154,21 @@ const apiPrepareCSV = async () => {
         // Lặp qua từng participant trong mảng participants của team
         for (let i = 0; i < 3; i++) {
             if (!team.participants[i]) {
-                team[`participant${i + 1}_fullName`] = '';
-                team[`participant${i + 1}_citizenId`] = '';
-                team[`participant${i + 1}_phone`] = '';
-                team[`participant${i + 1}_birth`] = '';
-                team[`participant${i + 1}_schoolName`] = '';
+                team[`participant${i + 1}_fullName`] = null;
+                team[`participant${i + 1}_citizenId`] = null;
+                team[`participant${i + 1}_phone`] = null;
+                team[`participant${i + 1}_birth`] = null;
+                team[`participant${i + 1}_schoolName`] = null;
                 continue;
             }
             const participant = team.participants[i];
 
             // Thêm thông tin của từng participant vào đối tượng teamObject
-            team[`participant${i + 1}_fullName`] = participant.fullName ? participant.fullName : '';
-            team[`participant${i + 1}_citizenId`] = participant.citizenId ? participant.citizenId : '';
-            team[`participant${i + 1}_phone`] = participant.phone ? participant.phone : '';
-            team[`participant${i + 1}_birth`] = participant.birth ? participant.birth : '';
-            team[`participant${i + 1}_schoolName`] = participant.schoolName ? participant.schoolName : '';
+            team[`participant${i + 1}_fullName`] = participant.fullName ? participant.fullName : null;
+            team[`participant${i + 1}_citizenId`] = participant.citizenId ? participant.citizenId : null;
+            team[`participant${i + 1}_phone`] = participant.phone ? participant.phone : null;
+            team[`participant${i + 1}_birth`] = participant.birth ? participant.birth : null;
+            team[`participant${i + 1}_schoolName`] = participant.schoolName ? participant.schoolName : null;
         }
         // Xóa mảng participants khỏi đối tượng teamObject
         delete team.participants;
@@ -1167,11 +1265,11 @@ const apiUpdateUserByAdminService = async (data) => {
             let participant = data.Participants[i];
             await db.Participant.create({
                 teamId: team.id,
-                fullName: participant.fullName || '',
-                citizenId: participant.citizenId || '',
-                phone: participant.phone || '',
+                fullName: participant.fullName || null,
+                citizenId: participant.citizenId || null,
+                phone: participant.phone || null,
                 birth: participant.birth ? toDate(participant.birth) : new Date(),
-                schoolName: participant.schoolName || ''
+                schoolName: participant.schoolName || null
             });
         }
     }
@@ -1179,11 +1277,11 @@ const apiUpdateUserByAdminService = async (data) => {
         for (let i = 0; i < data.Participants.length; i++) {
             let participant = data.Participants[i];
             await db.Participant.update({
-                fullName: participant.fullName || '',
-                citizenId: participant.citizenId || '',
-                phone: participant.phone || '',
+                fullName: participant.fullName || null,
+                citizenId: participant.citizenId || null,
+                phone: participant.phone || null,
                 birth: participant.birth ? toDate(participant.birth) : new Date(),
-                schoolName: participant.schoolName || ''
+                schoolName: participant.schoolName || null
             }, {
                 where: { teamId: team.id }
             });
@@ -1194,16 +1292,16 @@ const apiUpdateUserByAdminService = async (data) => {
     if (!detail) {
         await db.Process.create({
             teamId: team.id,
-            paidImage: data.paidImage ? data.paidImage : '',
+            paidImage: data.paidImage ? data.paidImage : null,
             isPaid: 0,
             isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
-            trainerName: data.trainerName ? data.trainerName : ''
+            trainerName: data.trainerName ? data.trainerName : null
         });
     } else {
         await db.Process.update({
-            paidImage: data.paidImage ? data.paidImage : '',
+            paidImage: data.paidImage ? data.paidImage : null,
             isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
-            trainerName: data.trainerName ? data.trainerName : ''
+            trainerName: data.trainerName ? data.trainerName : null
         }, {
             where: { teamId: team.id }
         });
@@ -1215,20 +1313,48 @@ const apiUpdateUserByAdminService = async (data) => {
         DT: ''
     }
 }
-const apiGetUnpaidTeamsService = async () => {
-    let teams = await db.Team.findAll({
-        attributes: ['userId', 'teamName'],
-        include: [
-            {
-                model: db.Process,
-                where: {
-                    isPaid: 0
+const apiGetUnpaidTeamsService = async (isUpdatedImage) => {
+    let teams = [];
+    if (isUpdatedImage) {
+        teams = await db.Team.findAll({
+            attributes: ['userId', 'teamName'],
+            include: [
+                {
+                    model: db.Process,
+                    where:
+                    {
+                        isPaid: { [Op.eq]: 0 },
+                        paidImage: { [Op.not]: null }, // paidImage khác rỗng ('')
+                    }
                 }
-            }
-        ],
-        raw: true
-    });
+            ],
+            raw: true
+        });
+    }
+    else {
+        teams = await db.Team.findAll({
+            attributes: ['userId', 'teamName'],
+            include: [
+                {
+                    model: db.Process,
+                    where: {
+                        isPaid: 0
+                    }
+                }
+            ],
+            raw: true
+        });
+    }
+
+
     if (teams.length === 0) {
+        if (isUpdatedImage) {
+            return {
+                EM: 'There is no unpaid team with updated image',
+                EC: -1,
+                DT: ''
+            }
+        }
         return {
             EM: 'There is no unpaid team',
             EC: -1,
@@ -1337,6 +1463,145 @@ const apiGetHasNotUpdatedInfoService = async () => {
     }
 
 }
+const apiForgotPasswordService = async (email) => {
+    let user = await db.User.findOne({
+        attributes: ['id'],
+        where: {
+            email: email
+        },
+        raw: true
+    });
+    if (!user) {
+        return {
+            EM: 'User not found',
+            EC: 404,
+            DT: ''
+        }
+    }
+    let checkPIN = await db.PIN.findOne({
+        where: {
+            email: email
+        },
+        raw: true
+    });
+    if (checkPIN) {
+        await db.PIN.destroy({
+            where: {
+                email: email
+            }
+        });
+    }
+
+    let PIN = generatePIN(6);
+
+    let token = generateToken({ email: email, role: 'RESET_PASSWORD', PIN: PIN });
+
+    let htmlContent = '';
+    try {
+        htmlContent = fs.readFileSync('src/services/Mail/ResetMailTemplate.html', 'utf8');
+    } catch (error) {
+        return {
+            EM: "Something went wrong with email",
+            EC: 500,
+            DT: ''
+        }
+    }
+
+    let dynamicData = {
+        PIN: PIN
+    }
+
+    let htmlContentCopy = ReplaceVariable(htmlContent, dynamicData);
+
+    let title = 'Reset Password';
+    try {
+        await apiSendingEmailService(email, title, htmlContentCopy);
+        await db.PIN.create({
+            email: email,
+            PIN: token
+        });
+        return {
+            EM: 'Send email success',
+            EC: 0,
+            DT: ''
+        }
+    } catch (error) {
+        return {
+            EM: 'Send email failed',
+            EC: 500,
+            DT: ''
+        }
+    }
+
+
+}
+
+const apiResetPasswordByUserService = async (email, PIN, newPassword) => {
+
+    let checkPIN = await db.PIN.findOne({
+        where: {
+            email: email
+        },
+        raw: true
+    });
+    let checkPinToken = verifyToken(`Bearer ${checkPIN.PIN}`);
+
+    if (checkPinToken.EC !== 0 && checkPinToken.EM === 'jwt expired') {
+        return res.status(403).json({
+            EC: -999,
+            EM: "Your PIN is expired, please try again!",
+            DT: ""
+        });
+    }
+
+    if (checkPinToken.DT.PIN !== PIN) {
+        return {
+            EM: 'PIN is incorrect',
+            EC: 400,
+            DT: ''
+        }
+    }
+
+    let salt = bycrypt.genSaltSync(10);
+    let hash = bycrypt.hashSync(newPassword, salt);
+    try {
+        await db.User.update({
+            password: hash
+        }, {
+            where: {
+                email: email
+            }
+        });
+        await db.PIN.destroy({
+            where: {
+                email: email
+            }
+        });
+        await createWL(email);
+        return {
+            EM: 'Reset password success',
+            EC: 0,
+            DT: ''
+        }
+    } catch (error) {
+        return {
+            EM: 'Reset password failed',
+            EC: 500,
+            DT: ''
+        }
+    }
+}
+
+const apiGetDashBoardService = async () => {
+
+    /**
+     * totalUser
+     * totalUpdatedInfo
+     * totalPaid
+     * 
+     */
+}
+
 export {
     apiLoginService,
     apiRegisterService,
@@ -1356,5 +1621,8 @@ export {
     apiUpdateUserByAdminService,
     apiGetUnpaidTeamsService,
     apiGetUnSolvedRequestsService,
-    apiGetHasNotUpdatedInfoService
+    apiGetHasNotUpdatedInfoService,
+    apiForgotPasswordService,
+    apiResetPasswordByUserService,
+    apiGetDashBoardService
 }

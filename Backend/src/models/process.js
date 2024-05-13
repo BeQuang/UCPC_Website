@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Process.init({
     teamId: DataTypes.INTEGER,
-    paidImage: DataTypes.STRING,
+    paidImage: DataTypes.TEXT,
     isPaid: DataTypes.BOOLEAN,
     isUpdate: DataTypes.BOOLEAN,
     isHighSchool: DataTypes.BOOLEAN,

@@ -13,7 +13,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       paidImage: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT,
+        defaultValue: null
       },
       isPaid: {
         type: Sequelize.BOOLEAN

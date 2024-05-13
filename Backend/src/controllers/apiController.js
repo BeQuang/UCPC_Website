@@ -17,7 +17,10 @@ import {
     apiUpdateUserByAdminService,
     apiGetUnpaidTeamsService,
     apiGetUnSolvedRequestsService,
-    apiGetHasNotUpdatedInfoService
+    apiGetHasNotUpdatedInfoService,
+    apiForgotPasswordService,
+    apiResetPasswordByUserService,
+    apiGetDashBoardService
 } from '../services/apiService';
 
 const apiLoginController = async (req, res) => {
@@ -179,8 +182,12 @@ const apiSolveHelpRequestController = async (req, res) => {
 
 const apiGetAllUsersController = async (req, res) => {
     try {
-        let page = req.query.page;
-        let limit = req.query.limit;
+        let [page, limit] = [0, 0];
+        if (req.query.page && req.query.limit) {
+            page = req.query.page;
+            limit = req.query.limit;
+        }
+
         let result = await apiGetAllUsersService(+page, +limit);
         return res.status(200).json({
             EM: result.EM,
@@ -318,7 +325,12 @@ const apiUpdateUserByAdminController = async (req, res) => {
 }
 const apiGetUnpaidTeamsController = async (req, res) => {
     try {
-        let result = await apiGetUnpaidTeamsService();
+        let isUpdatedImage = false;
+
+        if (req.query && req.query.isUpdatedImage && req.query.isUpdatedImage === 'true') {
+            isUpdatedImage = true;
+        }
+        let result = await apiGetUnpaidTeamsService(isUpdatedImage);
         return res.status(200).json({
             EM: result.EM,
             EC: result.EC,
@@ -368,6 +380,68 @@ const apiGetHasNotUpdatedInfoController = async (req, res) => {
     }
 
 }
+
+const apiForgotPasswordController = async (req, res) => {
+    try {
+        let email = req.body.email;
+        let result = await apiForgotPasswordService(email);
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+    }
+
+
+}
+const apiResetPasswordByUserController = async (req, res) => {
+    try {
+        console.log('im here');
+        let email = req.body.email;
+        let password = req.body.newPassword;
+        let pin = req.body.pin;
+        let result = await apiResetPasswordByUserService(email, pin, password);
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+    }
+}
+
+const apiGetDashboardController = async (req, res) => {
+    try {
+        let result = await apiGetDashBoardService();
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+
+    }
+}
+
 export {
     apiLoginController,
     apiRegisterController,
@@ -387,5 +461,9 @@ export {
     apiUpdateUserByAdminController,
     apiGetUnpaidTeamsController,
     apiGetUnSolvedRequestsController,
-    apiGetHasNotUpdatedInfoController
+    apiGetHasNotUpdatedInfoController,
+    apiForgotPasswordController,
+    apiResetPasswordByUserController,
+    apiGetDashboardController
+
 }
