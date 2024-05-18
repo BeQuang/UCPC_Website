@@ -20,7 +20,14 @@ import {
     apiGetHasNotUpdatedInfoService,
     apiForgotPasswordService,
     apiResetPasswordByUserService,
-    apiGetDashBoardService
+    apiGetDashBoardService,
+    apiGetHelpByUserService,
+    apiSaveTemplateMailService,
+    apiGetTemplateMailService,
+    apiSetDefaultTemplateMailService,
+    apiGetTypesMailService,
+    apiSendMailWithTemplateService,
+    apiSendEmailExampleService
 } from '../services/apiService';
 
 const apiLoginController = async (req, res) => {
@@ -40,7 +47,6 @@ const apiLoginController = async (req, res) => {
         });
     }
 }
-
 const apiRegisterController = async (req, res) => {
     try {
         let result = await apiRegisterService(req.body.email, req.body.password, req.body.username);
@@ -57,7 +63,6 @@ const apiRegisterController = async (req, res) => {
         });
     }
 }
-
 const apiUpdateInfoController = async (req, res) => {
     try {
         let result = await apiUpdateInfoService(req.body);
@@ -84,7 +89,6 @@ const apiUpdateInfoController = async (req, res) => {
     }
 
 }
-
 const apiSendHelpRequestController = async (req, res) => {
     try {
         let userId = req.body.userId;
@@ -105,7 +109,6 @@ const apiSendHelpRequestController = async (req, res) => {
     }
 
 }
-
 const apiChangePasswordController = async (req, res) => {
     try {
         let result = await apiChangePasswordService(req.body.email, req.body.password, req.body.newPassword);
@@ -122,7 +125,6 @@ const apiChangePasswordController = async (req, res) => {
         });
     }
 }
-
 const apiGetAllHelpRequestController = async (req, res) => {
     try {
         let page = req.query.page;
@@ -141,7 +143,6 @@ const apiGetAllHelpRequestController = async (req, res) => {
         });
     }
 }
-
 const apiGetHelpRequestByIdController = async (req, res) => {
     try {
         let id = req.params.id;
@@ -159,7 +160,6 @@ const apiGetHelpRequestByIdController = async (req, res) => {
         });
     }
 }
-
 const apiSolveHelpRequestController = async (req, res) => {
     try {
         let id = req.body.requestId;
@@ -179,7 +179,6 @@ const apiSolveHelpRequestController = async (req, res) => {
     }
 
 }
-
 const apiGetAllUsersController = async (req, res) => {
     try {
         let [page, limit] = [0, 0];
@@ -202,7 +201,6 @@ const apiGetAllUsersController = async (req, res) => {
         });
     }
 }
-
 const apiGetUserByIdController = async (req, res) => {
     try {
         let id = req.params.id;
@@ -220,7 +218,6 @@ const apiGetUserByIdController = async (req, res) => {
         });
     }
 }
-
 const apiDeleteUserController = async (req, res) => {
     try {
         let id = req.params.id;
@@ -238,7 +235,6 @@ const apiDeleteUserController = async (req, res) => {
         });
     }
 }
-
 const apiResetPasswordController = async (req, res) => {
     try {
         let id = req.params.id;
@@ -257,7 +253,6 @@ const apiResetPasswordController = async (req, res) => {
     }
 
 }
-
 const apiConfirmPaymentController = async (req, res) => {
     try {
         let id = req.params.id;
@@ -380,7 +375,6 @@ const apiGetHasNotUpdatedInfoController = async (req, res) => {
     }
 
 }
-
 const apiForgotPasswordController = async (req, res) => {
     try {
         let email = req.body.email;
@@ -403,7 +397,6 @@ const apiForgotPasswordController = async (req, res) => {
 }
 const apiResetPasswordByUserController = async (req, res) => {
     try {
-        console.log('im here');
         let email = req.body.email;
         let password = req.body.newPassword;
         let pin = req.body.pin;
@@ -422,7 +415,6 @@ const apiResetPasswordByUserController = async (req, res) => {
         });
     }
 }
-
 const apiGetDashboardController = async (req, res) => {
     try {
         let result = await apiGetDashBoardService();
@@ -441,7 +433,145 @@ const apiGetDashboardController = async (req, res) => {
 
     }
 }
+const apiGetHelpByUserController = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let result = await apiGetHelpByUserService(id);
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
 
+    } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+
+    }
+}
+const apiSaveTemplateMailController = async (req, res) => {
+    try {
+        let template_name = req.body.templateName;
+        let data = req.body.data;
+        let result = await apiSaveTemplateMailService(template_name, data);
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+
+    }
+
+}
+const apiGetTemplateMailController = async (req, res) => {
+    try {
+        let result = await apiGetTemplateMailService();
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+
+    }
+
+
+}
+const apiSetDefaultTemplateMailController = async (req, res) => {
+    try {
+        let id_template = req.body.id_template;
+        let id_type = req.body.id_type;
+        let result = await apiSetDefaultTemplateMailService(id_template, id_type);
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+
+    }
+}
+const apiGetTypesMailController = async (req, res) => {
+    try {
+        let result = await apiGetTypesMailService();
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+
+    }
+}
+const apiSendMailWithTemplateController = async (req, res) => {
+    try {
+        let id_template = req.body.id_template;
+        let type = req.body.type;
+        let title = req.body.title;
+        let result = await apiSendMailWithTemplateService(type, title, id_template);
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+
+    }
+}
+const apiSendEmailExampleController = async (req, res) => {
+    try {
+        let email = req.body.email;
+        let id_template = req.body.id_template;
+        let result = await apiSendEmailExampleService(email, id_template);
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+
+    }
+}
 export {
     apiLoginController,
     apiRegisterController,
@@ -464,6 +594,12 @@ export {
     apiGetHasNotUpdatedInfoController,
     apiForgotPasswordController,
     apiResetPasswordByUserController,
-    apiGetDashboardController
-
+    apiGetDashboardController,
+    apiGetHelpByUserController,
+    apiSaveTemplateMailController,
+    apiGetTemplateMailController,
+    apiSetDefaultTemplateMailController,
+    apiGetTypesMailController,
+    apiSendMailWithTemplateController,
+    apiSendEmailExampleController
 }

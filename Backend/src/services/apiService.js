@@ -1,12 +1,13 @@
 import db from '../models/index';
 import bycrypt from 'bcryptjs';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 import { generateToken, verifyToken } from '../controllers/JWTActions';
 import { checkWL, clearWL, createWL } from '../controllers/checkWhiteList';
 import _ from 'lodash';
 const csv = require('fast-csv');
 const fs = require('fs');
 import nodemailer from 'nodemailer';
+import htmlMinifier from 'html-minifier';
 
 
 const DateToString = (date) => {
@@ -70,7 +71,6 @@ const apiSendingEmailService = async (email, title, content) => {
         }
     }
 }
-
 const apiLoginService = async (email, password) => {
     try {
         let user = {};
@@ -215,7 +215,6 @@ const apiLoginService = async (email, password) => {
         }
     }
 }
-
 const apiRegisterService = async (email, password, username) => {
     try {
         let checkUser = await db.User.findOne({
@@ -287,7 +286,21 @@ const apiRegisterService = async (email, password, username) => {
         let title = 'Register Success';
         let htmlContent = '';
         try {
-            htmlContent = fs.readFileSync('src/services/Mail/RegisterTemplate.html', 'utf8');
+            let id_template = await db.Settemplate.findOne({
+                where: {
+                    type: 'REGISTER'
+                },
+                attributes: ['id_template'],
+                raw: true
+            });
+            let template = await db.Template.findOne({
+                where: {
+                    id: id_template.id_template
+                },
+                attributes: ['data'],
+                raw: true
+            });
+            htmlContent = template.data;
         } catch (error) {
             return {
                 EM: "Something went wrong with email",
@@ -296,8 +309,8 @@ const apiRegisterService = async (email, password, username) => {
             }
         }
 
-        await apiSendingEmailService(email, title, htmlContent)
-
+        let result = await apiSendingEmailService(email, title, htmlContent)
+        console.log('result: ', result);
         return {
             EM: 'Register Success',
             EC: 0,
@@ -311,7 +324,6 @@ const apiRegisterService = async (email, password, username) => {
         }
     }
 }
-
 const apiUpdateInfoService = async (data) => {
     /**
      * data = {
@@ -503,9 +515,6 @@ const apiUpdateInfoService = async (data) => {
         }
     }
 }
-
-
-
 const apiSendHelpRequestService = async (userId, title, data) => {
 
     let team = await db.Team.findOne({
@@ -546,7 +555,6 @@ const apiSendHelpRequestService = async (userId, title, data) => {
 
 
 }
-
 const apiChangePasswordService = async (email, password, newPassword) => {
 
     let user = await db.User.findOne({
@@ -594,7 +602,6 @@ const apiChangePasswordService = async (email, password, newPassword) => {
     }
 
 }
-
 const apiGetAllHelpRequestService = async (page, limit) => {
     let offset = (page - 1) * limit;
     let requests = await db.Request.findAndCountAll({
@@ -631,7 +638,6 @@ const apiGetAllHelpRequestService = async (page, limit) => {
         }
     }
 }
-
 const apiGetHelpRequestByIdService = async (id) => {
     let request = await db.Request.findOne({
         where: {
@@ -666,7 +672,6 @@ const apiGetHelpRequestByIdService = async (id) => {
     }
 
 }
-
 const apiSolveHelpRequestService = async (id, response) => {
 
     let request = await db.Request.findOne({
@@ -713,7 +718,6 @@ const apiSolveHelpRequestService = async (id, response) => {
     }
 
 }
-
 const apiGetAllUsersService = async (page, limit) => {
     let users = {};
     if (limit === 0 || page === 0) {
@@ -771,7 +775,6 @@ const apiGetAllUsersService = async (page, limit) => {
     }
 
 }
-
 const apiGetUserByIdService = async (id) => {
     let user = await db.User.findOne({
         where: {
@@ -862,7 +865,6 @@ const apiGetUserByIdService = async (id) => {
         }
     }
 }
-
 const apiDeleteUserService = async (id) => {
     if (id === 1) {
         return {
@@ -923,7 +925,6 @@ const apiDeleteUserService = async (id) => {
         }
     }
 }
-
 const apiResetPasswordService = async (id) => {
 
     let user = await db.User.findOne({
@@ -968,7 +969,8 @@ const apiConfirmPaymentService = async (id) => {
         where: {
             id: id
         },
-        raw: true
+        raw: true,
+        attributes: ['email'],
     });
     if (!user) {
         return {
@@ -1018,6 +1020,32 @@ const apiConfirmPaymentService = async (id) => {
                 teamId: team.id
             }
         });
+        let title = 'Payment Confirmed';
+        let htmlContent = '';
+        try {
+            let id_template = await db.Settemplate.findOne({
+                where: {
+                    type: 'PAYMENT'
+                },
+                attributes: ['id_template'],
+                raw: true
+            });
+            let template = await db.Template.findOne({
+                where: {
+                    id: id_template.id_template
+                },
+                attributes: ['data'],
+                raw: true
+            });
+            htmlContent = template.data;
+        } catch (error) {
+            return {
+                EM: "Something went wrong with email",
+                EC: 500,
+                DT: ''
+            }
+        }
+        await apiSendingEmailService(user.email, title, htmlContent);
         return {
             EM: 'Confirm payment success',
             EC: 0,
@@ -1031,7 +1059,6 @@ const apiConfirmPaymentService = async (id) => {
         }
     }
 }
-
 const apiSearchByEmailService = async (email) => {
     if (!email) {
         return {
@@ -1081,11 +1108,13 @@ const apiSearchByEmailService = async (email) => {
         }
     }
 }
-
 const apiPrepareCSV = async () => {
 
     let users = await db.User.findAll({
         attributes: ['id', 'email', 'username', 'role'],
+        where: {
+            role: 'USER'
+        },
         include: [
             {
                 model: db.Team,
@@ -1176,9 +1205,9 @@ const apiPrepareCSV = async () => {
     teamsArray = Object.values(teamObject);
     // Chuyển đổi teamObject thành mảng gồm các đối tượng nhóm lại theo id
     try {
-        const csvStream = csv.format({ headers: true });
+        const csvStream = csv.format({ headers: true, delimiter: ';' });
         const writableStream = fs.createWriteStream('user_data.csv', { encoding: 'utf8' });
-
+        writableStream.write('\ufeff'); // BOM (Byte Order Mark) để mở file CSV bằng Excel không bị lỗi font
         csvStream.pipe(writableStream);
 
         // Sử dụng Promise.all để đợi cho tất cả các dòng dữ liệu được viết vào writable stream
@@ -1215,7 +1244,6 @@ const apiPrepareCSV = async () => {
     }
 
 }
-
 const apiUpdateUserByAdminService = async (data) => {
     /**
      * data = {
@@ -1495,10 +1523,22 @@ const apiForgotPasswordService = async (email) => {
     let PIN = generatePIN(6);
 
     let token = generateToken({ email: email, role: 'RESET_PASSWORD', PIN: PIN });
-
     let htmlContent = '';
     try {
-        htmlContent = fs.readFileSync('src/services/Mail/ResetMailTemplate.html', 'utf8');
+        let id_template = await db.Settemplate.findOne({
+            where: {
+                type: 'FORGOT_PASSWORD'
+            },
+            attributes: ['id_template'],
+            raw: true
+        });
+        htmlContent = await db.Template.findOne({
+            where: {
+                id: id_template.id_template
+            },
+            attributes: ['data'],
+            raw: true
+        });
     } catch (error) {
         return {
             EM: "Something went wrong with email",
@@ -1511,15 +1551,16 @@ const apiForgotPasswordService = async (email) => {
         PIN: PIN
     }
 
-    let htmlContentCopy = ReplaceVariable(htmlContent, dynamicData);
+    let htmlContentCopy = ReplaceVariable(htmlContent.data, dynamicData);
 
     let title = 'Reset Password';
     try {
         await apiSendingEmailService(email, title, htmlContentCopy);
-        await db.PIN.create({
+        let result = await db.PIN.create({
             email: email,
-            PIN: token
+            PINToken: token
         });
+        console.log('check result: ', result);
         return {
             EM: 'Send email success',
             EC: 0,
@@ -1535,7 +1576,6 @@ const apiForgotPasswordService = async (email) => {
 
 
 }
-
 const apiResetPasswordByUserService = async (email, PIN, newPassword) => {
 
     let checkPIN = await db.PIN.findOne({
@@ -1544,7 +1584,7 @@ const apiResetPasswordByUserService = async (email, PIN, newPassword) => {
         },
         raw: true
     });
-    let checkPinToken = verifyToken(`Bearer ${checkPIN.PIN}`);
+    let checkPinToken = verifyToken(`Bearer ${checkPIN.PINToken}`);
 
     if (checkPinToken.EC !== 0 && checkPinToken.EM === 'jwt expired') {
         return res.status(403).json({
@@ -1591,7 +1631,6 @@ const apiResetPasswordByUserService = async (email, PIN, newPassword) => {
         }
     }
 }
-
 const apiGetDashBoardService = async () => {
 
     /**
@@ -1600,8 +1639,354 @@ const apiGetDashBoardService = async () => {
      * totalPaid
      * 
      */
+    let totalUser = await db.User.count();
+    let totalUpdatedInfo = await db.Process.count({
+        where: {
+            isUpdate: 1
+        }
+    });
+    let totalPaid = await db.Process.count({
+        where: {
+            isPaid: 1
+        }
+    });
+    let totalUnpaid = await db.Process.count({
+        where: {
+            isPaid: 0
+        }
+    });
+    let totalUnsolvedRequest = await db.Request.count({
+        where: {
+            isSolve: 0
+        }
+    });
+    let totalUnupdatedInfo = await db.Process.count({
+        where: {
+            isUpdate: 0
+        }
+    });
+    let data = {
+        totalUser: totalUser - 1,
+        totalUpdatedInfo: totalUpdatedInfo,
+        totalPaid: totalPaid,
+        totalUnpaid: totalUnpaid,
+        totalUnsolvedRequest: totalUnsolvedRequest,
+        totalUnupdatedInfo: totalUnupdatedInfo
+    }
+    return {
+        EM: 'Get dashboard success',
+        EC: 0,
+        DT: data
+    }
 }
+const apiGetHelpByUserService = async (userId) => {
+    let team = await db.Team.findOne({
+        where: {
+            userId: userId
+        },
+        raw: true
+    });
+    if (!team) {
+        return {
+            EM: 'User not found',
+            EC: 404,
+            DT: ''
+        }
+    }
+    let requests = await db.Request.findAll({
+        where: {
+            teamId: team.id
+        },
+        attributes: ['id', 'title', 'data', 'response', 'isSolve'],
+        raw: true
+    });
+    if (requests.length === 0) {
+        return {
+            EM: 'There is no help request',
+            EC: -1,
+            DT: ''
+        }
+    }
+    requests = requests.map(request => {
+        return {
+            id: request.id,
+            title: request.title,
+            data: request.data,
+            response: request.response || "No response yet",
+            isSolve: request.isSolve
+        }
+    });
+    return {
+        EM: 'Get help by user success',
+        EC: 0,
+        DT: requests
+    }
+}
+const apiSaveTemplateMailService = async (template_name, data) => {
 
+    const options = {
+        collapseBooleanAttributes: true,
+        collapseWhitespace: true,
+        decodeEntities: true,
+        html5: true,
+        minifyCSS: true,
+        minifyJS: true,
+        processConditionalComments: true,
+        removeAttributeQuotes: true,
+        removeComments: true,
+        removeEmptyAttributes: true,
+        removeOptionalTags: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true,
+        sortClassName: true,
+        sortAttributes: true,
+        quoteCharacter: "'", // single quote
+        trimCustomFragments: true,
+        processScripts: ['text/html'],
+        ignoreCustomFragments: [/<%[\s\S]*?%>/, /<\?[\s\S]*?\?>/]
+    }
+
+    let tempData = htmlMinifier.minify(data, options);
+    let template = await db.Template.create({
+        template_name: template_name,
+        data: tempData
+    });
+    if (!template) {
+        return {
+            EM: 'Save template mail failed',
+            EC: 500,
+            DT: ''
+        }
+    }
+    console.log('Im here')
+    return {
+        EM: 'Save template mail success',
+        EC: 0,
+        DT: ''
+    }
+}
+const apiGetTemplateMailService = async () => {
+    let templates = await db.Template.findAll({
+        attributes: ['id', 'template_name'],
+        include: [{
+            model: db.Settemplate,
+            attributes: ['type']
+        }],
+        raw: true
+    });
+    if (templates.length === 0) {
+        return {
+            EM: 'There is no template mail',
+            EC: -1,
+            DT: ''
+        }
+    }
+    let templatesTemp = templates.map(template => {
+        return {
+            id: template.id,
+            template_name: template.template_name,
+            type: template['Settemplates.type'] || 'Not updated yet'
+        }
+    });
+    return {
+        EM: 'Get template mail success',
+        EC: 0,
+        DT: templatesTemp
+    }
+}
+const apiSetDefaultTemplateMailService = async (id_template, id_type) => {
+
+    let updateDefault = await db.Settemplate.update({
+        id_template: id_template
+    }, {
+        where: {
+            id: id_type
+        }
+    });
+    console.log('check update default: ', updateDefault[0]);
+    if (updateDefault[0] === 0) {
+        return {
+            EM: 'Set default template mail failed',
+            EC: 500,
+            DT: ''
+        }
+    }
+    return {
+        EM: 'Set default template mail success',
+        EC: 0,
+        DT: ''
+    }
+}
+const apiGetTypesMailService = async () => {
+    let types = await db.Settemplate.findAll({
+        attributes: ['id', 'type'],
+        include: [
+            {
+                model: db.Template,
+                attributes: ['template_name'],
+            }
+        ],
+        raw: true
+    });
+    if (types.length === 0) {
+        return {
+            EM: 'There is no type mail',
+            EC: -1,
+            DT: ''
+        }
+    }
+    let typesData = types.map(type => {
+        return {
+            id: type.id,
+            type: type.type,
+            template_Default: type['Template.template_name'] || 'Not updated yet'
+        }
+    });
+    return {
+        EM: 'Get type mail success',
+        EC: 0,
+        DT: typesData
+    }
+}
+const apiSendMailWithTemplateService = async (type, title, id_template) => {
+    //type = 'Unpaid', 'Unsolved', 'Unupdated'
+    let emails = [];
+    let temp;
+    switch (type) {
+        case 'Unpaid':
+            temp = await db.Process.findAll({
+                where: {
+                    isPaid: 0
+                },
+                attributes: [],
+                include: [
+                    {
+                        model: db.Team,
+                        attributes: [],
+                        include: [
+                            {
+                                model: db.User,
+                                attributes: ['email'],
+                            }
+                        ]
+                    }
+                ],
+                raw: true
+            });
+            break;
+        case 'Unupdated':
+            emails = await db.User.findAll({
+                attributes: ['email'],
+                include: [
+                    {
+                        model: db.Team,
+                        attributes: [],
+                        include: [
+                            {
+                                model: db.Process,
+                                where: {
+                                    isUpdate: 0
+                                },
+                                attributes: []
+                            }
+                        ]
+                    }
+                ],
+                raw: true
+            });
+            break;
+        default:
+            temp = await db.User.findAll({
+                attributes: ['email'],
+                where: {
+                    role: 'USER'
+                },
+                raw: true
+            });
+            break;
+    }
+    emails = temp.map(item => item['Team.User.email'] ? item['Team.User.email'] : item.email);
+    if (emails.length === 0) {
+        return {
+            EM: 'There is no email to send',
+            EC: -1,
+            DT: ''
+        }
+    }
+
+    let htmlContent = '';
+    try {
+        let template = await db.Template.findOne({
+            where: {
+                id: id_template
+            },
+            attributes: ['data'],
+            raw: true
+        });
+        htmlContent = template.data;
+    } catch (error) {
+        return {
+            EM: "Something went wrong with email",
+            EC: 500,
+            DT: ''
+        }
+    }
+    try {
+        await Promise.all(emails.map(async email => {
+            await apiSendingEmailService(email, title, htmlContent);
+        }));
+    }
+    catch (error) {
+        return {
+            EM: "Something went wrong with email",
+            EC: 500,
+            DT: ''
+        }
+    }
+
+    return {
+        EM: 'Send mail with template success',
+        EC: 0,
+        DT: emails
+
+    }
+
+}
+const apiSendEmailExampleService = async (email, id_template) => {
+    let htmlContent = '';
+    try {
+        let template = await db.Template.findOne({
+            where: {
+                id: id_template
+            },
+            attributes: ['data'],
+            raw: true
+        });
+        htmlContent = template.data;
+    } catch (error) {
+        return {
+            EM: "Something went wrong with email",
+            EC: 500,
+            DT: ''
+        }
+    }
+    try {
+        await apiSendingEmailService(email, 'Example Email', htmlContent);
+        return {
+            EM: 'Send email example success',
+            EC: 0,
+            DT: ''
+        }
+    } catch (error) {
+        return {
+            EM: 'Send email example failed',
+            EC: 500,
+            DT: ''
+        }
+    }
+}
 export {
     apiLoginService,
     apiRegisterService,
@@ -1624,5 +2009,12 @@ export {
     apiGetHasNotUpdatedInfoService,
     apiForgotPasswordService,
     apiResetPasswordByUserService,
-    apiGetDashBoardService
+    apiGetDashBoardService,
+    apiGetHelpByUserService,
+    apiSaveTemplateMailService,
+    apiGetTemplateMailService,
+    apiSetDefaultTemplateMailService,
+    apiGetTypesMailService,
+    apiSendMailWithTemplateService,
+    apiSendEmailExampleService
 }

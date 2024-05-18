@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 const publicRoutes = ['/login', '/register', '/forgot-password', '/resetPasswordByUser'];
 //const adminRoutes = ['/resetPassword/:id', '/updateInfo', '/getAllHelpRequest', '/getHelpRequestById/:id', '/solveHelpRequest', '/getAllUser', '/getUserById/:id', '/deleteUser/:id', '/confirmPayment/:id', '/searchByEmail', '/filterUnPaid', '/filterPaid', '/filterSolved', '/filterUnSolved', '/filterIsUpdate'];
-const userRoutes = ['/update-info', '/sendHelpRequest', '/changePassword'];
+const userRoutes = ['/update-info', '/sendHelpRequest', '/changePassword', '/getHelpByUser/:id'];
 import { checkWL } from './checkWhiteList';
 const generateToken = (payload) => {
     let token = '';
@@ -91,6 +91,8 @@ const permissionMiddleware = async (req, res, next) => {
                     });
                 } else { return next(); }
             }
+            next();
+
         } else if (decoded.EC !== 0 && decoded.EM === 'jwt expired') {
             return res.status(403).json({
                 EC: -999,
@@ -104,7 +106,6 @@ const permissionMiddleware = async (req, res, next) => {
                 DT: ""
             });
         }
-        next();
     } catch (error) {
         return res.status(401).json({
             EM: 'Unauthorized',

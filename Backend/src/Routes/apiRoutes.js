@@ -21,7 +21,14 @@ import {
     apiGetHasNotUpdatedInfoController,
     apiForgotPasswordController,
     apiResetPasswordByUserController,
-    apiGetDashboardController
+    apiGetDashboardController,
+    apiGetHelpByUserController,
+    apiSaveTemplateMailController,
+    apiGetTemplateMailController,
+    apiSetDefaultTemplateMailController,
+    apiGetTypesMailController,
+    apiSendMailWithTemplateController,
+    apiSendEmailExampleController
 } from '../controllers/apiController';
 import { permissionMiddleware } from '../controllers/JWTActions';
 const apiRoute = express.Router();
@@ -43,7 +50,7 @@ const initApiRoutes = (app) => {
     apiRoute.put('/update-info', apiUpdateInfoController);
     apiRoute.post('/sendHelpRequest', apiSendHelpRequestController);
     apiRoute.post('/changePassword', apiChangePasswordController);
-
+    apiRoute.get('/getHelpByUser/:id', apiGetHelpByUserController); //get all help request with pagination
     //admin routes
     apiRoute.get('/getDashboard', apiGetDashboardController); //get dashboard
     apiRoute.put('/resetPassword/:id', apiResetPasswordController); //reset password
@@ -65,7 +72,13 @@ const initApiRoutes = (app) => {
     apiRoute.get('/getHasNotUpdate', apiGetHasNotUpdatedInfoController); //filter user updated info
     apiRoute.get('/downloadListUser', apiDownloadListUserController); //download list user
 
-
+    //template mail
+    apiRoute.post('/saveTemplateMail', apiSaveTemplateMailController); //save template mail
+    apiRoute.get('/getTemplateMail', apiGetTemplateMailController); //get template mail
+    apiRoute.post('/setDefaultTemplateMail', apiSetDefaultTemplateMailController); //set default template mail
+    apiRoute.get('/getTypesMail', apiGetTypesMailController); //get types mail
+    apiRoute.post('/sendMailWithTemplate', apiSendMailWithTemplateController); //send mail
+    apiRoute.post('/sendExampleMail', apiSendEmailExampleController); //send example mail
     app.use('/api/v1', apiRoute);
 };
 
