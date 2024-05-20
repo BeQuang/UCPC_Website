@@ -718,6 +718,38 @@ const apiSolveHelpRequestService = async (id, response) => {
     }
 
 }
+const apiDeleteHelpRequestService = async (id) => {
+    let request = await db.Request.findOne({
+        where: {
+            id: id
+        }
+    });
+    if (!request) {
+        return {
+            EM: 'Request not found',
+            EC: 404,
+            DT: ''
+        }
+    }
+    try {
+        await db.Request.destroy({
+            where: {
+                id: id
+            }
+        });
+        return {
+            EM: 'Delete help request success',
+            EC: 0,
+            DT: ''
+        }
+    } catch (error) {
+        return {
+            EM: 'Delete help request failed',
+            EC: 500,
+            DT: ''
+        }
+    }
+}
 const apiGetAllUsersService = async (page, limit) => {
     let users = {};
     if (limit === 0 || page === 0) {
@@ -1996,6 +2028,7 @@ export {
     apiGetAllHelpRequestService,
     apiGetHelpRequestByIdService,
     apiSolveHelpRequestService,
+    apiDeleteHelpRequestService,
     apiGetAllUsersService,
     apiGetUserByIdService,
     apiDeleteUserService,

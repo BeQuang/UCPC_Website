@@ -28,7 +28,8 @@ import {
     apiSetDefaultTemplateMailController,
     apiGetTypesMailController,
     apiSendMailWithTemplateController,
-    apiSendEmailExampleController
+    apiSendEmailExampleController,
+    apiDeleteHelpRequestController
 } from '../controllers/apiController';
 import { permissionMiddleware } from '../controllers/JWTActions';
 const apiRoute = express.Router();
@@ -51,6 +52,7 @@ const initApiRoutes = (app) => {
     apiRoute.post('/sendHelpRequest', apiSendHelpRequestController);
     apiRoute.post('/changePassword', apiChangePasswordController);
     apiRoute.get('/getHelpByUser/:id', apiGetHelpByUserController); //get all help request with pagination
+    apiRoute.delete('/deleteHelpRequest/:id', apiDeleteHelpRequestController); //delete help request (solve help request
     //admin routes
     apiRoute.get('/getDashboard', apiGetDashboardController); //get dashboard
     apiRoute.put('/resetPassword/:id', apiResetPasswordController); //reset password

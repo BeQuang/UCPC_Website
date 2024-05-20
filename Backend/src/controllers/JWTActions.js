@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-const publicRoutes = ['/login', '/register', '/forgot-password', '/resetPasswordByUser'];
+const publicRoutes = ['/login', '/register', '/forgot-password', '/resetPasswordByUser', '/deleteHelpRequest'];
 //const adminRoutes = ['/resetPassword/:id', '/updateInfo', '/getAllHelpRequest', '/getHelpRequestById/:id', '/solveHelpRequest', '/getAllUser', '/getUserById/:id', '/deleteUser/:id', '/confirmPayment/:id', '/searchByEmail', '/filterUnPaid', '/filterPaid', '/filterSolved', '/filterUnSolved', '/filterIsUpdate'];
 const userRoutes = ['/update-info', '/sendHelpRequest', '/changePassword', '/getHelpByUser/:id'];
 import { checkWL } from './checkWhiteList';

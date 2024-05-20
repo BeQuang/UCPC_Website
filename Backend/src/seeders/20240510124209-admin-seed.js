@@ -14,10 +14,10 @@ module.exports = {
     */
     await queryInterface.bulkInsert('Users', [{
       id: 1,
-      email: 'superadmin',
-      password: '$2a$08$WkcZnXFZVgzqcTq.3w7AVOMX4XT7fz/5wGwIGcJoWKY5z/fAztu6K',
-      username: 'Super Admin',
-      role: 'SUPERADMIN',
+      email: 'admin@uit.cs',
+      password: '$2a$10$Oel6pQqsY8qmizae68sY6.gpPDfT/aHU2p7dHWeW6kIx.J8voWKX6',
+      username: 'adminSecret',
+      role: 'ADMIN',
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});

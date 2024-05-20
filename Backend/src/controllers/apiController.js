@@ -7,6 +7,7 @@ import {
     apiGetAllHelpRequestService,
     apiGetHelpRequestByIdService,
     apiSolveHelpRequestService,
+    apiDeleteHelpRequestService,
     apiGetAllUsersService,
     apiGetUserByIdService,
     apiDeleteUserService,
@@ -171,6 +172,26 @@ const apiSolveHelpRequestController = async (req, res) => {
             DT: result.DT
         });
     } catch (error) {
+        return res.status(500).json({
+            EM: 'Internal Server Error',
+            EC: 500,
+            DT: ''
+        });
+    }
+
+}
+
+const apiDeleteHelpRequestController = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let result = await apiDeleteHelpRequestService(id);
+        return res.status(200).json({
+            EM: result.EM,
+            EC: result.EC,
+            DT: result.DT
+        });
+    }
+    catch (error) {
         return res.status(500).json({
             EM: 'Internal Server Error',
             EC: 500,
@@ -581,6 +602,7 @@ export {
     apiGetAllHelpRequestController,
     apiGetHelpRequestByIdController,
     apiSolveHelpRequestController,
+    apiDeleteHelpRequestController,
     apiGetAllUsersController,
     apiGetUserByIdController,
     apiDeleteUserController,

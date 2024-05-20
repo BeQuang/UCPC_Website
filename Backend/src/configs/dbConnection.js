@@ -1,9 +1,13 @@
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize(process.env.DB_DATABASE || 'ucpc_register', process.env.DB_USER || 'root', null, {
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'mysql'/* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
-});
+const sequelize = new Sequelize(
+    process.env.DB_DATABASE || 'ucpc_register',
+    process.env.DB_USER || 'root',
+    process.env.DB_PASSWORD || null,
+    {
+        host: process.env.DB_HOST || 'localhost',
+        dialect: 'mysql',/* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
+    });
 
 export const testConnection = async () => {
     try {
