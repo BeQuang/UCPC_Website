@@ -1355,13 +1355,15 @@ const apiUpdateUserByAdminService = async (data) => {
             paidImage: data.paidImage ? data.paidImage : null,
             isPaid: 0,
             isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
-            trainerName: data.trainerName ? data.trainerName : null
+            trainerName: data.trainerName ? data.trainerName : null,
+            isUpdate: 1
         });
     } else {
         await db.Process.update({
             paidImage: data.paidImage ? data.paidImage : null,
             isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
-            trainerName: data.trainerName ? data.trainerName : null
+            trainerName: data.trainerName ? data.trainerName : null,
+            isUpdate: 1
         }, {
             where: { teamId: team.id }
         });
