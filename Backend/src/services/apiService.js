@@ -1909,19 +1909,19 @@ const apiSendMailWithTemplateService = async (type, title, id_template) => {
             });
             break;
         case 'Unupdated':
-            emails = await db.User.findAll({
-                attributes: ['email'],
+            temp = await db.Process.findAll({
+                where: {
+                    isUpdate: 0
+                },
+                attributes: [],
                 include: [
                     {
                         model: db.Team,
                         attributes: [],
                         include: [
                             {
-                                model: db.Process,
-                                where: {
-                                    isUpdate: 0
-                                },
-                                attributes: []
+                                model: db.User,
+                                attributes: ['email'],
                             }
                         ]
                     }
