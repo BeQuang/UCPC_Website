@@ -1,5 +1,6 @@
 version: '3.8'
-
+volumes:
+  db:
 services:
   postgres_db:
     image: postgres:14
@@ -11,19 +12,25 @@ services:
     ports:
       - 5433:5432
     volumes:
-      - /tmp:/var/lib/postgresql/data
+      - db:/var/lib/postgres
 
-  node_app:
-    build: .
+  web_backend:
+    image: namvocoder/ucpc-backend:latest
+    restart: unless-stopped
+    ports:
+      - 8080:8082
+    depends_on:
+      - postgres_db
     environment:
       - PORT=8082
       - NODE_ENV=development
       - BACKEND_URL=http://localhost:8082
-      - DB_HOST=localhost
+      - DB_HOST=postgres_db
       - DB_USER=root
       - DB_DATABASE=postgres
       - DB_PASSWORD=123456
-      - DB_PORT=5433
+      - DB_DIALECT=postgres
+      - DB_PORT=5432
       - JWT_SECRET=ucpclchcsjwtsecret
       - JWT_EXPIRES_IN=12h
       - RESET_PASSWORD_EXPIRE_TIME=600000
@@ -31,7 +38,6 @@ services:
       - EMAIL=20520645@gm.uit.edu.vn
       - EMAIL_PASSWORD=veiy pbqh qgpu dzdx
       - EMAIL_NAME=UCPC Register
-    ports:
-      - 8080:8080
-    depends_on:
-      - postgres_db
+    stdin_open: true
+    tty: true
+    command: /app/start.sh

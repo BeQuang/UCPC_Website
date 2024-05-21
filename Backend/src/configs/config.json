@@ -3,16 +3,18 @@
     "username": "root",
     "password": "123456",
     "database": "postgres",
-    "host": "127.0.0.1",
+    "host": "postgres_db",
     "dialect": "postgres",
     "logging": false,
-    "port": "5433"
+    "port": "5432"
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "password": "123456",
+    "database": "postgres",
+    "host": "postgres_db",
+    "dialect": "postgres",
+    "logging": false,
+    "port": "5432"
   }
 }

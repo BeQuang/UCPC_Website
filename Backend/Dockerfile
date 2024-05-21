@@ -14,7 +14,9 @@ RUN npm install
 COPY . .
 
 # Mở cổng 8080 cho ứng dụng
-EXPOSE 8080
+EXPOSE 8082
 
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 # Chạy ứng dụng khi Docker container được khởi động
 CMD [ "node", "src/server.js" ]
