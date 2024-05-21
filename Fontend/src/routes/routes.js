@@ -1,5 +1,5 @@
 import config from '~/config';
-
+import Admin from '~/pages/Admin';
 import Home from '~/pages/Home';
 import User from '~/pages/User';
 
@@ -7,6 +7,7 @@ import User from '~/pages/User';
 const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.user, component: User, layout: null },
+    { path: config.routes.admin, component: Admin, layout: null },
 ];
 
 const privateRoutes = [];
