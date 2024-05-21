@@ -564,6 +564,14 @@ const apiChangePasswordService = async (email, password, newPassword) => {
         raw: true
     });
     if (!user) {
+        user = await db.User.findOne({
+            where: {
+                username: email
+            },
+            raw: true
+        });
+    }
+    if (!user) {
         return {
             EM: 'User not found',
             EC: 404,
@@ -585,7 +593,7 @@ const apiChangePasswordService = async (email, password, newPassword) => {
             password: hash
         }, {
             where: {
-                email: email
+                email: user.email
             }
         });
         return {

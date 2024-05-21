@@ -1,18 +1,12 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "ucpc_register",
+    "password": "123456",
+    "database": "postgres",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "logging": false
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres",
+    "logging": false,
+    "port": "5433"
   },
   "production": {
     "username": "root",

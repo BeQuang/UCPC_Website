@@ -1,3 +1,0 @@
-﻿id;email;username;role;teamName;isPaid;isUpdate;isHighSchool;trainerName;participant1_fullName;participant1_citizenId;participant1_phone;participant1_birth;participant1_schoolName;participant2_fullName;participant2_citizenId;participant2_phone;participant2_birth;participant2_schoolName;participant3_fullName;participant3_citizenId;participant3_phone;participant3_birth;participant3_schoolName
-2;vonguyenhoainam123@gmail.com;namvo123;USER;Team Nam Vo;1;1;0;;team2 member 1;012301230123;0123123123;01/07/2002;THPT A;team2 member 2;012301230123;0456456456;23/06/2004;THPT B;team2 member 3;012301230123;0789789789;01/01/2002;THPT C
-4;22520777@gm.uit.edu.vn;lingling123;USER;Not updated yet / admin account;0;0;0;;;;;;;;;;;;;;;;

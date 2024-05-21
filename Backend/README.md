@@ -1,7 +1,6 @@
 this is BE folder
 
-download xampp
-open MySQL admin and create a new database
+connect to a DB
 CREATE DATABASE `ucpc_register`;
 update the values in .env file
 update the values in config/config.json file
