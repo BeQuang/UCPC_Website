@@ -1,9 +1,14 @@
 import classNames from 'classnames/bind';
 import styles from './VideoIntro.module.scss';
+import { postLogin } from '~/services/authService';
 
 const cx = classNames.bind(styles);
 
 function VideoIntro() {
+    const handleRegister = async () => {
+        const res = await postLogin('abc@gmail.com', '123456');
+        console.log('check >>>> ', res);
+    };
     return (
         <div>
             <header className={cx('header')}>Header content</header>
@@ -18,7 +23,9 @@ function VideoIntro() {
                                 tincidunt. Vestibulum a ultricies risus. Aenean auctor sodales dolor non posuere.
                                 Vestibulum nec nulla posuere, sollicitudin ligula.
                             </p>
-                            <button className={cx('button')}>Đăng ký tham gia</button>
+                            <button className={cx('button')} onClick={() => handleRegister()}>
+                                Đăng ký tham gia
+                            </button>
                         </div>
                     </div>
                 </div>
