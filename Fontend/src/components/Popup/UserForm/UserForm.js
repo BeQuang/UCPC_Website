@@ -11,7 +11,7 @@ const UserForm = () => {
         <div className={cx('title')}>
           <h1>Đăng kí đội thi UCPC</h1>
         </div>
-        <span className={cx('separator')} />
+        <span className={cx('separator')} style={{ height: "5px" }} />
         <div className={cx('content')}>
           <div className={cx('content1')}>
             <label htmlFor="nameofteam">
@@ -36,72 +36,72 @@ const UserForm = () => {
           <span className={cx('separator')} />
           <div className={cx('content2')}>
             <span><h2>Thành viên 1 (Đội trưởng):</h2></span>
-            <label htmlFor='fullname'><b>Họ và tên:</b></label>
+            <label htmlFor='fullname1'><b>Họ và tên:</b></label>
             <input
-              id='fullname'
+              id='fullname1'
               placeholder='Ví dụ: Nguyễn Văn A'
             />
-            <label htmlFor='identity'><b>MSSV/CCCD:</b></label>
+            <label htmlFor='identity1'><b>MSSV/CCCD:</b></label>
             <input
-              id='identity'
+              id='identity1'
               placeholder='MSSV bao gồm chữ hoặc số hoặc chữ và số. Ví dụ: 1234abcd'
             />
-            <label htmlFor='phonenumber'><b>Số điện thoại:</b></label>
+            <label htmlFor='phonenumber1'><b>Số điện thoại:</b></label>
             <input
-              id='phonenumber'
+              id='phonenumber1'
               placeholder='Số điện thoại có 10 hoặc 11 chữ số. Ví dụ: 0123456789'
             />
-            <label htmlFor='school'><b>Tên trường:</b></label>
+            <label htmlFor='school1'><b>Tên trường:</b></label>
             <input
-              id='school'
+              id='school1'
               placeholder='Ví dụ: Trường Đại học Công nghệ Thông tin'
             />
           </div>
           <span className={cx('separator')} />
           <div className={cx('content3')}>
             <span><h2>Thành viên 2:</h2></span>
-            <label htmlFor='fullname'><b>Họ và tên:</b></label>
+            <label htmlFor='fullname2'><b>Họ và tên:</b></label>
             <input
-              id='fullname'
+              id='fullname2'
               placeholder='Ví dụ: Nguyễn Văn A'
             />
-            <label htmlFor='identity'><b>MSSV/CCCD:</b></label>
+            <label htmlFor='identity2'><b>MSSV/CCCD:</b></label>
             <input
-              id='identity'
+              id='identity2'
               placeholder='MSSV bao gồm chữ hoặc số hoặc chữ và số. Ví dụ: 1234abcd'
             />
-            <label htmlFor='phonenumber'><b>Số điện thoại:</b></label>
+            <label htmlFor='phonenumber2'><b>Số điện thoại:</b></label>
             <input
-              id='phonenumber'
+              id='phonenumber2'
               placeholder='Số điện thoại có 10 hoặc 11 chữ số. Ví dụ: 0123456789'
             />
-            <label htmlFor='school'><b>Tên trường:</b></label>
+            <label htmlFor='school2'><b>Tên trường:</b></label>
             <input
-              id='school'
+              id='school2'
               placeholder='Ví dụ: Trường Đại học Công nghệ Thông tin'
             />
           </div>
           <span className={cx('separator')} />
           <div className={cx('content4')}>
             <span><h2>Thành viên 3:</h2></span>
-            <label htmlFor='fullname'><b>Họ và tên:</b></label>
+            <label htmlFor='fullname3'><b>Họ và tên:</b></label>
             <input
-              id='fullname'
+              id='fullname3'
               placeholder='Ví dụ: Nguyễn Văn A'
             />
-            <label htmlFor='identity'><b>MSSV/CCCD:</b></label>
+            <label htmlFor='identity3'><b>MSSV/CCCD:</b></label>
             <input
-              id='identity'
+              id='identity3'
               placeholder='MSSV bao gồm chữ hoặc số hoặc chữ và số. Ví dụ: 1234abcd'
             />
-            <label htmlFor='phonenumber'><b>Số điện thoại:</b></label>
+            <label htmlFor='phonenumber3'><b>Số điện thoại:</b></label>
             <input
-              id='phonenumber'
+              id='phonenumber3'
               placeholder='Số điện thoại có 10 hoặc 11 chữ số. Ví dụ: 0123456789'
             />
-            <label htmlFor='school'><b>Tên trường:</b></label>
+            <label htmlFor='school3'><b>Tên trường:</b></label>
             <input
-              id='school'
+              id='school3'
               placeholder='Ví dụ: Trường Đại học Công nghệ Thông tin'
             />
           </div>

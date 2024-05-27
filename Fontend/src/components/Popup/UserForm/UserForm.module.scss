@@ -5,7 +5,8 @@ $black-color: #000; /* Định nghĩa biến màu đen */
 .wrapper {
   max-width: 100vh;
   margin: 0 auto;
-  padding: 20px;
+  padding-bottom: 20px;
+  padding-top: 20px;
   border: 1px solid #ccc;
   border-radius: 20px;
   background-color: #ffffff;
@@ -15,6 +16,7 @@ $black-color: #000; /* Định nghĩa biến màu đen */
 .title {
   text-align: right; /* Căn phải tiêu đề */
   margin-bottom: 10px;
+  margin-right: 20px;
   color: $primary-color;
 }
 
@@ -39,7 +41,7 @@ $black-color: #000; /* Định nghĩa biến màu đen */
 .separator {
   display: block;
   width: 100%;
-  height: 2px;
+  height: 3px;
   background-color: $primary-color; /* Đường kẻ ngăn cách với màu chủ đạo */
   margin-bottom: 20px;
 }
