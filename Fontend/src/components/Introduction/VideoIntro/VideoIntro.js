@@ -11,7 +11,6 @@ function VideoIntro() {
     };
     return (
         <div>
-            <header className={cx('header')}>Header content</header>
             <div className={cx('body')}>
                 <div className={cx('bg-img')}>
                     <div className={cx('overlay')}>
