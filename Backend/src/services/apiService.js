@@ -125,7 +125,7 @@ const apiLoginService = async (email, password) => {
                 raw: true
             });
 
-            if (teamData === null || teamData.teamName === '') {
+            if (teamData === null || teamData.teamName === '' || teamData.teamName === null || teamData === undefined || teamData === '') {
                 let noTeamData = {
                     "id": accountInfo.id,
                     "email": accountInfo.email,
@@ -320,7 +320,7 @@ const apiRegisterService = async (email, password, username) => {
         return {
             EM: 'Internal Server Error',
             EC: 500,
-            DT: ''
+            DT: error
         }
     }
 }
@@ -611,16 +611,28 @@ const apiChangePasswordService = async (email, password, newPassword) => {
 
 }
 const apiGetAllHelpRequestService = async (page, limit) => {
-    let offset = (page - 1) * limit;
-    let requests = await db.Request.findAndCountAll({
-        attributes: ['id', 'title', 'data', 'isSolve'],
-        include: [
-            { model: db.Team, attributes: ['teamName'] }
-        ],
-        offset: offset,
-        limit: limit,
-        raw: true
-    });
+    let requests;
+    if (page === 0 || limit === 0) {
+        requests = await db.Request.findAndCountAll({
+            attributes: ['id', 'title', 'data', 'isSolve'],
+            include: [
+                { model: db.Team, attributes: ['teamName'] }
+            ],
+            raw: true
+        });
+    }
+    else {
+        let offset = (page - 1) * limit;
+        requests = await db.Request.findAndCountAll({
+            attributes: ['id', 'title', 'data', 'isSolve'],
+            include: [
+                { model: db.Team, attributes: ['teamName'] }
+            ],
+            offset: offset,
+            limit: limit,
+            raw: true
+        });
+    }
     if (!requests) {
         return {
             EM: 'Request not found',

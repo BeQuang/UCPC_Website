@@ -23,7 +23,7 @@ services:
       - postgres_db
     environment:
       - PORT=8082
-      - NODE_ENV=development
+      - NODE_ENV=production
       - BACKEND_URL=http://localhost:8082
       - DB_HOST=postgres_db
       - DB_USER=root
