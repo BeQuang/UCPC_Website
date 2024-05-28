@@ -23,6 +23,7 @@ const UserForm = () => {
 
   const [errors, setErrors] = useState({});
 
+  // Hàm xử lý khi có sự thay đổi giá trị trong các ô nhập liệu
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -31,10 +32,11 @@ const UserForm = () => {
     }));
   };
 
+  // Hàm xử lý khi form được submit
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateFormUser(formData, setErrors)) {
-      // Handle form submission
+      // Xử lý khi form hợp lệ
       console.log('Form submitted', formData);
     }
   };
@@ -47,6 +49,7 @@ const UserForm = () => {
         </Title>
         <Separator />
 
+        {/* Phần nhập liệu cho tên đội */}
         <FormSection>
           <StyledLabel htmlFor="nameofteam">Tên đội:</StyledLabel>
           <StyledInput
@@ -57,6 +60,8 @@ const UserForm = () => {
           />
           {errors.nameofteam && <ErrorMessage>{errors.nameofteam}</ErrorMessage>}
         </FormSection>
+
+        {/* Phần nhập liệu cho email */}
         <FormSection>
           <StyledLabel htmlFor="email">Email:</StyledLabel>
           <StyledInput
@@ -70,6 +75,7 @@ const UserForm = () => {
 
         <Separator />
 
+        {/* Phần nhập liệu cho thông tin thành viên 1 */}
         <FormSection>
           <Typography variant="h3" gutterBottom>
             Thành viên 1 (Đội trưởng):
@@ -110,6 +116,7 @@ const UserForm = () => {
 
         <Separator />
 
+        {/* Phần nhập liệu cho thông tin thành viên 2 */}
         <FormSection>
           <Typography variant="h3" gutterBottom>
             Thành viên 2:
@@ -150,6 +157,7 @@ const UserForm = () => {
 
         <Separator />
 
+        {/* Phần nhập liệu cho thông tin thành viên 3 */}
         <FormSection>
           <Typography variant="h3" gutterBottom>
             Thành viên 3:
@@ -190,6 +198,7 @@ const UserForm = () => {
 
         <Separator />
 
+        {/* Nút đăng ký đội */}
         <Box mt={3} display='flex' justifyContent='center'>
           <SignUpButton variant="contained" type="submit" onClick={handleSubmit}>
             Đăng kí đội
