@@ -1,27 +1,24 @@
-import classNames from 'classnames/bind';
-import styles from './Rules.module.scss';
+import './Rules.scss';
 import RulesItem from './RulesItem';
-
-const cx = classNames.bind(styles);
 
 function Rules() {
     return (
-        <div className={cx('container')}>
-            <div className={cx('header')}>
-                <h2 className={cx('title')}>Thể lệ cuộc thi</h2>
-                <div className={cx('type-list')}>
-                    <div className={cx('type-item', 'active')}>
+        <div className={'rules'}>
+            <div className={'header'}>
+                <h2 className={'title'}>Thể lệ cuộc thi</h2>
+                <div className={'type-list'}>
+                    <div className={'type-item active'}>
                         <p>Đối tượng</p>
                     </div>
-                    <div className={cx('type-item')}>
+                    <div className={'type-item'}>
                         <p>Hình thức Đăng ký</p>
                     </div>
-                    <div className={cx('type-item')}>
+                    <div className={'type-item'}>
                         <p>Quy định</p>
                     </div>
                 </div>
             </div>
-            <div className={cx('body')}>
+            <div className={'body'}>
                 <RulesItem
                     title={'Đối tượng'}
                     description={

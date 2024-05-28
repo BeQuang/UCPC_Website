@@ -3,17 +3,14 @@ import { FaGem, FaGithub } from 'react-icons/fa';
 import { MdDashboard } from 'react-icons/md';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames/bind';
-import styles from './SideBar.module.scss';
+import './SideBar.scss';
 
 import sidebarBg from '~/assets/image/Logo_UCPC.png';
-
-const cx = classNames.bind(styles);
 
 function SideBar() {
     return (
         <>
-            <ProSidebar image={sidebarBg} breakPoint="md" className={cx('sideBar-container')}>
+            <ProSidebar image={sidebarBg} breakPoint="md" className={'sideBar-container'}>
                 <SidebarHeader>
                     <div
                         style={{

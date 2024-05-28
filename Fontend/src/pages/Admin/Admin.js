@@ -1,19 +1,16 @@
 import { Outlet } from 'react-router-dom';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import classNames from 'classnames/bind';
-import styles from './Admin.module.scss';
+import './Admin.scss';
 import SideBar from '~/layouts/SideBar';
-
-const cx = classNames.bind(styles);
 
 function Admin() {
     return (
-        <div className={cx('admin')}>
+        <div className={'admin'}>
             <SideBar />
 
-            <div className={cx('content')}>
-                <div className={cx('header')}>header</div>
-                <div className={cx('main')}>
+            <div className={'content'}>
+                <div className={'header'}>header</div>
+                <div className={'main'}>
                     <PerfectScrollbar>
                         <Outlet />
                     </PerfectScrollbar>
