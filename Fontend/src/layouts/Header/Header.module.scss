@@ -1,0 +1,91 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  background-color: black;
+  color: white;
+  padding: 0 20px;
+  position: fixed;
+  width: 100%;
+  z-index: 3;
+
+  .logo a {
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+  }
+
+
+  /* Arrow Line Styles */
+  .arrow-line {
+    width: 421px;
+    height: 2px;
+    background: #FFFFFF;
+    position: relative;
+  }
+
+  .arrow-line::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: 0px;
+    transform: translateY(-50%);
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(-45deg);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: #ddd;
+  }
+
+  .auth-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .register-btn,
+  .login-btn {
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .register-btn {
+    background-color: #6a0dad;
+    /* Purple color */
+    color: white;
+  }
+
+  .register-btn:hover {
+    background-color: #551a8b;
+  }
+
+  .login-btn {
+    background-color: white;
+    color: black;
+  }
+
+  .login-btn:hover {
+    background-color: #ddd;
+  }
+}
