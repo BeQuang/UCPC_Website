@@ -1,8 +1,5 @@
-import classNames from 'classnames/bind';
-import styles from './VideoIntro.module.scss';
+import './VideoIntro.scss';
 import { postLogin } from '~/services/authService';
-
-const cx = classNames.bind(styles);
 
 function VideoIntro() {
     const handleRegister = async () => {
@@ -10,11 +7,11 @@ function VideoIntro() {
         console.log('check >>>> ', res);
     };
     return (
-        <div>
-            <div className={cx('body')}>
-                <div className={cx('bg-img')}>
-                    <div className={cx('overlay')}>
-                        <div className={cx('title')}>
+        <div className="video-intro">
+            <div className={'body'}>
+                <div className={'bg-img'}>
+                    <div className={'overlay'}>
+                        <div className={'title'}>
                             <h1>UIT COLLEGIATE</h1>
                             <h2>PROGRAMMING CONTEST</h2>
                             <p>
@@ -22,14 +19,14 @@ function VideoIntro() {
                                 tincidunt. Vestibulum a ultricies risus. Aenean auctor sodales dolor non posuere.
                                 Vestibulum nec nulla posuere, sollicitudin ligula.
                             </p>
-                            <button className={cx('button')} onClick={() => handleRegister()}>
+                            <button className={'button'} onClick={() => handleRegister()}>
                                 Đăng ký tham gia
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer className={cx('footer')}></footer>
+            <footer className={'footer'}></footer>
         </div>
     );
 }
