@@ -5,15 +5,17 @@
   height: 70px;
   background-color: black;
   color: white;
-  padding: 0 20px;
-  position: fixed;
+  padding: 0 150px;
+  // position: fixed;
   width: 100%;
   z-index: 3;
+  font-family: "Inter", sans-serif;
 
   .logo a {
     color: white;
-    font-size: 24px;
+    font-size: 20px;
     text-decoration: none;
+    font-weight: 700;
   }
 
 
@@ -31,7 +33,7 @@
     top: -5px;
     right: 0px;
     transform: translateY(-50%);
-    border: solid white;
+    border: 2px solid white;
     border-width: 0 2px 2px 0;
     display: inline-block;
     padding: 5px;
@@ -48,6 +50,8 @@
     text-decoration: none;
     padding: 10px;
     transition: color 0.3s;
+    font-weight: 500;
+    font-size: 20px;
   }
 
   .nav-links a:hover {
@@ -74,6 +78,8 @@
     background-color: #6a0dad;
     /* Purple color */
     color: white;
+    font-size: 16px;
+    font-weight: 600;
   }
 
   .register-btn:hover {
@@ -83,6 +89,7 @@
   .login-btn {
     background-color: white;
     color: black;
+    margin-left: 40px;
   }
 
   .login-btn:hover {
