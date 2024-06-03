@@ -1,16 +1,17 @@
-import classNames from 'classnames/bind';
-import styles from './VideoIntro.module.scss';
-
-const cx = classNames.bind(styles);
+import './VideoIntro.scss';
+import { postLogin } from '~/services/authService';
 
 function VideoIntro() {
+    const handleRegister = async () => {
+        const res = await postLogin('abc@gmail.com', '123456');
+        console.log('check >>>> ', res);
+    };
     return (
-        <div>
-            <header className={cx('header')}>Header content</header>
-            <div className={cx('body')}>
-                <div className={cx('bg-img')}>
-                    <div className={cx('overlay')}>
-                        <div className={cx('title')}>
+        <div className="video-intro">
+            <div className={'body'}>
+                <div className={'bg-img'}>
+                    <div className={'overlay'}>
+                        <div className={'title'}>
                             <h1>UIT COLLEGIATE</h1>
                             <h2>PROGRAMMING CONTEST</h2>
                             <p>
@@ -18,12 +19,14 @@ function VideoIntro() {
                                 tincidunt. Vestibulum a ultricies risus. Aenean auctor sodales dolor non posuere.
                                 Vestibulum nec nulla posuere, sollicitudin ligula.
                             </p>
-                            <button className={cx('button')}>Đăng ký tham gia</button>
+                            <button className={'button'} onClick={() => handleRegister()}>
+                                Đăng ký tham gia
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer className={cx('footer')}></footer>
+            <footer className={'footer'}></footer>
         </div>
     );
 }
