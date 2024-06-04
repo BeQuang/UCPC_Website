@@ -1,0 +1,100 @@
+.description-intro {
+    height: 100vh;
+
+    .list-info {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        height: calc(100vh - 550px);
+
+        .info-item {
+            background-color: black;
+            width: 357px;
+            height: 178px;
+            border-radius: 50px;
+            margin-left: 30px;
+            gap: 8px;
+            box-shadow: -4px 8px 20px 0px #0000001a inset;
+
+            .content {
+                position: relative;
+                color: white;
+                text-align: center;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-weight: 600;
+
+                .title {
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+
+                .year {
+                    font-size: 40px;
+                    line-height: 60px;
+                }
+            }
+        }
+
+        .active {
+            background-color: #4b2882;
+        }
+    }
+
+    .body {
+        background: url('https://s3-alpha-sig.figma.com/img/3f71/35b3/ddb38594f735509f1d00f97e0ca5c409?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=X8wVDl3sbrKKDFYdF8BuS7DXDff8oq7V-bFBy9KygnKpBeSJvB~pdKWHKnCF9g-0HivnKlSG5gsmLQI4Bkg2E97k-bm3Lp7N4NAu6wKcQmJctOoXtWcyu8Il8THjv3gIQoZuhuZm3skU1BFUPRN5BswkV2vuMGCsfGua~AbwYkn9t9yNFq-Tz9kDGnOwN21nH22viokcJBQVjBr4mc6BEQE3PvEMI-JqjcbijPvTXOta~8Ig1lnwXHTAg65Hviu8zJgzFy0qHefkOMiSF2AGjdOqPJ4R8eQCEXviXS2O7ot2rmfxKRmYSOh4GH8ocm~PGUFKljhinpPYe5~9ophv4w__')
+            no-repeat center center;
+        position: relative;
+        display: inline-block;
+        height: 550px;
+        background-size: cover;
+        text-align: center;
+        z-index: 0;
+        width: 100%;
+
+        &:before {
+            content: '';
+            /* Tạo một lớp overlay */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #4b2882cc;
+            z-index: 1;
+            backdrop-filter: blur(2px);
+        }
+
+        .content {
+            position: relative;
+            width: 441px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+
+            .logo {
+                width: 89px;
+                height: auto;
+            }
+
+            .title {
+                color: white;
+                font-weight: 600;
+                line-height: 87px;
+                letter-spacing: -2%;
+                font-size: 64px;
+            }
+
+            .description {
+                color: white;
+                font-weight: 400;
+                font-size: 13px;
+                line-height: 17px;
+            }
+        }
+    }
+}
