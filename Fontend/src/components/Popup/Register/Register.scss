@@ -12,29 +12,11 @@
         margin: auto;
         .title {
             //Size
-            font-size: 40px;
+            font-size: 45px;
             //Color
             color: var(--primary);
             //Location
-            margin: 20px 0 10px 0;
-        }
-
-        .GG_sign_in {
-            padding: 3% 0 10% 0;
-
-            img {
-                margin: 0 5% 2% 0;
-            }
-
-            .btn-sign-in {
-                padding: 2px 0 5px 0;
-                background-color: white;
-                border-radius: 7px;
-                border: 1px solid black;
-                box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.2);
-                width: 80%;
-                cursor: pointer;
-            }
+            margin: 5% 0 5% 0;
         }
 
         .register_info {

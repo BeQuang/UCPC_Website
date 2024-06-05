@@ -82,10 +82,6 @@ function Register() {
         <h2 className={'register'}>
             <form className={'register_form'}>
                 <h1 className={'title'}>ĐĂNG KÝ</h1>
-                <div className={'GG_sign_in'}>
-                    <button className={'btn-sign-in'}><img src={logoGoogle} width={20} alt="error" />Đăng nhập với Google</button>
-                </div>
-
                 <div className={'register_info'}>
                     <div className={'register_message'}>
                         <span>{message}</span>
