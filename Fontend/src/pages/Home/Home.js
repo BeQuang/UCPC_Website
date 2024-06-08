@@ -4,6 +4,7 @@ import News from '~/components/News/News';
 import Rules from '~/components/Rules/Rules';
 import EventSchedule from '~/components/EventSchedule/EventSchedule';
 import RegistrationPage from '~/components/RegistrationPage/RegistrationPage';
+import HomeFooter from '~/components/HomeFooter';
 import Header from '~/layouts/Header';
 
 function Home() {
@@ -15,6 +16,7 @@ function Home() {
       <Rules />
       <EventSchedule />
       <RegistrationPage />
+      <HomeFooter />
     </div>
   );
 }
