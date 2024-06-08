@@ -1,11 +1,7 @@
 import './VideoIntro.scss';
-import { postLogin } from '~/services/authService';
+import { Link } from 'react-router-dom';
 
 function VideoIntro() {
-  const handleRegister = async () => {
-    const res = await postLogin('abc@gmail.com', '123456');
-    console.log('check >>>> ', res);
-  };
   return (
     <div className={"video-intro"}>
       <div className={'body'}>
@@ -19,8 +15,10 @@ function VideoIntro() {
                 tincidunt. Vestibulum a ultricies risus. Aenean auctor sodales dolor non posuere.
                 Vestibulum nec nulla posuere, sollicitudin ligula.
               </p>
-              <button className={'button'} onClick={() => handleRegister()}>
-                Đăng ký tham gia
+              <button className={'button'}>
+                <Link to='/registration'>
+                  Đăng ký tham gia
+                </Link>
               </button>
             </div>
           </div>

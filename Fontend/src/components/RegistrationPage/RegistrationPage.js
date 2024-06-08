@@ -4,7 +4,7 @@ import Registration_Page from '~/assets/image/Registration_page.jpg';
 
 function RegistrationPage() {
   return (
-    <div className={'registration'}>
+    <div className={'registration'} id={'registration-section'}>
       <section class={'hero'}>
         <div class={'hero-content'}>
           <h1 className={'hero-title'}>Đăng ký ngay</h1>

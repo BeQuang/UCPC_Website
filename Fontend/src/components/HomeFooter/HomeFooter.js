@@ -5,7 +5,7 @@ import { faFacebookF, faTwitter, faInstagram, faYoutube } from '@fortawesome/fre
 
 function HomeFooter() {
   return (
-    <div className="homefooter">
+    <div className="homefooter" id={'homefooter-section'}>
       <div className="content">
         <div className="column">
           <h2 className="column-title">Đơn vị tổ chức</h2>
