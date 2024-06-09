@@ -3,14 +3,14 @@
   display: flex;
   flex-direction: column;
 
-  .header {
+  &-header {
     height: 15vh;
     width: calc(100% - 300px);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 150px;
-    margin-top: 60px;
+    margin-top: 72px;
 
     .title {
       font-family: var(--font-roboto);
@@ -34,6 +34,19 @@
     display: flex;
     margin-top: 60px;
     margin-bottom: 80px;
+    position: relative;
+    justify-content: center;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -67px;
+      width: 81%;
+      background-color: rgba(75, 40, 130, 0.5019607843);
+      z-index: 1;
+      border: 2px solid var(--primary);
+      border-radius: 4px;
+    }
 
     .marjor-news {
       width: 50%;
@@ -114,10 +127,10 @@
     }
   }
 
-  .line-bottom {
-    border: 4px solid var(--primary);
-    width: 80%;
-    margin: 0 auto;
-    border-radius: 4px;
-  }
+  // .line-bottom {
+  //   border: 4px solid var(--primary);
+  //   width: 80%;
+  //   margin: 0 auto;
+  //   border-radius: 4px;
+  // }
 }

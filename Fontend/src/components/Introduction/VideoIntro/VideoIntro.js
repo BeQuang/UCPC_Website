@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function VideoIntro() {
   return (
-    <div className={"video-intro"}>
+    <div className={"video-intro"} id={'video-intro-section'}>
       <div className={'body'}>
         <div className={'bg-img'}>
           <div className={'overlay'}>
@@ -24,7 +24,6 @@ function VideoIntro() {
           </div>
         </div>
       </div>
-      <footer className={'footer'}></footer>
     </div>
   );
 }

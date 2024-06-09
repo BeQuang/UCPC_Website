@@ -1,5 +1,6 @@
 .description-intro {
   height: 100vh;
+  margin-top: 70px;
 
   .list-info {
     display: flex;
@@ -7,7 +8,7 @@
     align-content: center;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 550px);
+    height: 35%;
 
     .info-item {
       background-color: black;
@@ -48,7 +49,7 @@
     background: url('../../../assets/image/Description_Intro.jpg') no-repeat center center;
     position: relative;
     display: inline-block;
-    height: 550px;
+    height: 65%;
     background-size: cover;
     text-align: center;
     z-index: 0;

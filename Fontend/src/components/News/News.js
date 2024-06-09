@@ -4,7 +4,7 @@ import NewsItem from './NewsItem';
 function News() {
   return (
     <div className={'news'} id={'news-section'}>
-      <div className={'header'}>
+      <div className={'news-header'}>
         <div className={'title'}>
           <p>TIN TỨC</p>
         </div>
@@ -30,7 +30,6 @@ function News() {
           <button className={'btn-see-also'}>Xem thêm</button>
         </div>
       </div>
-      <div className={'line-bottom'}></div>
     </div>
   );
 }

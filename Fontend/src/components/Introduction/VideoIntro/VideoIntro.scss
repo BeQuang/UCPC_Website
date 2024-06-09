@@ -1,10 +1,22 @@
   /* Thiết lập cho phần thân trang */
   .video-intro {
+    height: 100vh;
+
     .body {
       position: relative;
-      padding-top: 70px;
+      // padding-top: 70px;
       width: 100%;
-      height: 100vh;
+      height: 100%;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        background-color: #4b2882;
+        height: 5%;
+        width: 100%;
+        z-index: 2;
+      }
 
       .bg-img {
         position: absolute;
@@ -71,19 +83,16 @@
           cursor: pointer;
           transition-duration: 0.4s;
           margin-top: 27px;
+
+          a {
+            text-decoration: none;
+            color: black;
+          }
         }
 
         .button:hover {
           background-color: #e7e7e7;
         }
       }
-    }
-
-    .footer {
-      background-color: #4b2882;
-      height: 70px;
-      color: white;
-      text-align: center;
-      line-height: 70px;
     }
   }
