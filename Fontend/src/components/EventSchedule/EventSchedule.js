@@ -1,24 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './EventSchedule.scss';
 import News from '~/assets/image/News.jpg';
 import Description_Intro from '~/assets/image/Description_Intro.jpg';
 
 function EventSchedule() {
+  const calculateTimeLeft = () => {
+    const eventDate = new Date('2024-06-24T00:00:00').getTime();
+    const now = new Date();
+    const difference = eventDate - now;
+
+    let timeLeft = {};
+
+    if (difference > 0) {
+      timeLeft = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60)
+      };
+    }
+    return timeLeft;
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+
   return (
     <div className={'event'}>
       <section className={'countdown'}>
         <h2 className={'countdown-content'}>Thời gian đăng ký</h2>
         <div className={'timer'}>
           <div className={'time-box'}>
-            <div className={'time'}>00</div>
+            <div className={'time'}>{String(timeLeft.days).padStart(2, '0')}</div>
             <div className={'label'}>Ngày</div>
           </div>
           <div className={'time-box'}>
-            <div className={'time'}>00</div>
+            <div className={'time'}>{String(timeLeft.hours).padStart(2, '0')}</div>
             <div className={'label'}>Giờ</div>
           </div>
           <div className={'time-box'}>
-            <div className={'time'}>00</div>
+            <div className={'time'}>{String(timeLeft.minutes).padStart(2, '0')}</div>
             <div className={'label'}>Phút</div>
           </div>
         </div>
