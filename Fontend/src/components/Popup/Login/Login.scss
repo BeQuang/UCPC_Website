@@ -1,0 +1,33 @@
+.modal {
+    /* Overall modal styles */
+    position: fixed; /* Stay on top of the content */
+    display: none; /* Hidden by default */
+    padding: 1rem; /* Modal content padding */
+    border-radius: 50%; /* Rounded corners */
+    background-color: rgb(221, 36, 36); /* Modal background color */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Modal shadow */
+    z-index: 10; /* Sit on top of most content */
+  }
+
+  .modal-content {
+    /* Content styles within the modal */
+    background-color: white; /* Content background color */
+    padding: 20px; /* Content padding */
+    max-height: 80vh; /* Limit max height for large screens */
+    overflow-y: auto; /* Enable scroll if content overflows */
+  }
+  
+  .modal-header {
+    /* Header styles */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd; /* Optional header border */
+  }
+  
+  .modal-title {
+    /* Title styles */
+    font-size: 1.2rem; /* Title font size */
+    font-weight: bold; /* Title weight */
+  }
