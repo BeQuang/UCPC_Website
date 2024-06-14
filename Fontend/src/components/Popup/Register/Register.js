@@ -79,7 +79,7 @@ function Register() {
     }
 
     return (
-        <h2 className={'register'}>
+        <div className={'register'}>
             <form className={'register_form'}>
                 <h1 className={'title'}>ĐĂNG KÝ</h1>
                 <div className={'register_info'}>
@@ -110,7 +110,7 @@ function Register() {
                     <span>Đăng ký</span>
                 </button>
             </form>
-        </h2>
+        </div>
     );
 }
 

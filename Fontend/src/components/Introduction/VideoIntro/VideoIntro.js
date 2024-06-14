@@ -1,10 +1,13 @@
 import './VideoIntro.scss';
 import { postLogin } from '~/services/authService';
+import Popup from 'reactjs-popup';
+import { useState } from 'react';
+import Register from '~/components/Popup/Register';
 
 function VideoIntro() {
-    const handleRegister = async () => {
-        const res = await postLogin('abc@gmail.com', '123456');
-        console.log('check >>>> ', res);
+    const [openRegister, setOpenRegister] = useState(false);
+    const handleRegister = () => {
+        setOpenRegister(true);
     };
     return (
         <div className="video-intro">
@@ -25,7 +28,11 @@ function VideoIntro() {
                         </div>
                     </div>
                 </div>
+            <Popup open={openRegister} onClose={() => setOpenRegister(false)}>
+                <Register />   
+            </Popup>
             </div>
+            
             <footer className={'footer'}></footer>
         </div>
     );

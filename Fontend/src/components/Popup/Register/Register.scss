@@ -1,13 +1,24 @@
+.popup-overlay {
+    background: rgba(0, 0, 0, 0.5);
+  }
+.popup-content {
+    //border: 1px solid red;
+    margin: auto;
+    width: 28%;
+    padding: 5px;
+  }
 .register {
-    //border: 5px solid pink;
+    //: 5px solid pink;
     text-align: center;
-    padding-top: 7%;
+
+    font-size: 25px;
     .register_form {
+        background-color: white;
         border: 3px solid var(--primary);
         border-radius: 15px;
         box-shadow: 0px 0px 15px 20px rgba(107, 107, 107, 0.3);
         //size
-        width: 28%;
+        width: 100%;
         height: fit-content;
         margin: auto;
         .title {
