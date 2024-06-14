@@ -35,7 +35,9 @@ function VideoIntro() {
             
             <footer className={'footer'}></footer>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default VideoIntro;
