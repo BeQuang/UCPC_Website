@@ -27,9 +27,7 @@ function SideBar() {
                         <div className="logo">
                             <MdDashboard size={'2em'} />
                             <div className="logo-text">
-                                <span>
-                                    RIOT <br /> GAMES
-                                </span>
+                                <span>UCPC</span>
                             </div>
                         </div>
                     </div>
@@ -79,7 +77,7 @@ function SideBar() {
                                     overflow: 'hidden',
                                 }}
                             >
-                                Riot games
+                                UCPC
                             </span>
                         </a>
                     </div>
