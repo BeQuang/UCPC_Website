@@ -1,10 +1,24 @@
-import classNames from 'classnames/bind';
-import styles from './Home.module.scss';
-
-const cx = classNames.bind(styles);
+import React from 'react';
+import Introduction from '~/components/Introduction';
+import News from '~/components/News/News';
+import Rules from '~/components/Rules/Rules';
+import EventSchedule from '~/components/EventSchedule/EventSchedule';
+import RegistrationPage from '~/components/RegistrationPage/RegistrationPage';
+import HomeFooter from '~/components/HomeFooter';
+import Header from '~/layouts/Header';
 
 function Home() {
-    return <h2 className={cx('wrapper')}>Home page</h2>;
+  return (
+    <div>
+      <Header />
+      <Introduction />
+      <News />
+      <Rules />
+      <EventSchedule />
+      <RegistrationPage />
+      <HomeFooter />
+    </div>
+  );
 }
 
 export default Home;

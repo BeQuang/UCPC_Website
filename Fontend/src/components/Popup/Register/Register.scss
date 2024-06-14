@@ -1,0 +1,84 @@
+.register {
+    //border: 5px solid pink;
+    text-align: center;
+
+    .register_form {
+        border: 2px solid var(--primary);
+        border-radius: 15px;
+        box-shadow: 0px 0px 15px 20px rgba(107, 107, 107, 0.3);
+        //size
+        width: 320px;
+        height: 450px;
+        margin: 40px auto;
+
+        .title {
+            //Size
+            font-size: 40px;
+            //Color
+            color: var(--primary);
+            //Location
+            margin: 20px 0 10px 0;
+        }
+
+        .GG_sign_in {
+            margin: auto;
+            position: relative;
+            top: -10px;
+            padding: 0 15px 5px 0;
+
+            img {
+                position: relative;
+                top: 5px;
+                right: -40px;
+            }
+
+            .btn-sign-in {
+                background-color: white;
+                border-radius: 7px;
+                border: 1px solid black;
+                box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.2);
+                width: 250px;
+                height: 30px;
+                cursor: pointer;
+            }
+        }
+
+        .register_info {
+            position: relative;
+            top: 15px;
+            border-top: 2px solid var(--primary);
+            padding-top: 30px;
+
+            .register_pass {
+                position: relative;
+                //left: 30px;
+            }
+        }
+
+        .register_button {
+            //Location
+            position: relative;
+            top: 30px;
+            //Color
+            color: white;
+            background-color: var(--primary);
+            border-color: var(--primary);
+            border-radius: 20px;
+            //Size
+            width: 100px;
+            height: 35px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
+}
+
+//input box
+input[type='text'],
+input[type='password'] {
+    //Size
+    padding: 10px;
+    border: 3px solid var(--primary);
+    border-radius: 7px;
+    margin: 10px 0 10px 0;
+}
