@@ -1,27 +1,39 @@
 import './VideoIntro.scss';
-import { Link } from 'react-router-dom';
+import { postLogin } from '~/services/authService';
+import Popup from 'reactjs-popup';
+import { useState } from 'react';
+import Register from '~/components/Popup/Register';
 
 function VideoIntro() {
-  return (
-    <div className={"video-intro"} id={'video-intro-section'}>
-      <div className={'body'}>
-        <div className={'bg-img'}>
-          <div className={'overlay'}>
-            <div className={'title'}>
-              <h1>UIT COLLEGIATE</h1>
-              <h2>PROGRAMMING CONTEST</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam cursus varius quam in
-                tincidunt. Vestibulum a ultricies risus. Aenean auctor sodales dolor non posuere.
-                Vestibulum nec nulla posuere, sollicitudin ligula.
-              </p>
-              <button className={'button'}>
-                <Link to='/registration'>
-                  Đăng ký tham gia
-                </Link>
-              </button>
+    const [openRegister, setOpenRegister] = useState(false);
+    const handleRegister = () => {
+        setOpenRegister(true);
+    };
+    return (
+        <div className="video-intro">
+            <div className={'body'}>
+                <div className={'bg-img'}>
+                    <div className={'overlay'}>
+                        <div className={'title'}>
+                            <h1>UIT COLLEGIATE</h1>
+                            <h2>PROGRAMMING CONTEST</h2>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam cursus varius quam in
+                                tincidunt. Vestibulum a ultricies risus. Aenean auctor sodales dolor non posuere.
+                                Vestibulum nec nulla posuere, sollicitudin ligula.
+                            </p>
+                            <button className={'button'} onClick={() => handleRegister()}>
+                                Đăng ký tham gia
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <Popup open={openRegister} onClose={() => setOpenRegister(false)}>
+                <Register />   
+            </Popup>
             </div>
-          </div>
+            
+            <footer className={'footer'}></footer>
         </div>
       </div>
     </div>
