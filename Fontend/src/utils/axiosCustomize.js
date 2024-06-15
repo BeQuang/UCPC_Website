@@ -8,6 +8,9 @@ NProgress.configure({
 
 const instance = axios.create({
     baseURL: 'http://localhost:8080/api/v1/',
+    headers: {
+        Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHVpdC5jcyIsInJvbGUiOiJBRE1JTiJ9.9ZA43zjsUS5fXO5cNbOrEDp57FrffCeSDzrAu8vZL0o',
+    }
 });
 
 // Add a request interceptor

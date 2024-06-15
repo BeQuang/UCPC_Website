@@ -6,8 +6,7 @@ import SideBar from '~/layouts/SideBar';
 function Admin() {
     return (
         <div className={'admin'}>
-            <SideBar />
-
+            <SideBar className="sidebar" />
             <div className={'content'}>
                 <div className={'header'}>header</div>
                 <div className={'main'}>
