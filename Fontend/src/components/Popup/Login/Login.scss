@@ -1,33 +1,106 @@
-.modal {
-    /* Overall modal styles */
-    position: fixed; /* Stay on top of the content */
-    display: none; /* Hidden by default */
-    padding: 1rem; /* Modal content padding */
-    border-radius: 50%; /* Rounded corners */
-    background-color: rgb(221, 36, 36); /* Modal background color */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Modal shadow */
-    z-index: 10; /* Sit on top of most content */
-  }
+.login-button.btn.btn-primary{
+    background-color: #9509d1;
+    border: none;
+}
+.popup-login{
+        background-color:rgb(194, 173, 210) ;
+        text-align: center;
+        .modal-dialog {
+            position: relative;
+            width: auto;
+            border: none;
+            .modal-content {
+            width: 390px;
+            height: 500px;
+            background: rgb(220, 218, 229);
+            color: #fff;
+            margin-top: 35%;
+            .modal-header{
+                display: flex;
+                flex-direction: column;
+                .btn-close{
+                    position: relative;
+                    margin-top: -44%;
+                }
 
-  .modal-content {
-    /* Content styles within the modal */
-    background-color: white; /* Content background color */
-    padding: 20px; /* Content padding */
-    max-height: 80vh; /* Limit max height for large screens */
-    overflow-y: auto; /* Enable scroll if content overflows */
-  }
-  
-  .modal-header {
-    /* Header styles */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #ddd; /* Optional header border */
-  }
-  
-  .modal-title {
-    /* Title styles */
-    font-size: 1.2rem; /* Title font size */
-    font-weight: bold; /* Title weight */
-  }
+                background-color:#5e2599;
+                height: 200px;
+                border: none;
+                padding: 15px;
+                text-align: center;
+                .pp1.modal-title.h4{
+                        text-align: center;
+                        font-size: 40px;
+                    }
+
+                .pp2.modal-title.h4{
+                    text-align: center;
+                    font-size: 20px;
+                    }
+
+                .pp3.modal-title.h4{
+                    text-align: center;
+                    font-size: 40px;
+                    font-weight: bolder;
+                    }
+
+                }
+            .modal-body{
+                padding: 20px;
+                .mb-3{
+                    color: #fff;
+                    text-align: left;
+                    width: 100%;
+                    .text-lili{
+                        padding-left: 1.5%;
+                    }
+                    
+                }
+
+                .form-control{
+                    padding-right: 40%;
+                    color: #ca13b8;
+                    border: #8b0cd5;
+
+                    &:focus {
+                        border-color: #6033aa;
+                        box-shadow: 0 0 0 .25rem rgba(131, 23, 232, 0.25);
+                    }
+
+                    
+                }
+                
+                .btn.btn-primary{
+                    display: flex;
+                    border-radius: 20px;
+                    background-color: #5e2599;
+                    border: none;
+                    
+                    
+                }
+
+                .form-login{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
+            .modal-footer{
+                display: flex;
+                justify-content: space-between;
+                border: none;
+                color: #ca13b8;
+                .checkbox{
+                    border: none;
+                }
+                .linkst{
+                    // text-decoration: none;
+                    color: #ca13b8;
+                    display: flex;
+                    text-align: end;
+                    margin-right: 0%;
+                }
+            }
+            }
+        } 
+}
