@@ -1,86 +1,75 @@
-import { useState } from "react";
-import { GetUnpaidTeams } from "~/services/adminService/dashboardService";
+import React, { useState } from 'react';
+import { GetUnpaidTeams } from '~/services/adminService/dashboardService';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function PaidTeam () {
-    const [show, setShow] = useState(false)
-    const [teams, setTeams] = useState([
-        // {
-        //     "id": 2,
-        //     "email": "thanvantran1707@gmail.com",
-        //     "username": "vanthan",
-        //     "role": "USER",
-        //     "teamName": "Not updated yet / admin account"
-        // },
-        // {
-        //     "id": 2,
-        //     "email": "thanvantran1707@gmail.com",
-        //     "username": "vanthan",
-        //     "role": "USER",
-        //     "teamName": "Not updated yet / admin account"
-        // },
-        // {
-        //     "id": 2,
-        //     "email": "thanvantran1707@gmail.com",
-        //     "username": "vanthan",
-        //     "role": "USER",
-        //     "teamName": "Not updated yet / admin account"
-        // },
-        // {
-        //     "id": 2,
-        //     "email": "thanvantran1707@gmail.com",
-        //     "username": "vanthan",
-        //     "role": "USER",
-        //     "teamName": "Not updated yet / admin account"
-        // },
-        // {
-        //     "id": 2,
-        //     "email": "thanvantran1707@gmail.com",
-        //     "username": "vanthan",
-        //     "role": "USER",
-        //     "teamName": "Not updated yet / admin account"
-        // },
-        // {
-        //     "id": 2,
-        //     "email": "thanvantran1707@gmail.com",
-        //     "username": "vanthan",
-        //     "role": "USER",
-        //     "teamName": "Not updated yet / admin account"
-        // }
-    ]);
-    const handleUnpaidTeams = async () => {
-        const response = await GetUnpaidTeams();
-        if (response.EC === 0){
-            
-        }
-        setShow(!show)
+function PaidTeam({ totalPaid, totalUnpaid }) {
+    const [teams, setTeams] = useState([]);
+    const [show, setShow] = useState(false);
+    const [message, setMessage] = useState("");
+
+    const handleGetUnpaidTeams = async (event) => {
+        event.preventDefault();
+            try {
+                const response = await GetUnpaidTeams();
+                if (response.EC === 0) {
+                    setTeams(response.DT);
+                    setMessage(response.EM);
+                } else {
+                    setMessage(response.EM);
+                }
+                setShow(true)
+            } catch (error) {
+                setMessage("An error occurred while fetching the data.");
+            }
+    };
+    const handleHideUnpaidTeams = (event) => {
+        event.preventDefault();
+        setTeams([]);
+        setMessage("")
+        setShow(false);
     }
-    return(
+
+    return (
         <>
             <div className="row">
-                    <div className="col-sm">
-                        <div className="card mt-4">
-                            <div className="card-body d-flex justify-content-between align-items-center">
-                                <h5 className="card-title display-4">Total paid teams: 1</h5>
-                            </div>
+                <div className="col-sm">
+                    <div className="card mt-4">
+                        <div className="card-body d-flex justify-content-between align-items-center">
+                            <h5 className="card-title display-4">Total paid teams: {totalPaid}</h5>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div className="row">
-                    <div className="col-sm">
-                        <div className="card mt-4">
-                            <div className="card-body d-flex justify-content-between align-items-center">
-                                <h5 className="card-title display-4">Total unpaid teams: 1</h5>
-                                <button className="btn btn-primary btn-lg" onClick={handleUnpaidTeams}>
-                                    Get all unpaid users
+            <div className="row">
+                <div className="col-sm">
+                    <div className="card mt-4">
+                        <div className="card-body d-flex justify-content-between align-items-center">
+                            <h5 className="card-title display-4">Total unpaid teams: {totalUnpaid}</h5>
+                            {show &&  (
+                                <button className="btn btn-primary btn-lg" onClick={handleHideUnpaidTeams}>
+                                    Hide
                                 </button>
-                            </div>
+                            )}
+                            <button className="btn btn-primary btn-lg" onClick={handleGetUnpaidTeams}>
+                                Get all
+                            </button>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                {show && teams.length > 0 && (
-                    <div className="mt-4">
+            {show && teams.length === 0 && (
+                <div className="row mt-4">
+                    <div className="col-sm">
+                        <div className="alert alert-info">{message}</div>
+                    </div>
+                </div>
+            )}
+
+            {teams.length > 0 && (
+                <div className="row mt-4">
+                    <div className="col-sm">
                         <table className="table table-striped">
                             <thead>
                                 <tr>
@@ -104,9 +93,10 @@ function PaidTeam () {
                             </tbody>
                         </table>
                     </div>
-                )}
+                </div>
+            )}
         </>
-    )
+    );
 }
 
 export default PaidTeam;
