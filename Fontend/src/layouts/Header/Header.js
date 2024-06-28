@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 function Header() {
   const [backToTopButton, setBackToTopButton] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
