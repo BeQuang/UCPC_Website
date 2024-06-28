@@ -21,13 +21,12 @@ function VideoIntro() {
     setOpenRegister(true);
   };
 
-  useEffect(() => {
-    // const interval = setInterval(() => {
-    //   setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
-    // }, 3000); // Change slide every 2 seconds
-    // return () => clearInterval(interval);
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
-  }, []);
+  // useEffect(() => {
+  //   // const interval = setInterval(() => {
+  //   //   setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
+  //   // }, 3000); // Change slide every 2 seconds
+  //   // return () => clearInterval(interval);
+  // }, []);
 
   const currentDiv = (n) => {
     setCurrentSlide(n - 1);
