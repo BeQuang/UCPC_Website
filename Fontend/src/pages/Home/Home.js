@@ -11,12 +11,12 @@ function Home() {
   return (
     <div>
       <Header />
-      {/* <Introduction />
+      <Introduction />
       <News />
       <Rules />
       <EventSchedule />
       <RegistrationPage />
-      <HomeFooter /> */}
+      <HomeFooter />
     </div>
   );
 }
