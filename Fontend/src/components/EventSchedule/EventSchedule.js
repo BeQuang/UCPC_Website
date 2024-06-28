@@ -5,9 +5,12 @@ import Description_Intro from '~/assets/image/Description_Intro.jpg';
 
 function EventSchedule() {
   const calculateTimeLeft = () => {
-    const eventDate = new Date('2024-06-24T00:00:00').getTime();
+    const eventDate = new Date('2024-11-20T00:00:00').getTime();
     const now = new Date();
     const difference = eventDate - now;
+    console.log("eventDate:", eventDate)
+    console.log("Now:", now)
+    console.log("diff:", difference)
 
     let timeLeft = {};
 
