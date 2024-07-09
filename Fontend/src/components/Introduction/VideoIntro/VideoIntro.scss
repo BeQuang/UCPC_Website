@@ -109,7 +109,7 @@
       height: 20px;
       position: absolute;
       z-index: 2;
-      bottom: 58px;
+      bottom: 6%;
       justify-content: center;
       align-items: center;
       gap: 15px;
@@ -143,10 +143,6 @@
           }
         }
       }
-
-      .nav-buttons {
-        bottom: 90px;
-      }
     }
   }
 
@@ -179,10 +175,6 @@
           }
         }
       }
-
-      .nav-buttons {
-        bottom: 60px;
-      }
     }
   }
 
@@ -211,10 +203,6 @@
             height: 25px;
           }
         }
-      }
-
-      .nav-buttons {
-        bottom: 20px;
       }
     }
   }
