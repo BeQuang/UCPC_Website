@@ -5,11 +5,10 @@
   height: 70px;
   background-color: black;
   color: white;
-  padding: 0 150px;
-  width: 100%;
-  z-index: 3;
+  padding: 0 20px;
+  z-index: 4;
   font-family: "Inter", sans-serif;
-  position: fixed;
+  // position: fixed;
 
   .back-text {
     cursor: pointer;
@@ -165,7 +164,7 @@
     object-fit: cover;
   }
 
-  @media (max-width: 1280px) {
+  @media (max-width: 1024px) {
     flex-direction: row;
     padding: 0 20px;
     height: auto;
@@ -230,6 +229,15 @@
   }
 
   @media (max-width: 540px) {
+    .back-text {
+      right: 50%;
+      height: 25px;
+      width: 25px;
+
+      .back-icon {
+        font-size: 12px;
+      }
+    }
 
     .arrow-line {
       width: 60px;
