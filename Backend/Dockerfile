@@ -10,12 +10,9 @@ COPY package*.json ./
 # Cài đặt các dependencies
 RUN npm install
 
-# Sao chép toàn bộ mã nguồn vào thư mục làm việc
-COPY . .
+COPY start.sh /app/
+
 RUN sed -i 's/\r$//' /app/start.sh  && \  
     chmod +x /app/start.sh
-
-# Mở cổng 8080 cho ứng dụng
-EXPOSE 8082
-
-# Chạy ứng dụng khi Docker container được khởi động
+# Sao chép toàn bộ mã nguồn vào thư mục làm việc
+COPY . .

@@ -37,8 +37,6 @@ services:
       - EMAIL=${EMAIL}
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
       - EMAIL_NAME=${EMAIL_NAME}
-    stdin_open: true
-    tty: true
     command: /app/start.sh
 volumes:
   db:
