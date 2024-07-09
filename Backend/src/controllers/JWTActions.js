@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 const publicRoutes = ['/login', '/register', '/forgot-password', '/resetPasswordByUser', '/deleteHelpRequest'];
 //const adminRoutes = ['/resetPassword/:id', '/updateInfo', '/getAllHelpRequest', '/getHelpRequestById/:id', '/solveHelpRequest', '/getAllUser', '/getUserById/:id', '/deleteUser/:id', '/confirmPayment/:id', '/searchByEmail', '/filterUnPaid', '/filterPaid', '/filterSolved', '/filterUnSolved', '/filterIsUpdate'];
 const userRoutes = ['/update-info', '/sendHelpRequest', '/changePassword', '/getHelpByUser/:id'];
-import { checkWL } from './checkWhiteList';
+const { checkWL } = require('./checkWhiteList');
 const generateToken = (payload) => {
     let token = '';
     let exp_time = '';
@@ -115,4 +115,4 @@ const permissionMiddleware = async (req, res, next) => {
     }
 
 }
-export { generateToken, verifyToken, permissionMiddleware };
+module.exports = { generateToken, verifyToken, permissionMiddleware };

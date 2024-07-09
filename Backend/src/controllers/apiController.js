@@ -1,4 +1,4 @@
-import {
+const {
     apiLoginService,
     apiRegisterService,
     apiUpdateInfoService,
@@ -29,7 +29,7 @@ import {
     apiGetTypesMailService,
     apiSendMailWithTemplateService,
     apiSendEmailExampleService
-} from '../services/apiService';
+} = require('../services/apiService');
 
 const apiLoginController = async (req, res) => {
     try {
@@ -593,7 +593,7 @@ const apiSendEmailExampleController = async (req, res) => {
 
     }
 }
-export {
+module.exports = {
     apiLoginController,
     apiRegisterController,
     apiUpdateInfoController,

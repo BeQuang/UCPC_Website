@@ -2,7 +2,7 @@
 FROM node:20
 
 # Tạo thư mục làm việc trong Docker image
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Sao chép file package.json và package-lock.json vào thư mục làm việc
 COPY package*.json ./
@@ -12,11 +12,10 @@ RUN npm install
 
 # Sao chép toàn bộ mã nguồn vào thư mục làm việc
 COPY . .
+RUN sed -i 's/\r$//' /app/start.sh  && \  
+    chmod +x /app/start.sh
 
 # Mở cổng 8080 cho ứng dụng
 EXPOSE 8082
 
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
 # Chạy ứng dụng khi Docker container được khởi động
-CMD [ "node", "src/server.js" ]
