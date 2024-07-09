@@ -49,27 +49,40 @@ $error-color: red; /* Định nghĩa biến màu đỏ cho lỗi */
   margin-bottom: 20px;
 }
 
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  font-size: 2rem;
-  color: $primary-color; /* Màu chủ đạo cho nhãn */
-  margin-left: 20px; /* Di chuyển nhãn sang phải 20px */
-}
+.field-container {
+  display: flex;
+  flex-direction: column;
+  // margin-bottom: 15px;
+  min-height: 120px; 
 
-input {
-  width: 70%;
-  padding: 8px;
-  margin-bottom: 12px;
-  border: 2px solid $primary-color; /* Đường viền với màu chủ đạo */
-  border-radius: 10px;
-  box-sizing: border-box;
-  margin-left: 20px; /* Di chuyển ô nhập liệu sang phải 20px */
-  font: 1.75rem sans-serif;
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 2rem;
+    color: $primary-color; /* Màu chủ đạo cho nhãn */
+    margin-left: 5%; /* Di chuyển nhãn sang phải 20px */
+  }
 
-  &.input-error {
-    border-color: $error-color; /* Đường viền màu đỏ khi có lỗi */
+  input {
+    width: 70%;
+    padding: 8px;
+    margin-bottom: 2px;
+    border: 2px solid $primary-color; /* Đường viền với màu chủ đạo */
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-left: 5%;
+    font: 1rem sans-serif;
+
+    &.input-error {
+      border-color: $error-color; /* Đường viền màu đỏ khi có lỗi */
+    }
+  }
+
+  .error {
+    color: $error-color;
+    font-size: 0.875em;
+    margin: 0px 0px 5px 7%;
+    display: block;
   }
 }
 
@@ -93,11 +106,4 @@ input {
       background-color: darken($primary-color, 10%); /* Làm tối màu khi hover */
     }
   }
-}
-
-.error {
-  color: $error-color;
-  font-size: 0.875em;
-  margin: 0px 0px 5px 20px;
-  display: block;
 }
