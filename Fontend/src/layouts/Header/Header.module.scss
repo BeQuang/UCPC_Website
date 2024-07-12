@@ -1,0 +1,147 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  background-color: black;
+  color: white;
+  padding: 0 150px;
+  width: 100%;
+  z-index: 3;
+  font-family: "Inter", sans-serif;
+  position: fixed;
+
+  .back-text {
+    cursor: pointer;
+    display: flex;
+    font-size: 20px;
+    z-index: 3;
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    height: 50px;
+    width: 50px;
+    background: black;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+
+    &:hover {
+      // animation: rotate 2s infinite linear;
+      transform: scale(1.1);
+      background-color: #444;
+    }
+
+    .back-icon {
+      color: white;
+      font-size: 24px;
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .logo {
+    font-size: 20px;
+    font-weight: 700;
+
+    a {
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      transition: color 0.3s;
+      font-weight: 500;
+      font-size: 20px;
+
+      &:hover {
+        color: #ddd;
+      }
+    }
+  }
+
+  .arrow-line {
+    width: 421px;
+    height: 2px;
+    background: #FFFFFF;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      right: 0px;
+      transform: translateY(-50%);
+      border: 2px solid white;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 5px;
+      transform: rotate(-45deg);
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+
+    a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      transition: color 0.3s;
+      font-weight: 500;
+      font-size: 20px;
+      cursor: pointer;
+
+      &:hover {
+        color: #ddd;
+      }
+    }
+  }
+
+  .auth-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .register-btn,
+  .login-btn {
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .register-btn {
+    background-color: #6a0dad;
+    /* Màu tím */
+    color: white;
+  }
+
+  .register-btn:hover {
+    background-color: #551a8b;
+    /* Màu tím nhạt hơn khi hover */
+  }
+
+  .login-btn {
+    background-color: white;
+    color: black;
+    margin-left: 40px;
+  }
+
+  .login-btn:hover {
+    background-color: #ddd;
+    /* Màu xám nhạt khi hover */
+  }
+}

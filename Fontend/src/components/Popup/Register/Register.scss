@@ -1,84 +1,74 @@
+.popup-overlay {
+    background: rgba(0, 0, 0, 0.5);
+  }
+.popup-content {
+    //border: 1px solid red;
+    margin: auto;
+    width: 28%;
+    padding: 5px;
+  }
 .register {
-    //border: 5px solid pink;
+    //: 5px solid pink;
     text-align: center;
 
+    font-size: 25px;
     .register_form {
-        border: 2px solid var(--primary);
+        background-color: white;
+        border: 3px solid var(--primary);
         border-radius: 15px;
         box-shadow: 0px 0px 15px 20px rgba(107, 107, 107, 0.3);
         //size
-        width: 320px;
-        height: 450px;
-        margin: 40px auto;
-
+        width: 100%;
+        height: fit-content;
+        margin: auto;
         .title {
             //Size
-            font-size: 40px;
+            font-size: 45px;
             //Color
             color: var(--primary);
             //Location
-            margin: 20px 0 10px 0;
-        }
-
-        .GG_sign_in {
-            margin: auto;
-            position: relative;
-            top: -10px;
-            padding: 0 15px 5px 0;
-
-            img {
-                position: relative;
-                top: 5px;
-                right: -40px;
-            }
-
-            .btn-sign-in {
-                background-color: white;
-                border-radius: 7px;
-                border: 1px solid black;
-                box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.2);
-                width: 250px;
-                height: 30px;
-                cursor: pointer;
-            }
+            margin: 5% 0 5% 0;
         }
 
         .register_info {
-            position: relative;
-            top: 15px;
-            border-top: 2px solid var(--primary);
-            padding-top: 30px;
-
-            .register_pass {
-                position: relative;
-                //left: 30px;
-            }
+            border-top: 3px solid var(--primary);
+            padding-top: 10%;
         }
 
         .register_button {
             //Location
-            position: relative;
-            top: 30px;
             //Color
             color: white;
             background-color: var(--primary);
             border-color: var(--primary);
             border-radius: 20px;
             //Size
-            width: 100px;
-            height: 35px;
-            font-size: 20px;
+            width: 35%;
+            height: 40px;
+            font-size: 70%;
             cursor: pointer;
+            margin: 5% 0 10% 0;
+
         }
+    }
+    //input box
+    input{
+        //Size
+        width: 80%;
+        padding: 10px;
+        border: 3px solid var(--primary);
+        border-radius: 7px;
+        margin: 5% 0 5% 0;
+        font-size: 80%;
+    }
+
+    .mess{
+
+        padding-left: 10%;
+        text-align: left;
+        font-size: 15px;
+        font-weight: lighter;
+        font-style: italic;
     }
 }
 
-//input box
-input[type='text'],
-input[type='password'] {
-    //Size
-    padding: 10px;
-    border: 3px solid var(--primary);
-    border-radius: 7px;
-    margin: 10px 0 10px 0;
-}
