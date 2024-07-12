@@ -5,7 +5,7 @@ import Description_Intro from '~/assets/image/Description_Intro.jpg';
 
 function EventSchedule() {
   const calculateTimeLeft = () => {
-    const eventDate = new Date('2024-06-24T00:00:00').getTime();
+    const eventDate = new Date('2024-11-20T00:00:00').getTime();
     const now = new Date();
     const difference = eventDate - now;
 
@@ -75,24 +75,24 @@ function EventSchedule() {
             <div className={'body-1'}>
               <div className={'date-1'}>24.04.24</div>
               <div className={'body-1-content'}>
-                <div className={'text-1'}>Lorem ipsum dolor sit amet</div>
+                {/* <div className={'text-1'}>Lorem ipsum dolor sit amet</div> */}
               </div>
             </div>
             <div className={'body-2'}>
               <div className={'body-2-content'}>
-                <div className={'text-2'}>Lorem ipsum dolor sit amet</div>
+                {/* <div className={'text-2'}>Lorem ipsum dolor sit amet</div> */}
               </div>
               <div className={'date-2'}>24.04.24</div>
             </div>
             <div className={'body-1'}>
               <div className={'date-1'}>24.04.24</div>
               <div className={'body-1-content'}>
-                <div className={'text-1'}>Lorem ipsum dolor sit amet</div>
+                {/* <div className={'text-1'}>Lorem ipsum dolor sit amet</div> */}
               </div>
             </div>
             <div className={'body-2'}>
               <div className={'body-2-content'}>
-                <div className={'text-2'}>Lorem ipsum dolor sit amet</div>
+                {/* <div className={'text-2'}>Lorem ipsum dolor sit amet</div> */}
               </div>
               <div className={'date-2'}>24.04.24</div>
             </div>

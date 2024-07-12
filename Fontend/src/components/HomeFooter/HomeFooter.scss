@@ -64,6 +64,7 @@
       .social-icons {
         margin-top: 50px;
         margin-left: 10px;
+        white-space: nowrap;
 
         .social-icon {
           color: white;
@@ -110,6 +111,121 @@
           margin-top: 18px;
         }
       }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    .content {
+      flex-direction: column;
+      height: auto;
+      margin-top: 0;
+
+      .column {
+        margin: 10px 0;
+
+        &:not(:first-child)::before {
+          top: 0;
+          left: 24px;
+          height: 1px;
+          width: 85%;
+        }
+      }
+    }
+
+    footer {
+      flex-direction: column;
+      height: auto;
+      padding: 20px;
+
+      .footer-left {
+        padding-left: 0;
+
+        .footer-site-name {
+          text-align: center;
+        }
+
+        .social-icons {
+          margin-top: 20px;
+          margin-left: 0;
+          justify-content: center;
+        }
+      }
+
+      .footer-right {
+        flex: 1;
+        padding: 0;
+
+        .footer-column {
+          .footer-topic {
+            text-align: center;
+          }
+
+          p {
+            text-align: center;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 540px) {
+    .content {
+      padding: 20px;
+      display: flx;
+      flex-direction: row;
+      height: 85%;
+
+      .column:not(:first-child)::before {
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 85%;
+      }
+
+      .column {
+        .column-title {
+          font-size: 10px;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    footer {
+      padding: 20px;
+      display: flex;
+      flex-direction: row;
+
+      .footer-left {
+        .footer-site-name {
+          margin-left: -25%;
+          font-size: 20px;
+        }
+
+        .social-icons {
+          margin-top: 20px;
+          margin-left: 20px;
+
+          .social-icon {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .footer-right {
+        padding: 0;
+        width: 125px;
+      }
+    }
+  }
+
+  @media (max-width: 350px) {
+    .content {
+      padding: 10px;
+    }
+
+    footer {
+      padding: 10px;
     }
   }
 }
