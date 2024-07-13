@@ -6,18 +6,12 @@ import './UserForm.scss';
 const validationSchema = Yup.object({
   nameofteam: Yup.string().matches(/^[A-Z]/, 'Chữ cái đầu tiên phải viết hoa').required('Tên đội là bắt buộc.'),
   email: Yup.string().email('Email không hợp lệ.').required('Email là bắt buộc.'),
-  fullname1: Yup.string().required('Họ và tên là bắt buộc.'),
-  identity1: Yup.string().matches(/^[a-zA-Z0-9]+$/, 'MSSV/CCCD không hợp lệ.').required('MSSV/CCCD là bắt buộc.'),
-  phonenumber1: Yup.string().matches(/^[0-9]{10,11}$/, 'Số điện thoại không hợp lệ.').required('Số điện thoại là bắt buộc.'),
-  school1: Yup.string().required('Tên trường là bắt buộc.'),
-  fullname2: Yup.string().required('Họ và tên là bắt buộc.'),
-  identity2: Yup.string().matches(/^[a-zA-Z0-9]+$/, 'MSSV/CCCD không hợp lệ.').required('MSSV/CCCD là bắt buộc.'),
-  phonenumber2: Yup.string().matches(/^[0-9]{10,11}$/, 'Số điện thoại không hợp lệ.').required('Số điện thoại là bắt buộc.'),
-  school2: Yup.string().required('Tên trường là bắt buộc.'),
-  fullname3: Yup.string().required('Họ và tên là bắt buộc.'),
-  identity3: Yup.string().matches(/^[a-zA-Z0-9]+$/, 'MSSV/CCCD không hợp lệ.').required('MSSV/CCCD là bắt buộc.'),
-  phonenumber3: Yup.string().matches(/^[0-9]{10,11}$/, 'Số điện thoại không hợp lệ.').required('Số điện thoại là bắt buộc.'),
-  school3: Yup.string().required('Tên trường là bắt buộc.'),
+  members: Yup.array().of(Yup.object().shape({
+    fullname: Yup.string().required('Họ và tên là bắt buộc.'),
+    identity: Yup.string().matches(/^[a-zA-Z0-9]+$/, 'MSSV/CCCD không hợp lệ.').required('MSSV/CCCD là bắt buộc.'),
+    phonenumber: Yup.string().matches(/^[0-9]{10,11}$/, 'Số điện thoại không hợp lệ.').required('Số điện thoại là bắt buộc.'),
+    school: Yup.string().required('Tên trường là bắt buộc.'),
+  })).length(3, 'Phải có đúng 3 thành viên'),
 });
 
 const NumberOfUser = [1, 2, 3];
@@ -29,22 +23,16 @@ const UserForm = () => {
         initialValues={{
           nameofteam: '',
           email: '',
-          fullname1: '',
-          identity1: '',
-          phonenumber1: '',
-          school1: '',
-          fullname2: '',
-          identity2: '',
-          phonenumber2: '',
-          school2: '',
-          fullname3: '',
-          identity3: '',
-          phonenumber3: '',
-          school3: '',
+          members: [
+            { fullname: '', identity: '', phonenumber: '', school: '' },
+            { fullname: '', identity: '', phonenumber: '', school: '' },
+            { fullname: '', identity: '', phonenumber: '', school: '' },
+          ],
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           console.log('Form submitted', values);
+          // Xử lý gửi dữ liệu lên server hoặc các thao tác khác ở đây
         }}
       >
         {({ isSubmitting, touched, errors }) => (
@@ -86,48 +74,48 @@ const UserForm = () => {
                     <span><h2>Thành viên {num} {num === 1 && '(Đội trưởng)'}</h2></span>
 
                     <div className='field-container'>
-                      <label htmlFor={`fullname${num}`}><b>Họ và tên:</b></label>
+                      <label htmlFor={`members[${num - 1}].fullname`}><b>Họ và tên:</b></label>
                       <Field
                         type='text'
-                        id={`fullname${num}`}
-                        name={`fullname${num}`}
+                        id={`members[${num - 1}].fullname`}
+                        name={`members[${num - 1}].fullname`}
                         placeholder='Ví dụ: Nguyễn Văn A'
-                        className={touched[`fullname${num}`] && errors[`fullname${num}`] ? 'input-error' : ''}
+                        className={touched.members && touched.members[num - 1] && errors.members && errors.members[num - 1] && errors.members[num - 1].fullname ? 'input-error' : ''}
                       />
-                      <ErrorMessage name={`fullname${num}`} component="p" className="error" />
+                      <ErrorMessage name={`members[${num - 1}].fullname`} component="p" className="error" />
                     </div>
 
                     <div className='field-container'>
-                      <label htmlFor={`identity${num}`}><b>MSSV/CCCD:</b></label>
+                      <label htmlFor={`members[${num - 1}].identity`}><b>MSSV/CCCD:</b></label>
                       <Field
-                        id={`identity${num}`}
-                        name={`identity${num}`}
+                        id={`members[${num - 1}].identity`}
+                        name={`members[${num - 1}].identity`}
                         placeholder='MSSV bao gồm chữ hoặc số hoặc chữ và số. Ví dụ: 1234abcd'
-                        className={touched[`identity${num}`] && errors[`identity${num}`] ? 'input-error' : ''}
+                        className={touched.members && touched.members[num - 1] && errors.members && errors.members[num - 1] && errors.members[num - 1].identity ? 'input-error' : ''}
                       />
-                      <ErrorMessage name={`identity${num}`} component="p" className="error" />
+                      <ErrorMessage name={`members[${num - 1}].identity`} component="p" className="error" />
                     </div>
 
                     <div className='field-container'>
-                      <label htmlFor={`phonenumber${num}`}><b>Số điện thoại:</b></label>
+                      <label htmlFor={`members[${num - 1}].phonenumber`}><b>Số điện thoại:</b></label>
                       <Field
-                        id={`phonenumber${num}`}
-                        name={`phonenumber${num}`}
+                        id={`members[${num - 1}].phonenumber`}
+                        name={`members[${num - 1}].phonenumber`}
                         placeholder='Số điện thoại có 10 hoặc 11 chữ số. Ví dụ: 0123456789'
-                        className={touched[`phonenumber${num}`] && errors[`phonenumber${num}`] ? 'input-error' : ''}
+                        className={touched.members && touched.members[num - 1] && errors.members && errors.members[num - 1] && errors.members[num - 1].phonenumber ? 'input-error' : ''}
                       />
-                      <ErrorMessage name={`phonenumber${num}`} component="p" className="error" />
+                      <ErrorMessage name={`members[${num - 1}].phonenumber`} component="p" className="error" />
                     </div>
 
                     <div className='field-container'>
-                      <label htmlFor={`school${num}`}><b>Tên trường:</b></label>
+                      <label htmlFor={`members[${num - 1}].school`}><b>Tên trường:</b></label>
                       <Field
-                        id={`school${num}`}
-                        name={`school${num}`}
+                        id={`members[${num - 1}].school`}
+                        name={`members[${num - 1}].school`}
                         placeholder='Ví dụ: Trường Đại học Công nghệ Thông tin'
-                        className={touched[`school${num}`] && errors[`school${num}`] ? 'input-error' : ''}
+                        className={touched.members && touched.members[num - 1] && errors.members && errors.members[num - 1] && errors.members[num - 1].school ? 'input-error' : ''}
                       />
-                      <ErrorMessage name={`school${num}`} component="p" className="error" />
+                      <ErrorMessage name={`members[${num - 1}].school`} component="p" className="error" />
                     </div>
                   </div>
                   <span className='separator' />
