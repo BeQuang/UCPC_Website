@@ -84,6 +84,20 @@ $error-color: red; /* Định nghĩa biến màu đỏ cho lỗi */
     margin: 0px 0px 5px 7%;
     display: block;
   }
+  select {
+    width: 70%; /* Độ rộng của select box */
+    padding: 8px; /* Khoảng cách giữa nội dung và đường viền */
+    margin-bottom: 2px; /* Khoảng cách dưới của select box */
+    border: 2px solid $primary-color; /* Đường viền với màu chủ đạo */
+    border-radius: 10px; /* Độ cong của viền */
+    box-sizing: border-box; /* Bao gồm cả border và padding vào kích thước */
+    margin-left: 5%; /* Canh lề trái */
+    font: 1rem sans-serif; /* Font chữ và kích thước */
+    
+    &.input-error {
+      border-color: $error-color; /* Đường viền màu đỏ khi có lỗi */
+    }
+  }
 }
 
 .btn-signup {
@@ -106,4 +120,17 @@ $error-color: red; /* Định nghĩa biến màu đỏ cho lỗi */
       background-color: darken($primary-color, 10%); /* Làm tối màu khi hover */
     }
   }
+}
+
+input[type="file"]::file-selector-button {
+  border: 2px solid #6c5ce7;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  background-color: #a29bfe;
+  transition: 1s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #788eef;
+  border: 2px solid #2352df;
 }
