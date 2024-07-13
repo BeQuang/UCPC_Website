@@ -2,79 +2,78 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-
+import axios from 'axios';
 import './Login.scss';
 import { ModalTitle } from 'react-bootstrap';
 
 function Login() {
-  const [show, setShow] = useState(false);
-  const nameLogin = ''
-  const handleLogin = () => {setShow(true)}
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [name,setName] = useState("")
 
+  const changeName = event => {
+    setName(event.target.value)
+  }
 
-  const Params = ({
-    interval = '-1',
-    startDate = '0000-00-00',
-    endDate = '0000-00-00',
-    onSetParams = f => f,
-    }) =>
-    {
-    let _interval = interval,
-    _startDate = startDate,
-    _endDate = endDate
-    
-    const submit = e => {
-    e.preventDefault()
-  }}
+  const [pass,setPass] = useState("")
 
+  const changePass = event => {
+    setPass(event.target.value)
+  }
+
+  const handleLogin  = (e) =>{
+    const infor = {name, pass};
+
+    console.log(infor);
+  }
   return (
     <>
-    
-      <Button variant="primary" onClick={handleShow} className='login-button'>
-        Đăng nhập
-      </Button>
-
-      <Modal show={show} onHide={handleClose} className='popup-login'>
-        <Modal.Header closeButton>
+      <div className='popup-login'>
+        <Modal.Header >
+          {/* <Button variant='primary' onClick={handleClose}></Button> */}
           <Modal.Title className='pp1'>CHÀO MỪNG</Modal.Title>
           <Modal.Title className='pp2'>BẠN ĐẾN VỚI</Modal.Title>
           <Modal.Title className='pp3'>UCPC</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form className='form-login'>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="name" controlId="exampleForm.ControlInput1">
               <Form.Control
                 type="text"
                 placeholder="Tên Đăng Nhập"
                 autoFocus
+                onChange = {changeName}
+                value = {name}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="pass" controlId="exampleForm.ControlInput1">
               <Form.Control
                 type="text"
                 placeholder="Mật Khẩu"
                 autoFocus
+                onChange = {changePass}
+                value = {pass}
+        
               />
             </Form.Group>
-            <Button variant="primary" onClick={handleLogin}>
-            Đăng Nhập
-          </Button>
+            
+            <Button variant="primary" className='btn-login' onClick={handleLogin}>
+              Đăng Nhập
+            </Button>
+            
+            
+            
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <>
-          <label>
-              <input type="checkbox" className='checkbox' />
-              Quên Mật Khẩu
-          </label>
-          <label>
+          
+          <div className='footer__remember'>
+              <input type="checkbox" className='footer__remember__checkbox' id='checkbox-remember'/>
+          <label for="checkbox-remember" className='footer__remember__label'>Nhớ tài khoản</label>
+          </div>
+          <div className='footer__new'>
           <a href='https://www.facebook.com/' className='linkst' >Bạn chưa có tài khoản</a>
-          </label>
-          </>
+          </div>
         </Modal.Footer>
-      </Modal>
+      </div>
     </>
   );
 }
