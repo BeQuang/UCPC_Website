@@ -317,7 +317,7 @@
   }
 
   @media (max-width: 1024px) {
-    height: 40%;
+    height: 100vh;
 
     .countdown {}
 
@@ -326,40 +326,44 @@
         height: 100%;
 
         .body1 {
-          height: 50%;
+          height: 100%;
 
           .container {
             &-content {
-              font-size: 60px;
-              right: -10px;
+              font-size: 40px;
+              right: 1px;
+              bottom: 18%;
+              margin-right: 0;
+              line-height: 0;
             }
           }
 
           &-img {
             .news {
               height: 84%;
-              width: 137px;
+              width: 130px;
               object-fit: cover;
             }
           }
         }
 
         .body2 {
-          height: 50%;
+          height: 100%;
 
           .container {
             position: relative;
 
             &-content {
-              font-size: 60px;
+              font-size: 40px;
+              bottom: 59%;
+              right: 24%;
               position: absolute;
-              top: -32px;
             }
           }
 
           &-img {
             .description_Intro {
-              width: 125px;
+              width: 140px;
               height: 100%;
               object-fit: cover;
             }
@@ -368,77 +372,149 @@
       }
 
       .timeline {
+        width: 63%;
+        overflow: hidden;
+
         .container {
           overflow: hidden;
           width: 100%;
           right: -15%;
 
           .body-1 {
-            width: 15%;
+            width: 20%;
+
+            &::before {
+              top: 50%;
+              right: 0;
+              width: 100%;
+              height: 20px;
+
+              &::before {
+                top: -102%;
+                left: 50%;
+                width: 2px;
+                height: 35%;
+              }
+
+              &::after {
+                top: -69%;
+                left: 48%;
+                height: 6px;
+                width: 6px;
+              }
+            }
 
             .date-1 {
-              font-size: 20px;
+              font-size: 12px;
+              position: absolute;
+              top: -64px;
+              left: 8px;
             }
 
             &-content {
-              &::before {
-                top: -100%;
-              }
+              position: absolute;
 
               .text-1 {
-                font-size: 6px;
+                font-size: 10px;
+                line-height: 9px;
+                padding-top: 37px;
+              }
+
+              &::before {
+                position: absolute;
+                top: 10px;
+                height: 26px;
+                width: 3px;
+              }
+
+              &::after {
+                top: 45%;
+                left: 46%;
+                height: 12px;
+                width: 12px;
               }
             }
           }
 
           .body-2 {
-            width: 15%;
+            width: 20%;
+
+            &::before {
+              top: 50%;
+              right: 0;
+              width: 100%;
+              height: 20px;
+            }
 
             &:last-child {
-              padding-right: 185px;
+              display: flex;
+              flex-grow: 1;
+              padding-right: 0;
 
               &:before {
                 width: 106%;
               }
 
               .body-2-content {
+                top: -117px;
+                left: -26px;
+
                 &::before {
-                  top: 190%;
-                  left: 85%;
+                  top: 112%;
+                  left: 49%;
                 }
 
                 &::after {
-                  top: 141%;
-                  left: 81%;
+                  top: 97%;
+                  left: 45%;
                 }
 
                 .text-2 {
-                  font-size: 6px;
-                  margin-left: 107px;
+                  font-size: 10px;
                 }
               }
 
               .date-2 {
-                margin-left: 80px;
+                font-size: 12px;
+                margin-left: -16px;
+                position: absolute;
+                top: -73px;
+                left: -4px;
               }
             }
 
             .date-2 {
-              font-size: 20px;
+              font-size: 12px;
               margin-left: -16px;
+              position: absolute;
+              top: -72px;
+              left: -4px;
             }
 
             &-content {
+              position: absolute;
+              top: -119px;
+
               &::before {
-                top: 190%;
+                left: 50%;
+                width: 3px;
+                height: 35%;
+                position: absolute;
+                top: 115%;
               }
 
               &::after {
-                top: 141%;
+                left: 46%;
+                height: 12px;
+                width: 12px;
+                position: absolute;
+                top: 73px;
               }
 
               .text-2 {
-                font-size: 6px;
+                font-size: 10px;
+                margin-top: 45px;
+                line-height: 9px;
               }
             }
           }
