@@ -4,9 +4,8 @@
 .popup-content {
     //border: 1px solid red;
     margin: auto;
-    width: 28%;
-    padding: 5px;
-  }
+    width: 30%;
+}
 .register {
     //: 5px solid pink;
     text-align: center;
@@ -70,5 +69,19 @@
         font-weight: lighter;
         font-style: italic;
     }
+    
+}
+@media screen and (max-width: 1024px) {
+    .popup-content {
+        width: 90%;
+        // border: 1px solid red;
+        padding-right: 17%;
+    }
+    .register{
+        width: 100%;
+        position: relative;
+        bottom: 100px;
+    }
+    
 }
 
