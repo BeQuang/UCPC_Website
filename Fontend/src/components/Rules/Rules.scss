@@ -73,4 +73,72 @@
       width: 800px;
     }
   }
+
+  @media (max-width: 1024px) {
+    .header {
+      .type-list {
+        .type-item {
+          width: calc(100% / 2);
+        }
+      }
+    }
+
+    .body {
+      padding: 80px 60px;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .header {
+      .title {
+        font-size: 28px;
+      }
+
+      .type-list {
+        width: 100%;
+        gap: 10px;
+
+        .type-item {
+          width: 100%;
+          margin-left: 0;
+
+          p {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .body {
+      padding: 60px 40px;
+
+      .rules-item {
+        width: 100%;
+        height: 50vh;
+
+        .title {
+          font-size: 28px;
+        }
+
+        .description {
+          font-size: 6px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 350px) {
+    .header {
+      .type-list {
+        .type-item {
+          height: 90px;
+          font-size: 20px;
+        }
+      }
+    }
+
+    .body {
+      padding: 40px 20px;
+    }
+  }
 }

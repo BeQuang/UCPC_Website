@@ -5,11 +5,10 @@
   height: 70px;
   background-color: black;
   color: white;
-  padding: 0 150px;
-  width: 100%;
-  z-index: 3;
+  padding: 0 20px;
+  z-index: 4;
   font-family: "Inter", sans-serif;
-  position: fixed;
+  // position: fixed;
 
   .back-text {
     cursor: pointer;
@@ -144,4 +143,228 @@
     background-color: #ddd;
     /* Màu xám nhạt khi hover */
   }
+
+  .avatar-toggle {
+    padding: 0;
+    border: none;
+    background: none;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .avatar-image {
+    width: 40px;
+    /* Adjust size as needed */
+    height: 40px;
+    /* Adjust size as needed */
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    padding: 0 20px;
+    height: auto;
+
+    .logo {
+      font-size: 12px;
+      display: flex;
+
+      a {
+        font-size: 12px;
+      }
+    }
+
+    .arrow-line {
+      width: 134px;
+      height: 1px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: -3px;
+        right: 0px;
+        transform: translateY(-50%);
+        border: 2px solid white;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    .nav-links {
+      flex-direction: row;
+      align-items: center;
+      gap: 30px;
+      justify-content: center;
+
+      a {
+        font-size: 12px;
+        padding: 0px;
+      }
+    }
+
+    .auth-buttons {
+      flex-direction: row;
+      gap: 10px;
+      width: 140px;
+      height: 39px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .register-btn,
+      .login-btn {
+        margin-left: 0;
+        font-size: 9px;
+        padding: 0px 5px;
+        width: 100px;
+        height: 30px;
+      }
+    }
+  }
+
+  @media (max-width: 540px) {
+    .back-text {
+      right: 50%;
+      height: 25px;
+      width: 25px;
+
+      .back-icon {
+        font-size: 12px;
+      }
+    }
+
+    .arrow-line {
+      width: 60px;
+      height: 1px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: -3px;
+        right: 0px;
+        transform: translateY(-50%);
+        border: 2px solid white;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    .logo {
+      font-size: 6px;
+      display: flex;
+
+      a {
+        font-size: 6px;
+      }
+    }
+
+    .nav-links {
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+      text-align: center;
+      width: 180px;
+      justify-content: center;
+
+      a {
+        font-size: 6px;
+        padding: 0px;
+      }
+    }
+
+    .auth-buttons {
+      flex-direction: row;
+      gap: 10px;
+      width: 89px;
+      height: 39px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .register-btn,
+      .login-btn {
+        font-size: 6px;
+        padding: 5px 4px;
+        width: 50px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  @media (max-width: 350px) {
+
+    .arrow-line {
+      width: 30px;
+      height: 1px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: -2px;
+        right: 0px;
+        transform: translateY(-50%);
+        border: 2px solid white;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        padding: 2px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    .logo {
+      font-size: 6px;
+      display: flex;
+
+      a {
+        font-size: 6px;
+      }
+    }
+
+    .nav-links {
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+      text-align: center;
+      width: 180px;
+      justify-content: center;
+
+      a {
+        font-size: 6px;
+        padding: 0px;
+      }
+    }
+
+    .auth-buttons {
+      flex-direction: row;
+      gap: 10px;
+      width: 89px;
+      height: 39px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .register-btn,
+      .login-btn {
+        font-size: 6px;
+        padding: 5px 4px;
+        width: 50px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
 }
