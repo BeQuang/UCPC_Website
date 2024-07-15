@@ -9,7 +9,7 @@ import { AiFillDashboard } from 'react-icons/ai';
 
 import sidebarBg from '~/assets/image/Logo_UCPC.png';
 
-function SideBar() {
+function SideBarAdmin() {
     const iconStyle = { 
         marginRight: '14px',
         marginLeft: '10px'
@@ -20,7 +20,11 @@ function SideBar() {
     };
     return (
         <>
-            <ProSidebar image={sidebarBg} breakPoint="md" className={'sideBar-container'}>
+            <ProSidebar 
+                width='180px' 
+                style={{ position: 'fixed', left: 0, top: 0, bottom: 0, backgroundColor: '#182326', color: '#fff', boxSizing: 'border-box'}}
+                className={'sideBar-container'}
+            >
                 <SidebarHeader>
                     <div
                         style={{
@@ -47,19 +51,19 @@ function SideBar() {
                 <Menu>
                 <MenuItem>
                     <AiFillDashboard style={iconStyle} /> Dashboard
-                    <Link to="/dashboard"/>
+                    <Link to="/admin/dashboard"/>
                 </MenuItem>
                 <SubMenu icon={<FaUserAlt/>} title="Users">
-                    <MenuItem>Manage Users <Link to="/manage-users"/></MenuItem>
-                    <MenuItem>Confirm Payment <Link to="/manage-users/confirmpayment"/></MenuItem>
+                    <MenuItem>Manage Users <Link to="/admin/manage-users"/></MenuItem>
+                    <MenuItem>Confirm Payment <Link to="/admin/manage-users/confirmpayment"/></MenuItem>
                 </SubMenu>
                 <SubMenu icon={<IoMdMail/>} title="Mailing">
-                    <MenuItem>Google maps <Link to="/mailing/google-maps"/></MenuItem>
-                    <MenuItem>Open street maps <Link to="/mailing/open-street-maps"/></MenuItem>
+                    <MenuItem>Google maps <Link to="/admin/mailing/google-maps"/></MenuItem>
+                    <MenuItem>Open street maps <Link to="/admin/mailing/open-street-maps"/></MenuItem>
                 </SubMenu>
                 <SubMenu icon={<IoMdHelpCircle/>} title="Helps">
-                    <MenuItem>Dark <Link to="/helps/dark"/></MenuItem>
-                    <MenuItem>Light <Link to="/helps/light"/></MenuItem>
+                    <MenuItem>Dark <Link to="/admin/helps/dark"/></MenuItem>
+                    <MenuItem>Light <Link to="/admin/helps/light"/></MenuItem>
                 </SubMenu>
             </Menu>
                 </SidebarContent>
@@ -77,4 +81,4 @@ function SideBar() {
     );
 }
 
-export default SideBar;
+export default SideBarAdmin;

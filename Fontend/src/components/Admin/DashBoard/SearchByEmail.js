@@ -32,7 +32,7 @@ function SearchUserByEmail() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    style={{ fontSize: '1.5rem', padding: '1rem 2rem' }} // Increase font size and padding
+                    style={{ fontSize: '1rem'}} // Increase font size and padding
                 />
                 <button type="submit" className="btn btn-primary ml-2 mx-3 " style={{ fontSize: '1rem'}}>Search</button>
             </form>

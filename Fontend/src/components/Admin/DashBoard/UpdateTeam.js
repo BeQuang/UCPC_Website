@@ -35,7 +35,7 @@ function UpdateTeam ({totalUpdatedInfo, totalUnupdatedInfo}) {
                 <div className="col-sm">
                     <div className="card mt-4">
                         <div className="card-body d-flex justify-content-between align-items-center">
-                            <h5 className="card-title display-4">Total users have updated information: {totalUpdatedInfo}</h5>
+                            <h5 className="card-title">Total users have updated information: {totalUpdatedInfo}</h5>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@ function UpdateTeam ({totalUpdatedInfo, totalUnupdatedInfo}) {
                 <div className="col-sm">
                     <div className="card mt-4">
                         <div className="card-body d-flex justify-content-between align-items-center">
-                            <h5 className="card-title display-4">Total users have unupdated information: {totalUnupdatedInfo}</h5>
+                            <h5 className="card-title">Total users have unupdated information: {totalUnupdatedInfo}</h5>
                             <div className="d-flex justify-content-between">
                                 {show && (
                                     <button className="btn btn-primary btn-lg mx-3" style={{ fontSize: '1rem'}} onClick={handleHideHasNotUpdateTeams}>

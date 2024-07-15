@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'; // Import BrowserRouter
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
-import SideBarAdmin from '~/components/Admin/SideBar'; // Đường dẫn đến component sidebar
+import SideBarAdmin from '~/layouts/SideBar/SideBar'; // Đường dẫn đến component sidebar
 import DashBoard from '~/components/Admin/DashBoard/DashBoard'; // Đường dẫn đến component dashboard
 import UserManage from '~/components/Admin/User.js/User';
 
@@ -13,8 +13,8 @@ function Admin() {
 
             <div style={{ flex: 1, marginLeft: '200px' }}>
                 <Routes>
-                    <Route path="/admin/dashboard" element={<DashBoard />} />
-                    <Route path="/admin/user-manage" element={<UserManage />} />
+                    <Route path="/dashboard" element={<DashBoard />} />
+                    <Route path="/manage-users" element={<UserManage />} />
                     {/* Thêm các Route khác nếu cần */}
                 </Routes>
             </div>

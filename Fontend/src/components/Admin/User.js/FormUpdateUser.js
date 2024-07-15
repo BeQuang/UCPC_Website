@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import './UserForm.scss';
+import './FormUpdateUser.scss';
 
 const validationSchema = Yup.object().shape({
   teamName: Yup.string()

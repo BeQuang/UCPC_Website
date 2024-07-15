@@ -72,7 +72,7 @@ function DashBoard() {
                 <div className="col-sm">
                     <div className="card mt-4 mb-4">
                         <div className="card-body d-flex justify-content-between align-items-center">
-                            <h5 className="card-title display-4">Total users: {data.totalUser}</h5>
+                            <h5 className="card-title">Total users: {data.totalUser}</h5>
                             <button className="btn btn-primary btn-lg mx-3" style={{ fontSize: '1rem'}} onClick={handleDownloadAllUsers}>
                                 Download All Users
                             </button>
