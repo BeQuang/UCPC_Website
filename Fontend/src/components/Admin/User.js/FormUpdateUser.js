@@ -63,7 +63,7 @@ const UserForm = () => {
         {({ isSubmitting, touched, errors, setFieldValue }) => (
           <Form className='form-user-container'>
             <div className='title-form-user'>
-              <h1>Đăng kí đội thi UCPC</h1>
+              <h1>Cập nhật đội thi UCPC</h1>
             </div>
             <span className='separator' style={{ height: '5px' }} />
             <div className='content-form-user'>
@@ -187,12 +187,9 @@ const UserForm = () => {
                       <ErrorMessage name={`Participants[${num - 1}].schoolName`} component="p" className="error" />
                     </div>
                   </div>
-                  <span className='separator' />
+                  {num !== 3 && <span className='separator' />}
                 </React.Fragment>
               ))}
-              <div className='btn-signup'>
-                <button type="submit" disabled={isSubmitting}><h2>Đăng kí đội</h2></button>
-              </div>
             </div>
           </Form>
         )}

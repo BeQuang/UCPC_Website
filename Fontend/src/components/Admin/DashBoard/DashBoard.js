@@ -9,14 +9,23 @@ import { Link } from 'react-router-dom';
 import SearchUserByEmail from './SearchByEmail';
 
 function DashBoard() {
-    const [data, setData] = useState(null); // State to store the dashboard data
+    const [data, setData] = useState({
+        totalUser: 0,
+        totalUpdatedInfo: 0,
+        totalUnupdatedInfo: 0,
+        totalPaid: 0,
+        totalUnpaid: 0,
+        totalUnsolvedRequest: 0
+    }); // State to store the dashboard data
     let errordownload = false;
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const result = await GetDashBoard();
                 console.log(result);
-                setData(result.DT); // Save the fetched data to the state
+                if(result.EC !== -1){
+                    setData(result.DT); // Save the fetched data to the state
+                }
             } catch (err) {
                 console.log(err);
             }
@@ -37,17 +46,17 @@ function DashBoard() {
             errordownload = true; 
         }
     };
-    if (!data) {
-        return <div>Loading...</div>; // Show a loading state while data is being fetched
+    // if (!data) {
+    //     return <div>Loading...</div>; // Show a loading state while data is being fetched
         
-    }
+    // }
     if (errordownload){
         return( 
             <>
                 <div>
                     Error downloading the file...
                 </div>
-                <Link to="/admin">
+                <Link to="/admin/dashboard">
                     <button className="btn btn-primary btn-lg">
                         Return DashBoard
                     </button>
@@ -58,18 +67,18 @@ function DashBoard() {
 
     return (
         <div className="main-content" style={{ flex: '1', padding: '20px' }}>
-            <h1 className="mt-4 display-4 text-center">Dashboard</h1>
+            <h1 className="mt-4 display-4 text-center">DASHBOARD</h1>
             <div className="row">
                 <div className="col-sm">
-                    <div className="card mt-4">
+                    <div className="card mt-4 mb-4">
                         <div className="card-body d-flex justify-content-between align-items-center">
                             <h5 className="card-title display-4">Total users: {data.totalUser}</h5>
-                            <button className="btn btn-primary btn-lg" onClick={handleDownloadAllUsers}>
+                            <button className="btn btn-primary btn-lg mx-3" style={{ fontSize: '1rem'}} onClick={handleDownloadAllUsers}>
                                 Download All Users
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
 
             <SearchUserByEmail />

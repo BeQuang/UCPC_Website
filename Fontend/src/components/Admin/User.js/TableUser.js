@@ -206,7 +206,7 @@ const TableUsers = () => {
             </Box>
 
             <Popup
-                title="Edit User"
+                title=""
                 openPopup={editMode}
                 setOpenPopup={setEditMode}
                 handleAction={handleAction}
@@ -215,7 +215,7 @@ const TableUsers = () => {
                 <FormUpdateUser initialValues={editData} handleInputChange={handleInputChange} />
             </Popup>
             <Popup
-                title="Confirm Delete"
+                title=""
                 openPopup={openDelete}
                 setOpenPopup={setOpenDelete}
                 handleAction={handleAction}

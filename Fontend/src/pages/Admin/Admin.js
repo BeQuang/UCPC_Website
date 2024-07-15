@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom'; // Import BrowserRouter
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
 import SideBarAdmin from '~/components/Admin/SideBar'; // Đường dẫn đến component sidebar
@@ -7,8 +8,8 @@ import UserManage from '~/components/Admin/User.js/User';
 
 function Admin() {
     return (
-        <div style={{ display: 'flex', minHeight: '100vh' }}>
-            <SideBarAdmin />
+            <div style={{ display: 'flex', minHeight: '100vh' }}>
+                <SideBarAdmin />
 
             <div style={{ flex: 1, marginLeft: '200px' }}>
                 <Routes>

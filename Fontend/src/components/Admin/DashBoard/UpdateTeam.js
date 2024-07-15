@@ -47,14 +47,16 @@ function UpdateTeam ({totalUpdatedInfo, totalUnupdatedInfo}) {
                     <div className="card mt-4">
                         <div className="card-body d-flex justify-content-between align-items-center">
                             <h5 className="card-title display-4">Total users have unupdated information: {totalUnupdatedInfo}</h5>
-                            {show && (
-                                <button className="btn btn-primary btn-lg" onClick={handleHideHasNotUpdateTeams}>
-                                Hide
-                            </button>
-                            )}
-                            <button className="btn btn-primary btn-lg" onClick={handleGetHasNotUpdateTeams}>
-                                Get all
-                            </button>
+                            <div className="d-flex justify-content-between">
+                                {show && (
+                                    <button className="btn btn-primary btn-lg mx-3" style={{ fontSize: '1rem'}} onClick={handleHideHasNotUpdateTeams}>
+                                        Hide
+                                    </button>
+                                )}
+                                <button className="btn btn-primary btn-lg" style={{ fontSize: '1rem'}} onClick={handleGetHasNotUpdateTeams}>
+                                    Get all
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
