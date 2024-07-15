@@ -27,6 +27,9 @@ const validationSchema = Yup.object().shape({
 const NumberOfUser = [1, 2, 3];
 
 const UserForm = () => {
+  //Fake userID
+  const userID = '12312312'
+
   const [imageBase64, setImageBase64] = useState('');
 
   const handleImageChange = (event) => {
@@ -37,6 +40,19 @@ const UserForm = () => {
         setImageBase64(reader.result);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (values) => {
+    const formData = { ...values, userID, paidImage: imageBase64 };
+    console.log('Form submitted', formData);
+
+    // Thực hiện gửi dữ liệu lên server hoặc các thao tác khác tại đây
+    try {
+
+    } catch (error) {
+      console.error('Error:', error);
+      // Hiển thị thông báo lỗi hoặc thực hiện các thao tác khác khi gặp lỗi
     }
   };
 
@@ -55,9 +71,10 @@ const UserForm = () => {
           ],
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log('Form submitted', { ...values, paidImage: imageBase64 });
-          // Xử lý gửi dữ liệu lên server hoặc các thao tác khác ở đây
+        onSubmit={(values, { setSubmitting }) => {
+          handleSubmit(values).finally(() => {
+            setSubmitting(false);
+          });
         }}
       >
         {({ isSubmitting, touched, errors, setFieldValue }) => (
