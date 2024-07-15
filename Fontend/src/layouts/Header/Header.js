@@ -4,6 +4,8 @@ import { Link } from 'react-scroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
+import Popup from 'reactjs-popup';
+import Register from '~/components/Popup/Register';
 
 const cx = classNames.bind(styles);
 
@@ -24,6 +26,11 @@ function Header() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  const [openRegister, setOpenRegister] = useState(false);
+  const handleRegister = () => {
+      setOpenRegister(true);
+  };
+
 
   return (
     <header className={cx('header')}>
@@ -41,7 +48,10 @@ function Header() {
         <Link to='homefooter-section' smooth={true} duration={500}>Liên hệ</Link>
       </nav>
       <div className={cx('auth-buttons')}>
-        <button className={cx('register-btn')}>Đăng ký</button>
+        <button className={cx('register-btn')} onClick={() => handleRegister()}>Đăng ký</button>
+        <Popup open={openRegister} onClose={() => setOpenRegister(false)}>
+          <Register />   
+        </Popup>
         <button className={cx('login-btn')}>Đăng nhập</button>
       </div>
     </header>

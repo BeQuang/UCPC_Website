@@ -71,17 +71,28 @@
     }
     
 }
-@media screen and (max-width: 1024px) {
+@media (max-width: 768px) {
     .popup-content {
         width: 90%;
         // border: 1px solid red;
-        padding-right: 17%;
+        padding-right: 20%;
     }
     .register{
         width: 100%;
         position: relative;
         bottom: 100px;
     }
-    
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .popup-content {
+        width: 90%;
+        // border: 1px solid red;
+        padding-top: 20%;
+    }
+    .register{
+        width: 100%;
+        position: relative;
+        bottom: 100px;
+    }
 }
 
