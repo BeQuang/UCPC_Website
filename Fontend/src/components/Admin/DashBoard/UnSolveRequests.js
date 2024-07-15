@@ -34,16 +34,19 @@ function UnSolveRequests({totalUnsolvedRequest}) {
                 <div className="card mt-4">
                     <div className="card-body d-flex justify-content-between align-items-center">
                         <h5 className="card-title display-4">Total unsolved requests: {totalUnsolvedRequest}</h5>
-                        {show && (
-                            <button className="btn btn-primary btn-lg" onClick={handleHideUnSolveRequests}>
-                            Hide
+                        <div className="d-flex">
+                            {show && (
+                                <button className="btn btn-primary btn-lg mx-2" style={{ fontSize: '1.5rem', padding: '1rem 2rem' }} onClick={handleHideUnSolveRequests}>
+                                    Hide
+                                </button>
+                            )}
+                            <button className="btn btn-primary btn-lg mx-2" style={{ fontSize: '1.5rem', padding: '1rem 2rem' }} onClick={handleGetUnSolveRequests}>
+                                Get all
                             </button>
-                        )}
-                        <button className="btn btn-primary btn-lg" onClick={handleGetUnSolveRequests}>
-                            Get all
-                        </button>
+                        </div>
                     </div>
                 </div>
+
 
                 {show && requests.length === 0 && (
                 <div className="row mt-4">

@@ -20,13 +20,12 @@ function SideBarAdmin() {
     return (
         <Sidebar width='180px' style={{ position: 'fixed', left: 0, top: 0, bottom: 0, backgroundColor: '#ccffff', color: '#333', boxSizing: 'border-box'}}>
             <Menu>
-                <MenuItem  component={<Link to="/dashboard"/>}>
+                <MenuItem component={<Link to="/dashboard"/>}>
                     <AiFillDashboard style={iconStyle} /> Dashboard
                 </MenuItem>
                 <SubMenu icon={<FaUserAlt/>} label="Users">
-                    <MenuItem component={<Link to="/manage-users/1"/>}>Pie charts</MenuItem>
-                    <MenuItem  component={<Link to="/manage-users/2"/>}>Line charts</MenuItem>
-                    <MenuItem  component={<Link to="/manage-users/3"/>}>Bar charts</MenuItem>
+                    <MenuItem component={<Link to="/manage-users"/>}>Manage Users</MenuItem>
+                    <MenuItem  component={<Link to="/manage-users/confirmpayment"/>}>Confirm Payment</MenuItem>
                 </SubMenu>
                 <SubMenu icon={<IoMdMail/>} label="Mailing">
                     <MenuItem  component={<Link to="/mailing/google-maps"/>}>Google maps</MenuItem>

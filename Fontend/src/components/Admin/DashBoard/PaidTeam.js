@@ -46,18 +46,21 @@ function PaidTeam({ totalPaid, totalUnpaid }) {
                     <div className="card mt-4">
                         <div className="card-body d-flex justify-content-between align-items-center">
                             <h5 className="card-title display-4">Total unpaid teams: {totalUnpaid}</h5>
-                            {show &&  (
-                                <button className="btn btn-primary btn-lg" onClick={handleHideUnpaidTeams}>
-                                    Hide
+                            <div className="d-flex">
+                                {show && (
+                                    <button className="btn btn-primary btn-lg mx-2" style={{ fontSize: '1.5rem', padding: '1rem 2rem' }} onClick={handleHideUnpaidTeams}>
+                                        Hide
+                                    </button>
+                                )}
+                                <button className="btn btn-primary btn-lg mx-2" style={{ fontSize: '1.5rem', padding: '1rem 2rem' }} onClick={handleGetUnpaidTeams}>
+                                    Get all
                                 </button>
-                            )}
-                            <button className="btn btn-primary btn-lg" onClick={handleGetUnpaidTeams}>
-                                Get all
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             {show && teams.length === 0 && (
                 <div className="row mt-4">
