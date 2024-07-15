@@ -1,15 +1,12 @@
-import classNames from 'classnames/bind';
-import styles from './RulesItem.module.scss';
-
-const cx = classNames.bind(styles);
+import './RulesItem.scss';
 
 function RulesItem({ title, description }) {
     return (
-        <>
-            <div className={cx('title')}>{title}</div>
-            <div className={cx('line')}></div>
-            <div className={cx('description')}>{description}</div>
-        </>
+        <div className="rules-item">
+            <div className={'title'}>{title}</div>
+            <div className={'line'}></div>
+            <div className={'description'}>{description}</div>
+        </div>
     );
 }
 
