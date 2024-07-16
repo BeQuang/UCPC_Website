@@ -10,7 +10,7 @@ import EmailBuilder from './pages/Email/EmailBuilder/EmailBuilder';
 function App() {
     return (
         <Routes>
-            {/* <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/user" element={<User />} />
             <Route path="/admin" element={<Admin />}>
                 <Route path="email" element={<Email />} />
