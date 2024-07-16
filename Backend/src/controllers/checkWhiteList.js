@@ -1,4 +1,4 @@
-import db from '../models/index';
+const db = require('../models/index');
 const checkWL = async (email) => {
     let checkWhiteList = await db.Whitelist.findOne({
         where: {
@@ -38,7 +38,7 @@ const createWL = async (email) => {
         email: email
     });
 }
-export {
+module.exports = {
     checkWL,
     clearWL,
     createWL

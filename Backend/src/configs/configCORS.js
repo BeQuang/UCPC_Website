@@ -7,4 +7,4 @@ const configCORS = (app) => {
         next();
     });
 }
-export default configCORS;
+module.exports = configCORS;
