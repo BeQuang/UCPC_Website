@@ -1,0 +1,370 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  background-color: black;
+  color: white;
+  padding: 0 20px;
+  z-index: 4;
+  font-family: "Inter", sans-serif;
+  // position: fixed;
+
+  .back-text {
+    cursor: pointer;
+    display: flex;
+    font-size: 20px;
+    z-index: 3;
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    height: 50px;
+    width: 50px;
+    background: black;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+
+    &:hover {
+      // animation: rotate 2s infinite linear;
+      transform: scale(1.1);
+      background-color: #444;
+    }
+
+    .back-icon {
+      color: white;
+      font-size: 24px;
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .logo {
+    font-size: 20px;
+    font-weight: 700;
+
+    a {
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      transition: color 0.3s;
+      font-weight: 500;
+      font-size: 20px;
+
+      &:hover {
+        color: #ddd;
+      }
+    }
+  }
+
+  .arrow-line {
+    width: 421px;
+    height: 2px;
+    background: #FFFFFF;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      right: 0px;
+      transform: translateY(-50%);
+      border: 2px solid white;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 5px;
+      transform: rotate(-45deg);
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+
+    a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      transition: color 0.3s;
+      font-weight: 500;
+      font-size: 20px;
+      cursor: pointer;
+
+      &:hover {
+        color: #ddd;
+      }
+    }
+  }
+
+  .auth-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .register-btn,
+  .login-btn {
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .register-btn {
+    background-color: #6a0dad;
+    /* Màu tím */
+    color: white;
+  }
+
+  .register-btn:hover {
+    background-color: #551a8b;
+    /* Màu tím nhạt hơn khi hover */
+  }
+
+  .login-btn {
+    background-color: white;
+    color: black;
+    margin-left: 40px;
+  }
+
+  .login-btn:hover {
+    background-color: #ddd;
+    /* Màu xám nhạt khi hover */
+  }
+
+  .avatar-toggle {
+    padding: 0;
+    border: none;
+    background: none;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .avatar-image {
+    width: 40px;
+    /* Adjust size as needed */
+    height: 40px;
+    /* Adjust size as needed */
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    padding: 0 20px;
+    height: auto;
+
+    .logo {
+      font-size: 12px;
+      display: flex;
+
+      a {
+        font-size: 12px;
+      }
+    }
+
+    .arrow-line {
+      width: 134px;
+      height: 1px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: -3px;
+        right: 0px;
+        transform: translateY(-50%);
+        border: 2px solid white;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    .nav-links {
+      flex-direction: row;
+      align-items: center;
+      gap: 30px;
+      justify-content: center;
+
+      a {
+        font-size: 12px;
+        padding: 0px;
+      }
+    }
+
+    .auth-buttons {
+      flex-direction: row;
+      gap: 10px;
+      width: 140px;
+      height: 39px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .register-btn,
+      .login-btn {
+        margin-left: 0;
+        font-size: 9px;
+        padding: 0px 5px;
+        width: 100px;
+        height: 30px;
+      }
+    }
+  }
+
+  @media (max-width: 540px) {
+    .back-text {
+      right: 50%;
+      height: 25px;
+      width: 25px;
+
+      .back-icon {
+        font-size: 12px;
+      }
+    }
+
+    .arrow-line {
+      width: 60px;
+      height: 1px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: -3px;
+        right: 0px;
+        transform: translateY(-50%);
+        border: 2px solid white;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    .logo {
+      font-size: 6px;
+      display: flex;
+
+      a {
+        font-size: 6px;
+      }
+    }
+
+    .nav-links {
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+      text-align: center;
+      width: 180px;
+      justify-content: center;
+
+      a {
+        font-size: 6px;
+        padding: 0px;
+      }
+    }
+
+    .auth-buttons {
+      flex-direction: row;
+      gap: 10px;
+      width: 89px;
+      height: 39px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .register-btn,
+      .login-btn {
+        font-size: 6px;
+        padding: 5px 4px;
+        width: 50px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  @media (max-width: 350px) {
+
+    .arrow-line {
+      width: 30px;
+      height: 1px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: -2px;
+        right: 0px;
+        transform: translateY(-50%);
+        border: 2px solid white;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        padding: 2px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    .logo {
+      font-size: 6px;
+      display: flex;
+
+      a {
+        font-size: 6px;
+      }
+    }
+
+    .nav-links {
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+      text-align: center;
+      width: 180px;
+      justify-content: center;
+
+      a {
+        font-size: 6px;
+        padding: 0px;
+      }
+    }
+
+    .auth-buttons {
+      flex-direction: row;
+      gap: 10px;
+      width: 89px;
+      height: 39px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .register-btn,
+      .login-btn {
+        font-size: 6px;
+        padding: 5px 4px;
+        width: 50px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+}

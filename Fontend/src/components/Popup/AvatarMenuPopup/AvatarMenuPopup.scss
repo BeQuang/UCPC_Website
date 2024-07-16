@@ -1,0 +1,28 @@
+.menu-popup {
+  background: white;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.menu-item {
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+
+  &:hover {
+    background: #f0f0f0;
+  }
+}

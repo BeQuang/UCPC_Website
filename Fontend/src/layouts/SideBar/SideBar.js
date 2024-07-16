@@ -27,9 +27,7 @@ function SideBar() {
                         <div className="logo">
                             <MdDashboard size={'2em'} />
                             <div className="logo-text">
-                                <span>
-                                    RIOT <br /> GAMES
-                                </span>
+                                <span>UCPC</span>
                             </div>
                         </div>
                     </div>
@@ -53,6 +51,10 @@ function SideBar() {
                             </MenuItem>
                             <MenuItem>
                                 Option 3 <Link to="/admins/manage-questions" />
+                            </MenuItem>
+
+                            <MenuItem>
+                                Quản lý mail <Link to="/Admin/email" />
                             </MenuItem>
                         </SubMenu>
                     </Menu>
@@ -79,7 +81,7 @@ function SideBar() {
                                     overflow: 'hidden',
                                 }}
                             >
-                                Riot games
+                                UCPC
                             </span>
                         </a>
                     </div>
