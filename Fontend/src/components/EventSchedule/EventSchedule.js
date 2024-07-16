@@ -75,24 +75,24 @@ function EventSchedule() {
             <div className={'body-1'}>
               <div className={'date-1'}>24.04.24</div>
               <div className={'body-1-content'}>
-                {/* <div className={'text-1'}>Lorem ipsum dolor sit amet</div> */}
+                <div className={'text-1'}>Lorem ipsum <br />dolor sit amet</div>
               </div>
             </div>
             <div className={'body-2'}>
               <div className={'body-2-content'}>
-                {/* <div className={'text-2'}>Lorem ipsum dolor sit amet</div> */}
+                <div className={'text-2'}>Lorem ipsum <br />dolor sit amet</div>
               </div>
               <div className={'date-2'}>24.04.24</div>
             </div>
             <div className={'body-1'}>
               <div className={'date-1'}>24.04.24</div>
               <div className={'body-1-content'}>
-                {/* <div className={'text-1'}>Lorem ipsum dolor sit amet</div> */}
+                <div className={'text-1'}>Lorem ipsum <br />dolor sit amet</div>
               </div>
             </div>
             <div className={'body-2'}>
               <div className={'body-2-content'}>
-                {/* <div className={'text-2'}>Lorem ipsum dolor sit amet</div> */}
+                <div className={'text-2'}>Lorem ipsum <br />dolor sit amet</div>
               </div>
               <div className={'date-2'}>24.04.24</div>
             </div>

@@ -1,8 +1,8 @@
 require('dotenv').config();
-import express from 'express';
-import { testConnection } from './configs/dbConnection';
-import configCORS from './configs/configCORS';
-import initApiRoutes from './Routes/apiRoutes';
+const express = require('express');
+const { testConnection } = require('./configs/dbConnection');
+const configCORS = require('./configs/configCORS');
+const initApiRoutes = require('./Routes/apiRoutes');
 
 // Kết nối thử DB
 testConnection();
@@ -11,8 +11,8 @@ testConnection();
 const app = express();
 
 //config for parser
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Cấu hình CORS
 configCORS(app);

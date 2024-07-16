@@ -116,33 +116,30 @@
 
   @media (max-width: 1280px) {
     .content {
-      flex-direction: column;
-      height: auto;
+      flex-direction: row;
+      height: 70vh;
       margin-top: 0;
+      justify-content: center;
 
       .column {
         margin: 10px 0;
 
         &:not(:first-child)::before {
-          top: 0;
-          left: 24px;
-          height: 1px;
-          width: 85%;
+          top: 28px;
+          left: 0px;
+          height: 80%;
+          width: 1px;
         }
       }
     }
 
     footer {
-      flex-direction: column;
-      height: auto;
+      flex-direction: row;
+      height: 30vh;
       padding: 20px;
 
       .footer-left {
         padding-left: 0;
-
-        .footer-site-name {
-          text-align: center;
-        }
 
         .social-icons {
           margin-top: 20px;
@@ -158,11 +155,13 @@
         .footer-column {
           .footer-topic {
             text-align: center;
+            font-size: 20px;
           }
 
           p {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 30px;
+            font-size: 20px;
           }
         }
       }
