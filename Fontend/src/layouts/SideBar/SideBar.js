@@ -52,6 +52,10 @@ function SideBar() {
                             <MenuItem>
                                 Option 3 <Link to="/admins/manage-questions" />
                             </MenuItem>
+
+                            <MenuItem>
+                                Quản lý mail <Link to="/Admin/email" />
+                            </MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
