@@ -6,6 +6,7 @@ import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import Popup from 'reactjs-popup';
 import Register from '~/components/Popup/Register';
+import Login from '~/components/Popup/Login';
 
 const cx = classNames.bind(styles);
 
@@ -30,6 +31,17 @@ function Header() {
   const handleRegister = () => {
       setOpenRegister(true);
   };
+  const onCloseRegister = () => {
+      setOpenRegister(false);
+  };
+
+  const [openLogin, setOpenLogin] = useState(false);
+  const handleLogin = () => {
+    setOpenLogin(true);
+  };
+  const onCloseLogin = () => {
+    setOpenLogin(false);
+};
 
 
   return (
@@ -50,9 +62,12 @@ function Header() {
       <div className={cx('auth-buttons')}>
         <button className={cx('register-btn')} onClick={() => handleRegister()}>Đăng ký</button>
         <Popup open={openRegister} onClose={() => setOpenRegister(false)}>
-          <Register />   
+          <Register close = {onCloseRegister}/>   
         </Popup>
-        <button className={cx('login-btn')}>Đăng nhập</button>
+        <button className={cx('login-btn')} onClick={() => handleLogin()}>Đăng nhập</button>
+        <Popup open={openLogin} onClose={() => setOpenLogin(false)}>
+          <Login close = {onCloseLogin}/>   
+        </Popup>
       </div>
     </header>
   );

@@ -1,0 +1,130 @@
+.popup-overlay {
+    background: rgba(0, 0, 0, 0.5);
+  }
+.popup-content {
+    //border: 1px solid red;
+    margin: auto;
+    width: 30%;
+}
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+.login {
+    //: 5px solid pink;
+    text-align: center;
+
+    font-size: 25px;
+
+    .login_form {
+        //Background
+        background-color: var(--primary);
+        border-radius: 15px;
+        box-shadow: 0px 0px 15px 20px rgba(107, 107, 107, 0.3);
+        //size
+        width: 100%;
+        height: fit-content;
+        margin: auto;
+        padding-top: 3%;
+        .title {
+            font-family: 'Source Code Pro', monospace;
+            //Size
+            // font-size: 45px;
+            //Text
+            color: white;
+            //Location
+            margin: 5% 0 5% 0;
+        }
+        #top{
+            font-size: 45px;
+            padding-top: 2%;
+            border-top: 5px solid rgb(206, 141, 236);
+            margin-bottom: 0;
+            font-weight: 600;
+        }
+        #mid{
+            font-size: 30px;
+            margin-top: 0;
+            margin-bottom: 0;
+            border-bottom: 1px ;
+        }
+        #bot{
+            margin-top: 0;
+            font-size: 45px;
+            font-weight: 700;
+            padding-bottom: 2%;
+            border-bottom: 5px solid rgb(206, 141, 236);
+        }
+
+        .login_info {
+            border-top: 3px solid var(--primary);
+            padding-top: 10%;
+            background-color: white;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            border: 3px solid var(--primary);
+        }
+
+        .button_area{
+
+            .login_button {
+                //Location
+                //Color
+                color: white;
+                background-color: var(--primary);
+                border-color: var(--primary);
+                border-radius: 20px;
+                //Size
+                width: 35%;
+                height: 40px;
+                font-size: 70%;
+                cursor: pointer;
+                margin: 5% 0 10% 0;
+    
+            }
+        }
+        
+    }
+    //input box
+    input{
+        //Size
+        width: 80%;
+        padding: 10px;
+        border: 3px solid var(--primary);
+        border-radius: 7px;
+        margin: 5% 0 5% 0;
+        font-size: 80%;
+    }
+
+    .mess{
+
+        padding-left: 10%;
+        text-align: left;
+        font-size: 15px;
+        font-weight: lighter;
+        font-style: italic;
+    }
+    
+}
+@media (max-width: 768px) {
+    .popup-content {
+        width: 90%;
+        // border: 1px solid red;
+        padding-right: 20%;
+    }
+    .login{
+        width: 100%;
+        position: relative;
+        bottom: 100px;
+    }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .popup-content {
+        width: 90%;
+        // border: 1px solid red;
+        padding-top: 20%;
+    }
+    .login{
+        width: 100%;
+        position: relative;
+        bottom: 100px;
+    }
+}
+
