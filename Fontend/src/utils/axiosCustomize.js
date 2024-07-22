@@ -9,7 +9,7 @@ NProgress.configure({
 const instance = axios.create({
     baseURL: 'http://localhost:8080/api/v1/',
     headers: {
-        Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHVpdC5jcyIsInJvbGUiOiJBRE1JTiJ9.9ZA43zjsUS5fXO5cNbOrEDp57FrffCeSDzrAu8vZL0o',
+        Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHVpdC5jcyIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyMTU3NDgwNSwiZXhwIjoxNzIxNjE4MDA1fQ.DJU57-NUybTqVxBeZCYCl3HdPouia9ClqujbSTRPIXI',
     }
 });
 

@@ -29,9 +29,9 @@ function UnSolveRequests({totalUnsolvedRequest}) {
     }
 
     return (
-        <div className="row">
-            <div className="col-sm">
-                <div className="card mt-4">
+        <div className="row" >
+            <div className="col-sm" >
+                <div className="card" style={{ border: '2px solid #000', padding: '5px', borderRadius: '10px' }}>
                     <div className="card-body d-flex justify-content-between align-items-center">
                         <h5 className="card-title">Total unsolved requests: {totalUnsolvedRequest}</h5>
                         <div className="d-flex">

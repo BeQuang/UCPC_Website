@@ -7,6 +7,7 @@ import UnSolveRequests from './UnSolveRequests';
 import { saveAs } from 'file-saver';
 import { Link } from 'react-router-dom';
 import SearchUserByEmail from './SearchByEmail';
+import InfoUser from './InfoUser';
 
 function DashBoard() {
     const [data, setData] = useState({
@@ -17,7 +18,6 @@ function DashBoard() {
         totalUnpaid: 0,
         totalUnsolvedRequest: 0
     }); // State to store the dashboard data
-    let errordownload = false;
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -37,51 +37,15 @@ function DashBoard() {
         return () => clearTimeout(timer);
     }, []);
 
-    const handleDownloadAllUsers = async () => {
-        try {
-            const response = await DownloadListUsers(); // Your API call to get the CSV file
-            const blob = new Blob([response], { type: 'text/csv;charset=utf-8;' });
-            saveAs(blob, 'all_users.csv');
-        } catch (error) {
-            errordownload = true; 
-        }
-    };
-    // if (!data) {
+        // if (!data) {
     //     return <div>Loading...</div>; // Show a loading state while data is being fetched
         
     // }
-    if (errordownload){
-        return( 
-            <>
-                <div>
-                    Error downloading the file...
-                </div>
-                <Link to="/admin/dashboard">
-                    <button className="btn btn-primary btn-lg">
-                        Return DashBoard
-                    </button>
-                </Link>
-            </>
-        )
-    }
 
     return (
         <div className="main-content" style={{ flex: '1', padding: '20px' }}>
-            <h1 className="mt-4 display-4 text-center">DASHBOARD</h1>
-            <div className="row">
-                <div className="col-sm">
-                    <div className="card mt-4 mb-4">
-                        <div className="card-body d-flex justify-content-between align-items-center">
-                            <h5 className="card-title">Total users: {data.totalUser}</h5>
-                            <button className="btn btn-primary btn-lg mx-3" style={{ fontSize: '1rem'}} onClick={handleDownloadAllUsers}>
-                                Download All Users
-                            </button>
-                        </div>
-                    </div>
-                </div>  
-            </div>
-
-            <SearchUserByEmail />
+            <h1 className="mt-4 mb-3 display-4 text-center">DASHBOARD</h1>
+            <InfoUser totalUser={data.totalUser}/>
             <UpdateTeam totalUpdatedInfo={data.totalUpdatedInfo} totalUnupdatedInfo = {data.totalUnupdatedInfo} />
             <PaidTeam totalPaid={data.totalPaid}  totalUnpaid={data.totalUnpaid} />
             <UnSolveRequests totalUnsolvedRequest={data.totalUnsolvedRequest} />

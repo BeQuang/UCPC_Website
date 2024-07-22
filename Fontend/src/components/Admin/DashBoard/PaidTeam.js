@@ -9,31 +9,32 @@ function PaidTeam({ totalPaid, totalUnpaid }) {
 
     const handleGetUnpaidTeams = async (event) => {
         event.preventDefault();
-            try {
-                const response = await GetUnpaidTeams();
-                if (response.EC === 0) {
-                    setTeams(response.DT);
-                    setMessage(response.EM);
-                } else {
-                    setMessage(response.EM);
-                }
-                setShow(true)
-            } catch (error) {
-                setMessage("An error occurred while fetching the data.");
+        try {
+            const response = await GetUnpaidTeams();
+            if (response.EC === 0) {
+                setTeams(response.DT);
+                setMessage(response.EM);
+            } else {
+                setMessage(response.EM);
             }
+            setShow(true);
+        } catch (error) {
+            setMessage("An error occurred while fetching the data.");
+        }
     };
+
     const handleHideUnpaidTeams = (event) => {
         event.preventDefault();
         setTeams([]);
-        setMessage("")
+        setMessage("");
         setShow(false);
-    }
+    };
 
     return (
-        <>
+        <div style={{ border: '2px solid #000', padding: '20px', borderRadius: '10px', marginBottom: '30px' }}>
             <div className="row">
                 <div className="col-sm">
-                    <div className="card mt-4">
+                    <div className="card">
                         <div className="card-body d-flex justify-content-between align-items-center">
                             <h5 className="card-title">Total paid teams: {totalPaid}</h5>
                         </div>
@@ -48,11 +49,11 @@ function PaidTeam({ totalPaid, totalUnpaid }) {
                             <h5 className="card-title">Total unpaid teams: {totalUnpaid}</h5>
                             <div className="d-flex">
                                 {show && (
-                                    <button className="btn btn-primary btn-lg mx-3" style={{ fontSize: '1rem'}} onClick={handleHideUnpaidTeams}>
+                                    <button className="btn btn-primary btn-lg mx-3" style={{ fontSize: '1rem' }} onClick={handleHideUnpaidTeams}>
                                         Hide
                                     </button>
                                 )}
-                                <button className="btn btn-primary btn-lg" style={{ fontSize: '1rem'}} onClick={handleGetUnpaidTeams}>
+                                <button className="btn btn-primary btn-lg" style={{ fontSize: '1rem' }} onClick={handleGetUnpaidTeams}>
                                     Get all
                                 </button>
                             </div>
@@ -60,7 +61,6 @@ function PaidTeam({ totalPaid, totalUnpaid }) {
                     </div>
                 </div>
             </div>
-
 
             {show && teams.length === 0 && (
                 <div className="row mt-4">
@@ -98,7 +98,7 @@ function PaidTeam({ totalPaid, totalUnpaid }) {
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 }
 

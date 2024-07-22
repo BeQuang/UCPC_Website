@@ -1,39 +1,39 @@
 import { useState } from "react";
 import { GetHasNotUpdateTeam } from "~/services/adminService/dashboardService";
 
-function UpdateTeam ({totalUpdatedInfo, totalUnupdatedInfo}) {
+function UpdateTeam({ totalUpdatedInfo, totalUnupdatedInfo }) {
     const [teams, setTeams] = useState([]);
     const [show, setShow] = useState(false);
     const [message, setMessage] = useState("");
 
     const handleGetHasNotUpdateTeams = async (event) => {
         event.preventDefault();
-            try {
-                const response = await GetHasNotUpdateTeam();
-                if (response.EC === 0) {
-                    setTeams(response.DT);
-                    setMessage(response.EM)
-                } else {
-                    setMessage(response.EM);
-                }
-                setShow(true)
-            } catch (error) {
-                setMessage("An error occurred while fetching the data.");
+        try {
+            const response = await GetHasNotUpdateTeam();
+            if (response.EC === 0) {
+                setTeams(response.DT);
+                setMessage(response.EM);
+            } else {
+                setMessage(response.EM);
             }
+            setShow(true);
+        } catch (error) {
+            setMessage("An error occurred while fetching the data.");
+        }
     };
 
     const handleHideHasNotUpdateTeams = (event) => {
         event.preventDefault();
         setTeams([]);
-        setMessage("")
+        setMessage("");
         setShow(false);
-    }
+    };
 
-    return(
-        <>
+    return (
+        <div style={{ border: '2px solid #000', padding: '20px', borderRadius: '10px', marginBottom: '30px' }}>
             <div className="row">
                 <div className="col-sm">
-                    <div className="card mt-4">
+                    <div className="card">
                         <div className="card-body d-flex justify-content-between align-items-center">
                             <h5 className="card-title">Total users have updated information: {totalUpdatedInfo}</h5>
                         </div>
@@ -41,7 +41,6 @@ function UpdateTeam ({totalUpdatedInfo, totalUnupdatedInfo}) {
                 </div>
             </div>
 
-            
             <div className="row">
                 <div className="col-sm">
                     <div className="card mt-4">
@@ -49,11 +48,11 @@ function UpdateTeam ({totalUpdatedInfo, totalUnupdatedInfo}) {
                             <h5 className="card-title">Total users have unupdated information: {totalUnupdatedInfo}</h5>
                             <div className="d-flex justify-content-between">
                                 {show && (
-                                    <button className="btn btn-primary btn-lg mx-3" style={{ fontSize: '1rem'}} onClick={handleHideHasNotUpdateTeams}>
+                                    <button className="btn btn-primary btn-lg mx-3" style={{ fontSize: '1rem' }} onClick={handleHideHasNotUpdateTeams}>
                                         Hide
                                     </button>
                                 )}
-                                <button className="btn btn-primary btn-lg" style={{ fontSize: '1rem'}} onClick={handleGetHasNotUpdateTeams}>
+                                <button className="btn btn-primary btn-lg" style={{ fontSize: '1rem' }} onClick={handleGetHasNotUpdateTeams}>
                                     Get all
                                 </button>
                             </div>
@@ -96,8 +95,8 @@ function UpdateTeam ({totalUpdatedInfo, totalUnupdatedInfo}) {
                     </table>
                 </div>
             )}
-        </>
-    )
+        </div>
+    );
 }
 
 export default UpdateTeam;

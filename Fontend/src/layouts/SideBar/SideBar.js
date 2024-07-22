@@ -22,7 +22,7 @@ function SideBarAdmin() {
         <>
             <ProSidebar 
                 width='180px' 
-                style={{ position: 'fixed', left: 0, top: 0, bottom: 0, backgroundColor: '#182326', color: '#fff', boxSizing: 'border-box'}}
+                style={{ position: 'fixed', backgroundColor: '#182326', color: '#fff', boxSizing: 'border-box'}}
                 className={'sideBar-container'}
             >
                 <SidebarHeader>
@@ -53,17 +53,17 @@ function SideBarAdmin() {
                     <AiFillDashboard style={iconStyle} /> Dashboard
                     <Link to="/admin/dashboard"/>
                 </MenuItem>
-                <SubMenu icon={<FaUserAlt/>} title="Users">
-                    <MenuItem>Manage Users <Link to="/admin/manage-users"/></MenuItem>
-                    <MenuItem>Confirm Payment <Link to="/admin/manage-users/confirmpayment"/></MenuItem>
+                <SubMenu icon={<FaUserAlt/> } title="Users">
+                    <MenuItem style={{fontSize: '14px'}}>Manage Users <Link to="/admin/manage-users"/></MenuItem>
+                    <MenuItem style={{fontSize: '14px'}}>Confirm Payment <Link to="/admin/manage-users/confirmpayment"/></MenuItem>
                 </SubMenu>
                 <SubMenu icon={<IoMdMail/>} title="Mailing">
-                    <MenuItem>Google maps <Link to="/admin/mailing/google-maps"/></MenuItem>
-                    <MenuItem>Open street maps <Link to="/admin/mailing/open-street-maps"/></MenuItem>
+                    <MenuItem style={{fontSize: '14px'}}>Google maps <Link to="/admin/mailing/google-maps"/></MenuItem>
+                    <MenuItem style={{fontSize: '14px'}}>Open street maps <Link to="/admin/mailing/open-street-maps"/></MenuItem>
                 </SubMenu>
                 <SubMenu icon={<IoMdHelpCircle/>} title="Helps">
-                    <MenuItem>Dark <Link to="/admin/helps/dark"/></MenuItem>
-                    <MenuItem>Light <Link to="/admin/helps/light"/></MenuItem>
+                    <MenuItem style={{fontSize: '14px'}}>Dark <Link to="/admin/helps/dark"/></MenuItem>
+                    <MenuItem style={{fontSize: '14px'}}>Light <Link to="/admin/helps/light"/></MenuItem>
                 </SubMenu>
             </Menu>
                 </SidebarContent>

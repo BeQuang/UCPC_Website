@@ -13,18 +13,6 @@ $error-color: red; /* Định nghĩa biến màu đỏ cho lỗi */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.title-form-user {
-  text-align: center; /* Căn phải tiêu đề */
-  margin-bottom: 10px;
-  padding: 0px 20px 0px 0px;
-  color: $primary-color;
-
-  h2 {
-    font-size: 24px;
-    margin: 0;
-    color: $black-color; /* Màu đen cho tiêu đề */
-  }
-}
 
 .content-form-user {
   display: block;
