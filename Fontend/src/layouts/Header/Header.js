@@ -4,17 +4,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import Popup from 'reactjs-popup';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
 import Register from '~/components/Popup/Register';
 import Login from '~/components/Popup/Login';
 import Dropdown from 'react-bootstrap/Dropdown';
 import avt from '~/assets/image/Description_Intro.jpg';
 import './Header.scss';
+import { doLogout } from '~/redux/actions/userAction';
 
 function Header() {
     const [backToTopButton, setBackToTopButton] = useState(false);
     const [openRegister, setOpenRegister] = useState(false);
     const [openLogin, setOpenLogin] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+    const account = useSelector((state) => state.user.account);
+    const dispatch = useDispatch();
+
+    console.log('account >>>>>>', account, 'isAuthenticated >>>>', isAuthenticated);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -46,7 +54,7 @@ function Header() {
 
     // Xét trạng thái cho nút đăng xuất
     const handleLogout = () => {
-        setIsLoggedIn(false);
+        dispatch(doLogout());
     };
 
     return (
@@ -77,7 +85,7 @@ function Header() {
                 </Link>
             </nav>
             <div className={'auth-buttons'}>
-                {isLoggedIn ? (
+                {isAuthenticated ? (
                     <>
                         <Dropdown>
                             <Dropdown.Toggle variant="dark" bg="dark" id="dropdown-basic" className={'avatar-toggle'}>
@@ -87,7 +95,7 @@ function Header() {
                             <Dropdown.Menu>
                                 <Dropdown.Item href="#/action-1">
                                     <img src={avt} className={'avatar-image'} />
-                                    Tên
+                                    {account.username}
                                 </Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                                 <Dropdown.Item href="/" onClick={handleLogout}>
