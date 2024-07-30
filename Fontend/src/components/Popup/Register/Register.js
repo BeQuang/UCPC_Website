@@ -1,10 +1,9 @@
 import './Register.scss';
-import logoGoogle from '~/assets/image/Logo_Google.jpg';
 import { useState } from 'react';
 import { postRegister } from '~/services/authService';
 import { useNavigate } from 'react-router-dom';
 
-function Register() {
+function Register({close}) {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -20,6 +19,7 @@ function Register() {
         return regex.test(e);
     }
     const handleChangeEmail = (e) => {
+        setMessage('');
         setEmail(e.target.value);
         if (validateEmail(e.target.value)) {
             setMailError('');
@@ -31,6 +31,7 @@ function Register() {
         }  
     }
     const validatePassword = (e) => {
+        setMessage('');
         const regex = new RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,}))|([a-z][A-Z][0-9][!@#$%^&*()])');
         return regex.test(e);
     }
@@ -46,6 +47,7 @@ function Register() {
         }
     }
     const handleChangeRePass = (e) => {
+        setMessage('');
         setRePass(e.target.value);
         if (pass === e.target.value) {
             setRePassError('');
@@ -57,6 +59,7 @@ function Register() {
         }
     }
     const handelRegister = (e) => {
+        setMessage('');
         e.preventDefault();
         if (pass === rePass) {
             console.log(username, email, pass);
@@ -66,7 +69,7 @@ function Register() {
                     setMessage(res.EM);
                 }
                 else if (res.EC === 0) {
-                    navigate('/');
+                    close();
                 }
             }).catch((err) => {
                 console.log(err);

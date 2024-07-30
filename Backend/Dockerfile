@@ -10,9 +10,12 @@ COPY package*.json ./
 # Cài đặt các dependencies
 RUN npm install
 
+# Sao chép toàn bộ mã nguồn vào thư mục làm việc
+COPY . .
 COPY start.sh /app/
 
 RUN sed -i 's/\r$//' /app/start.sh  && \  
     chmod +x /app/start.sh
-# Sao chép toàn bộ mã nguồn vào thư mục làm việc
-COPY . .
+
+
+CMD [ "/app/start.sh" ]

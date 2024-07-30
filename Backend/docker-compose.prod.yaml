@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   postgres_db:
     image: postgres:14
@@ -11,7 +11,7 @@ services:
       - db:/var/lib/postgresql/data
 
   web_backend:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     image: namvocoder/ucpc-backend:latest
@@ -37,6 +37,7 @@ services:
       - EMAIL=${EMAIL}
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
       - EMAIL_NAME=${EMAIL_NAME}
-    command: /app/start.sh
+    stdin_open: true
+    tty: true
 volumes:
   db:
