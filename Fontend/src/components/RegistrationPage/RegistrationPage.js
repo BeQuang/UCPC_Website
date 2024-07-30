@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./RegistrationPage.scss";
 import { useState, useEffect } from 'react';
 import Registration_Page from '~/assets/image/Registration_page.jpg';
 import Popup from 'reactjs-popup';
 import Register from '~/components/Popup/Register';
 
-
 function RegistrationPage() {
   const [openRegister, setOpenRegister] = useState(false);
-
-  const handleRegister = () => {
-    setOpenRegister(true);
-  };
+    const handleRegister = () => {
+        setOpenRegister(true);
+    };
 
   return (
     <div className={'registration'} id={'registration-section'}>
@@ -21,6 +19,9 @@ function RegistrationPage() {
           <p className={'hero-text'}>And a subheading describing your site, too</p>
           <button className={'hero-button'} onClick={handleRegister}>Đăng ký</button>
         </div>
+        <Popup open={openRegister} onClose={() => setOpenRegister(false)}>
+            <Register />   
+        </Popup>
       </section>
       <section class={'content'}>
         <div class={'left'}>

@@ -6,6 +6,7 @@ import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import Popup from 'reactjs-popup';
 import Register from '~/components/Popup/Register';
+import Login from '~/components/Popup/Login';
 import Dropdown from 'react-bootstrap/Dropdown';
 import avt from '~/assets/image/Description_Intro.jpg'
 
@@ -34,10 +35,27 @@ function Header() {
     setOpenRegister(true);
   };
 
+  const [openRegister, setOpenRegister] = useState(false);
+  const handleRegister = () => {
+      setOpenRegister(true);
+  };
+  const onCloseRegister = () => {
+      setOpenRegister(false);
+  };
+
+  const [openLogin, setOpenLogin] = useState(false);
+  const handleLogin = () => {
+    setOpenLogin(true);
+  };
+  const onCloseLogin = () => {
+    setOpenLogin(false);
+  };
+
   // Xét trạng thái cho nút đăng xuất
   const handleLogout = () => {
     setIsLoggedIn(false);
   }
+
 
   return (
     <header className={cx('header')}>
@@ -57,6 +75,14 @@ function Header() {
         <Link to='homefooter-section' smooth={true} duration={500}>Liên hệ</Link>
       </nav>
       <div className={cx('auth-buttons')}>
+        <button className={cx('register-btn')} onClick={() => handleRegister()}>Đăng ký</button>
+        <Popup open={openRegister} onClose={() => setOpenRegister(false)}>
+          <Register close = {onCloseRegister}/>   
+        </Popup>
+        <button className={cx('login-btn')} onClick={() => handleLogin()}>Đăng nhập</button>
+        <Popup open={openLogin} onClose={() => setOpenLogin(false)}>
+          <Login close = {onCloseLogin}/>   
+        </Popup>
         {isLoggedIn ? (
           <>
             <Dropdown>

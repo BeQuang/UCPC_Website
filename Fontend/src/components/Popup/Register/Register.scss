@@ -4,9 +4,8 @@
 .popup-content {
     //border: 1px solid red;
     margin: auto;
-    width: 28%;
-    padding: 5px;
-  }
+    width: 30%;
+}
 .register {
     //: 5px solid pink;
     text-align: center;
@@ -69,6 +68,31 @@
         font-size: 15px;
         font-weight: lighter;
         font-style: italic;
+    }
+    
+}
+@media (max-width: 768px) {
+    .popup-content {
+        width: 90%;
+        // border: 1px solid red;
+        padding-right: 20%;
+    }
+    .register{
+        width: 100%;
+        position: relative;
+        bottom: 100px;
+    }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .popup-content {
+        width: 90%;
+        // border: 1px solid red;
+        padding-top: 20%;
+    }
+    .register{
+        width: 100%;
+        position: relative;
+        bottom: 100px;
     }
 }
 
