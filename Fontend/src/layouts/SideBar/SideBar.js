@@ -1,16 +1,30 @@
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
-import { FaGem, FaGithub } from 'react-icons/fa';
 import { MdDashboard } from 'react-icons/md';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { Link } from 'react-router-dom';
 import './SideBar.scss';
+import { FaUserAlt, FaSignOutAlt } from 'react-icons/fa';
+import { IoMdHelpCircle, IoMdMail } from 'react-icons/io';
+import { AiFillDashboard } from 'react-icons/ai';
 
 import sidebarBg from '~/assets/image/Logo_UCPC.png';
 
-function SideBar() {
+function SideBarAdmin() {
+    const iconStyle = { 
+        marginRight: '14px',
+        marginLeft: '10px'
+    };
+    const handleLogout = () => {
+        // Implement your logout logic here
+        alert('Logout')
+    };
     return (
         <>
-            <ProSidebar image={sidebarBg} breakPoint="md" className={'sideBar-container'}>
+            <ProSidebar 
+                width='180px' 
+                style={{ position: 'fixed', backgroundColor: '#182326', color: '#fff', boxSizing: 'border-box'}}
+                className={'sideBar-container'}
+            >
                 <SidebarHeader>
                     <div
                         style={{
@@ -34,61 +48,37 @@ function SideBar() {
                 </SidebarHeader>
 
                 <SidebarContent>
-                    <Menu iconShape="circle">
-                        <MenuItem icon={<MdDashboard />}>
-                            {' '}
-                            Dashboard
-                            <Link to="/admins" />
-                        </MenuItem>
-                    </Menu>
-                    <Menu iconShape="circle">
-                        <SubMenu icon={<FaGem />} title="Option">
-                            <MenuItem>
-                                Option 1<Link to="/admins/manage-users" />
-                            </MenuItem>
-                            <MenuItem>
-                                Option 2 <Link to="/admins/manage-quizzes" />
-                            </MenuItem>
-                            <MenuItem>
-                                Option 3 <Link to="/admins/manage-questions" />
-                            </MenuItem>
-
-                            <MenuItem>
-                                Quản lý mail <Link to="/Admin/email" />
-                            </MenuItem>
-                        </SubMenu>
-                    </Menu>
+                <Menu>
+                <MenuItem>
+                    <AiFillDashboard style={iconStyle} /> Dashboard
+                    <Link to="/admin/dashboard"/>
+                </MenuItem>
+                <SubMenu icon={<FaUserAlt/> } title="Users">
+                    <MenuItem style={{fontSize: '14px'}}>Manage Users <Link to="/admin/manage-users"/></MenuItem>
+                    <MenuItem style={{fontSize: '14px'}}>Confirm Payment <Link to="/admin/manage-users/confirmpayment"/></MenuItem>
+                </SubMenu>
+                <SubMenu icon={<IoMdMail/>} title="Mailing">
+                    <MenuItem style={{fontSize: '14px'}}>Google maps <Link to="/admin/mailing/google-maps"/></MenuItem>
+                    <MenuItem style={{fontSize: '14px'}}>Open street maps <Link to="/admin/mailing/open-street-maps"/></MenuItem>
+                </SubMenu>
+                <SubMenu icon={<IoMdHelpCircle/>} title="Helps">
+                    <MenuItem style={{fontSize: '14px'}}>Dark <Link to="/admin/helps/dark"/></MenuItem>
+                    <MenuItem style={{fontSize: '14px'}}>Light <Link to="/admin/helps/light"/></MenuItem>
+                </SubMenu>
+            </Menu>
                 </SidebarContent>
 
                 <SidebarFooter style={{ textAlign: 'center' }}>
-                    <div
-                        className="sidebar-btn-wrapper"
-                        style={{
-                            padding: '20px 24px',
-                        }}
-                    >
-                        <a
-                            href="https://www.leagueoflegends.com/vi-vn/"
-                            target="_blank"
-                            className="sidebar-btn"
-                            rel="noopener noreferrer"
-                        >
-                            <FaGithub />
-                            <span
-                                style={{
-                                    whiteSpace: 'nowrap',
-                                    textOverflow: 'ellipsis',
-                                    overflow: 'hidden',
-                                }}
-                            >
-                                UCPC
-                            </span>
-                        </a>
-                    </div>
+                <Menu iconShape="square" style={{ position: 'absolute', bottom: '0px', width: '100%' }}>
+                <MenuItem onClick={handleLogout} icon={<FaSignOutAlt/>}>
+                    Logout
+                </MenuItem>
+            </Menu>
+
                 </SidebarFooter>
             </ProSidebar>
         </>
     );
 }
 
-export default SideBar;
+export default SideBarAdmin;
