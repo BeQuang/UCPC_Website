@@ -14,10 +14,12 @@ function App() {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/user" element={<User />} />
-            <Route path = "/register" element = {<Register />}></Route>
-            <Route path = "/login" element = {<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/login" element={<Login />}></Route>
             <Route path="/admin" element={<Admin />}>
-                <Route path="email" element={<Email />} />
+                <Route index element={<DashBoard />} />
+                <Route path="mailing" element={<Email />} />
+                <Route path="manage-users" element={<UserManage />} />
             </Route>
             <Route path="/mail-builder" element={<EmailBuilder />} />
         </Routes>

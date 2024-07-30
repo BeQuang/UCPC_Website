@@ -10,19 +10,19 @@ import { AiFillDashboard } from 'react-icons/ai';
 import sidebarBg from '~/assets/image/Logo_UCPC.png';
 
 function SideBarAdmin() {
-    const iconStyle = { 
+    const iconStyle = {
         marginRight: '14px',
-        marginLeft: '10px'
+        marginLeft: '10px',
     };
     const handleLogout = () => {
         // Implement your logout logic here
-        alert('Logout')
+        alert('Logout');
     };
     return (
         <>
-            <ProSidebar 
-                width='180px' 
-                style={{ position: 'fixed', backgroundColor: '#182326', color: '#fff', boxSizing: 'border-box'}}
+            <ProSidebar
+                width="180px"
+                style={{ position: 'fixed', backgroundColor: '#182326', color: '#fff', boxSizing: 'border-box' }}
                 className={'sideBar-container'}
             >
                 <SidebarHeader>
@@ -48,33 +48,44 @@ function SideBarAdmin() {
                 </SidebarHeader>
 
                 <SidebarContent>
-                <Menu>
-                <MenuItem>
-                    <AiFillDashboard style={iconStyle} /> Dashboard
-                    <Link to="/admin/dashboard"/>
-                </MenuItem>
-                <SubMenu icon={<FaUserAlt/> } title="Users">
-                    <MenuItem style={{fontSize: '14px'}}>Manage Users <Link to="/admin/manage-users"/></MenuItem>
-                    <MenuItem style={{fontSize: '14px'}}>Confirm Payment <Link to="/admin/manage-users/confirmpayment"/></MenuItem>
-                </SubMenu>
-                <SubMenu icon={<IoMdMail/>} title="Mailing">
-                    <MenuItem style={{fontSize: '14px'}}>Google maps <Link to="/admin/mailing/google-maps"/></MenuItem>
-                    <MenuItem style={{fontSize: '14px'}}>Open street maps <Link to="/admin/mailing/open-street-maps"/></MenuItem>
-                </SubMenu>
-                <SubMenu icon={<IoMdHelpCircle/>} title="Helps">
-                    <MenuItem style={{fontSize: '14px'}}>Dark <Link to="/admin/helps/dark"/></MenuItem>
-                    <MenuItem style={{fontSize: '14px'}}>Light <Link to="/admin/helps/light"/></MenuItem>
-                </SubMenu>
-            </Menu>
+                    <Menu>
+                        <MenuItem>
+                            <AiFillDashboard style={iconStyle} /> Dashboard
+                            <Link to="/admin" />
+                        </MenuItem>
+                        <SubMenu icon={<FaUserAlt />} title="Users">
+                            <MenuItem style={{ fontSize: '14px' }}>
+                                Manage Users <Link to="/admin/manage-users" />
+                            </MenuItem>
+                            <MenuItem style={{ fontSize: '14px' }}>
+                                Confirm Payment <Link to="/admin/manage-users/confirmpayment" />
+                            </MenuItem>
+                        </SubMenu>
+                        <SubMenu icon={<IoMdMail />} title="Mailing">
+                            <MenuItem style={{ fontSize: '14px' }}>
+                                Design email <Link to="/admin/mailing" />
+                            </MenuItem>
+                            <MenuItem style={{ fontSize: '14px' }}>
+                                Open street maps <Link to="/admin/mailing/open-street-maps" />
+                            </MenuItem>
+                        </SubMenu>
+                        <SubMenu icon={<IoMdHelpCircle />} title="Helps">
+                            <MenuItem style={{ fontSize: '14px' }}>
+                                Dark <Link to="/admin/helps/dark" />
+                            </MenuItem>
+                            <MenuItem style={{ fontSize: '14px' }}>
+                                Light <Link to="/admin/helps/light" />
+                            </MenuItem>
+                        </SubMenu>
+                    </Menu>
                 </SidebarContent>
 
                 <SidebarFooter style={{ textAlign: 'center' }}>
-                <Menu iconShape="square" style={{ position: 'absolute', bottom: '0px', width: '100%' }}>
-                <MenuItem onClick={handleLogout} icon={<FaSignOutAlt/>}>
-                    Logout
-                </MenuItem>
-            </Menu>
-
+                    <Menu iconShape="square" style={{ position: 'absolute', bottom: '0px', width: '100%' }}>
+                        <MenuItem onClick={handleLogout} icon={<FaSignOutAlt />}>
+                            Logout
+                        </MenuItem>
+                    </Menu>
                 </SidebarFooter>
             </ProSidebar>
         </>
