@@ -23,7 +23,7 @@ push: build-prod
 
 up-prod:
 	docker pull $(IMAGE_NAME):$(TAG)
-	docker-compose -f $(PROD_COMPOSE_FILE) up -d 
+	docker-compose -f $(PROD_COMPOSE_FILE) --env-file $(ENV_FILE) up -d 
 
 down-prod:
 	docker-compose -f $(PROD_COMPOSE_FILE) down

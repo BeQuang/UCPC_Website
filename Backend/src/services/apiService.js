@@ -311,11 +311,28 @@ const apiRegisterService = async (email, password, username) => {
 
         let result = await apiSendingEmailService(email, title, htmlContent)
         console.log('result: ', result);
+
+        //prepare data to return
+        let payload = {
+            email: user.email,
+            role: user.role
+        }
+        let access_token = generateToken(payload);
+        let noTeamData = {
+            "id": user.id,
+            "email": user.email,
+            "username": user.username,
+            "role": user.role,
+            "access_token": access_token,
+            "teamName": 'Not updated yet / admin account',
+            "Participants": []
+        }
         return {
             EM: 'Register Success',
             EC: 0,
-            DT: ''
+            DT: noTeamData
         }
+
     } catch (error) {
         return {
             EM: 'Internal Server Error',
