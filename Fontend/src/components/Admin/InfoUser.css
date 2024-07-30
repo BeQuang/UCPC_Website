@@ -1,0 +1,19 @@
+.user-details {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.user-details table {
+    width: 50%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.user-details table, .user-details th, .user-details td {
+    border: 1px solid black;
+}
+
+.user-details th, .user-details td {
+    padding: 10px;
+    text-align: center;
+}

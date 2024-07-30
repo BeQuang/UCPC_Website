@@ -8,17 +8,17 @@ import HomeFooter from '~/components/HomeFooter';
 import Header from '~/layouts/Header';
 
 function Home() {
-  return (
-    <div>
-      <Header />
-      <Introduction />
-      <News />
-      <Rules />
-      <EventSchedule />
-      <RegistrationPage />
-      <HomeFooter />
-    </div>
-  );
+    return (
+        <div className={'home-page'}>
+            <Header />
+            <Introduction />
+            <News />
+            <Rules />
+            <EventSchedule />
+            <RegistrationPage />
+            <HomeFooter />
+        </div>
+    );
 }
 
 export default Home;

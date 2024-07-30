@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import SideBarAdmin from '~/layouts/SideBar/SideBar'; // Đường dẫn đến component sidebar
 import DashBoard from '~/components/Admin/DashBoard/DashBoard'; // Đường dẫn đến component dashboard
 import UserManage from '~/components/Admin/User.js/User';
+import Email from '../Email';
 
 function Admin() {
     return (
@@ -15,7 +16,7 @@ function Admin() {
                 <Routes>
                     <Route path="/dashboard" element={<DashBoard />} />
                     <Route path="/manage-users" element={<UserManage />} />
-                    {/* Thêm các Route khác nếu cần */}
+                    <Route path='/email' element={<Email/>}/>
                 </Routes>
             </div>
         </div>

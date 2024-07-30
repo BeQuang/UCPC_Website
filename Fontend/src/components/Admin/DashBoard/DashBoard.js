@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { DownloadListUsers, GetDashBoard } from '~/services/adminService/dashboardService';
+import {GetDashBoard } from '~/services/adminService/dashboardService';
 import PaidTeam from './PaidTeam';
 import UpdateTeam from './UpdateTeam';
 import UnSolveRequests from './UnSolveRequests';
-import { saveAs } from 'file-saver';
-import { Link } from 'react-router-dom';
-import SearchUserByEmail from './SearchByEmail';
 import InfoUser from './InfoUser';
 
 function DashBoard() {
@@ -30,14 +27,10 @@ function DashBoard() {
                 console.log(err);
             }
         };
-        
-        // Set timeout 0.5s để call api lấy data
-         const timer = setTimeout(fetchData, 500);
-        //clear settimeout
-        return () => clearTimeout(timer);
+        fetchData()
     }, []);
 
-        // if (!data) {
+    //     if (!data) {
     //     return <div>Loading...</div>; // Show a loading state while data is being fetched
         
     // }

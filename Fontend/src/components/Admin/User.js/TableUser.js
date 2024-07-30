@@ -17,8 +17,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import LockIcon from '@mui/icons-material/Lock';
 import Popup from './Popup';
 import FormUpdateUser from './FormUpdateUser';
-import SearchUserByEmail from '../DashBoard/SearchByEmail';
 import { DeleteUserByID, GetAllUsers, GetUserByID, PutResetPassword, UpdateInfoByAdmin } from '~/services/adminService/userService';
+import { searchByEmail } from '~/services/adminService/dashboardService';
 
 const columns = [
     { id: 'id', label: 'ID' },
@@ -28,47 +28,11 @@ const columns = [
     { id: 'teamName', label: 'Team Name' },
 ];
 
-const mockUserData = [
-    { id: 1, email: 'user1@example.com', username: 'user1', role: 'admin', teamName: 'Team A' },
-    { id: 2, email: 'user2@example.com', username: 'user2', role: 'member', teamName: 'Team B' },
-    { id: 3, email: 'user3@example.com', username: 'user3', role: 'member', teamName: 'Team A' },
-    { id: 4, email: 'user4@example.com', username: 'user4', role: 'member', teamName: 'Team B' },
-    { id: 5, email: 'user5@example.com', username: 'user5', role: 'member', teamName: 'Team A' },
-    { id: 6, email: 'user6@example.com', username: 'user6', role: 'member', teamName: 'Team B' },
-    { id: 7, email: 'user7@example.com', username: 'user7', role: 'member', teamName: 'Team A' },
-    { id: 8, email: 'user8@example.com', username: 'user8', role: 'member', teamName: 'Team B' },
-    { id: 9, email: 'user9@example.com', username: 'user9', role: 'member', teamName: 'Team A' },
-    { id: 10, email: 'user10@example.com', username: 'user10', role: 'member', teamName: 'Team B' },
-    { id: 11, email: 'user11@example.com', username: 'user11', role: 'member', teamName: 'Team A' },
-    { id: 12, email: 'user12@example.com', username: 'user12', role: 'member', teamName: 'Team B' },
-    { id: 13, email: 'user13@example.com', username: 'user13', role: 'member', teamName: 'Team A' },
-    { id: 14, email: 'user14@example.com', username: 'user14', role: 'member', teamName: 'Team B' },
-    { id: 15, email: 'user15@example.com', username: 'user15', role: 'member', teamName: 'Team A' },
-    { id: 16, email: 'user16@example.com', username: 'user16', role: 'member', teamName: 'Team B' },
-    { id: 17, email: 'user17@example.com', username: 'user17', role: 'member', teamName: 'Team A' },
-    { id: 18, email: 'user18@example.com', username: 'user18', role: 'member', teamName: 'Team B' },
-    { id: 19, email: 'user19@example.com', username: 'user19', role: 'member', teamName: 'Team A' },
-    { id: 20, email: 'user20@example.com', username: 'user20', role: 'member', teamName: 'Team B' },
-    { id: 21, email: 'user21@example.com', username: 'user21', role: 'member', teamName: 'Team A' },
-    { id: 22, email: 'user22@example.com', username: 'user22', role: 'member', teamName: 'Team B' },
-    // Add more mock data here...
-];
-
-let dataUserUpdateTets = {
-      teamName: 'Team01',
-      paidImage: 'a.jpg',
-      isHighSchool: 'true',
-      trainerName: 'Than',
-      Participants: [
-        { fullName: 'A', citizenId: '001', phone: '0354463771', birth: '17/07/2004', schoolName: 'TT' },
-        { fullName: 'B', citizenId: '002', phone: '0354463771', birth: '17/07/2004', schoolName: 'TT' },
-        { fullName: 'C', citizenId: '003', phone: '0354463771', birth: '17/07/2004', schoolName: 'TT' },
-      ],
-    }
 
 
 const TableUsers = () => {
     const [data, setData] = useState([]);
+    const [email, setEmail] = useState('');
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -120,9 +84,6 @@ const TableUsers = () => {
 
     const handleSaveEdit = async () => {
         try {
-            // Gọi API để chỉnh sửa user dựa trên userID
-            // console.log("Save Edit", editData);
-            // console.log(editData.Participants)
             const response = await UpdateInfoByAdmin({
                 userId: editData.id,
                 teamName: editData.teamName,
@@ -202,11 +163,36 @@ const TableUsers = () => {
         setEditData(newData);
     };
 
+    const handleSearch = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await searchByEmail(email);
+            if (response.EC === 0) {
+                setData(response.DT.rows);
+            } else {
+                setData([]);
+            }
+        } catch (err) {
+            console.log(err.message)
+        }
+    }
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', paddingRight: '15px' }}>
             <div style={{ height: '4vh' }} />
             <Box sx={{ border: '2px solid #000', padding: '10px', borderRadius: '10px', marginBottom: '10px' }}>
-                <SearchUserByEmail />
+                <form onSubmit={handleSearch} className="d-flex align-items-center">
+                    <input
+                        type="text"
+                        className="form-control form-control-lg" // Use form-control-lg for larger input size
+                        placeholder="Enter email to search"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        style={{ fontSize: '1rem'}}
+                    />
+                    <button type="submit" className="btn btn-primary ml-2 mx-3 " style={{ fontSize: '1rem'}}>Search</button>
+                </form>
             </Box>
             <Box sx={{ flex: '1 1 auto', border: '2px solid #000', padding: '10px', borderRadius: '10px', maxHeight: '78vh', overflow: 'auto' }}>
                 <TableContainer component={Paper} sx={{ maxHeight: '74.5vh' }}>
@@ -233,7 +219,8 @@ const TableUsers = () => {
                                                 {row[column.id]}
                                             </TableCell>
                                         ))}
-                                        <TableCell>
+                                        { data[index].id !== 1 && 
+                                            <TableCell>
                                             <Box display="flex" justifyContent="center">
                                                 <Tooltip title="Edit User" arrow placement="top">
                                                     <IconButton color="primary" onClick={() => handleOpenEdit(row.id)}>
@@ -257,7 +244,9 @@ const TableUsers = () => {
                                                     </IconButton>
                                                 </Tooltip>
                                             </Box>
-                                        </TableCell>
+                                            </TableCell>
+                                        }
+                                        
                                     </TableRow>
                                 ))}
                         </TableBody>
@@ -281,7 +270,7 @@ const TableUsers = () => {
             }}>
                 <TablePagination
                     component="div"
-                    count={mockUserData.length}
+                    count={data.length}
                     page={page}
                     onPageChange={handleChangePage}
                     rowsPerPage={rowsPerPage}
