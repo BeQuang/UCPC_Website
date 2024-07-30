@@ -1,0 +1,39 @@
+IMAGE_NAME = namvocoder/ucpc-backend
+TAG = latest
+
+DEV_COMPOSE_FILE = docker-compose.dev.yaml
+PROD_COMPOSE_FILE = docker-compose.prod.yaml
+
+ENV_FILE = .env
+ENV_FILE_DEV = .env.local
+
+restart-dev: down-dev up-dev
+
+up-dev:
+	docker-compose -f $(DEV_COMPOSE_FILE) --env-file $(ENV_FILE_DEV)  up -d 
+
+down-dev:
+	docker-compose -f $(DEV_COMPOSE_FILE) down
+
+build-dev:
+	docker-compose -f $(DEV_COMPOSE_FILE) build
+	
+push: build-prod
+	docker push $(IMAGE_NAME):$(TAG)
+
+up-prod:
+	docker pull $(IMAGE_NAME):$(TAG)
+	docker-compose -f $(PROD_COMPOSE_FILE) --env-file $(ENV_FILE) up -d 
+
+down-prod:
+	docker-compose -f $(PROD_COMPOSE_FILE) down
+
+build-prod:
+	docker-compose -f $(PROD_COMPOSE_FILE) build
+
+.PHONY: build-dev build-and-push build-prod push restart-dev migrate
+
+migrate:
+	npx sequelize db:migrate:undo:all
+	npx sequelize db:migrate
+	npx sequelize db:seed:all

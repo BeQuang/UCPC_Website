@@ -1,5 +1,5 @@
-import express from 'express';
-import {
+const express = require('express');
+const {
     apiLoginController,
     apiRegisterController,
     apiUpdateInfoController,
@@ -30,8 +30,8 @@ import {
     apiSendMailWithTemplateController,
     apiSendEmailExampleController,
     apiDeleteHelpRequestController
-} from '../controllers/apiController';
-import { permissionMiddleware } from '../controllers/JWTActions';
+} = require('../controllers/apiController');
+const { permissionMiddleware } = require('../controllers/JWTActions');
 const apiRoute = express.Router();
 
 
@@ -84,4 +84,4 @@ const initApiRoutes = (app) => {
     app.use('/api/v1', apiRoute);
 };
 
-export default initApiRoutes;
+module.exports = initApiRoutes;

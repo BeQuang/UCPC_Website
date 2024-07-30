@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./RegistrationPage.scss";
+import { useState, useEffect } from 'react';
 import Registration_Page from '~/assets/image/Registration_page.jpg';
 import Popup from 'reactjs-popup';
 import Register from '~/components/Popup/Register';
@@ -9,13 +10,14 @@ function RegistrationPage() {
     const handleRegister = () => {
         setOpenRegister(true);
     };
+
   return (
     <div className={'registration'} id={'registration-section'}>
       <section class={'hero'}>
         <div class={'hero-content'}>
           <h1 className={'hero-title'}>Đăng ký ngay</h1>
           <p className={'hero-text'}>And a subheading describing your site, too</p>
-          <button className={'hero-button'} onClick={() => handleRegister()}>Đăng ký</button>
+          <button className={'hero-button'} onClick={handleRegister}>Đăng ký</button>
         </div>
         <Popup open={openRegister} onClose={() => setOpenRegister(false)}>
             <Register />   
@@ -28,12 +30,18 @@ function RegistrationPage() {
         <div class={'right'}>
           <img src={Registration_Page} alt={'Registration_Page'} className={'registration_img'} />
           <div class={'prize-info'}>
-            <p className={'right-text-1'}>Tổng giải thưởng lên tới</p>
+            <p className={'right-text-1'}>Tổng giải thưởng <br /> lên tới</p>
             <h2 className={'right-text-2'}>30.000.000</h2>
             <p className={'right-text-1'}>triệu đồng</p>
           </div>
         </div>
       </section>
+      <Popup
+        open={openRegister}
+        onClose={() => setOpenRegister(false)}
+      >
+        <Register />
+      </Popup>
     </div>
   );
 }

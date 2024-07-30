@@ -1,3 +1,10 @@
 .admin {
     display: flex;
+    flex-direction: row;
+
+    .content {
+        // nhớ thêm padding top khi có height của header
+        left: 270px;
+        width: 100%;
+    }
 }

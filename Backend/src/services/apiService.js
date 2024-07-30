@@ -1,13 +1,13 @@
-import db from '../models/index';
-import bycrypt from 'bcryptjs';
-import { Op, where } from 'sequelize';
-import { generateToken, verifyToken } from '../controllers/JWTActions';
-import { checkWL, clearWL, createWL } from '../controllers/checkWhiteList';
-import _ from 'lodash';
+const db = require('../models/index');
+const bycrypt = require('bcryptjs');
+const { Op, where } = require('sequelize');
+const { generateToken, verifyToken } = require('../controllers/JWTActions');
+const { checkWL, clearWL, createWL } = require('../controllers/checkWhiteList');
+const _ = require('lodash');
 const csv = require('fast-csv');
 const fs = require('fs');
-import nodemailer from 'nodemailer';
-import htmlMinifier from 'html-minifier';
+const nodemailer = require('nodemailer');
+const htmlMinifier = require('html-minifier');
 
 
 const DateToString = (date) => {
@@ -276,9 +276,9 @@ const apiRegisterService = async (email, password, username) => {
 
         await db.Process.create({
             teamId: team.id,
-            isUpdate: 0,
+            isUpdate: false,
             paidImage: null,
-            isPaid: 0,
+            isPaid: false,
             isHighSchool: null,
             trainerName: null
         });
@@ -311,11 +311,28 @@ const apiRegisterService = async (email, password, username) => {
 
         let result = await apiSendingEmailService(email, title, htmlContent)
         console.log('result: ', result);
+
+        //prepare data to return
+        let payload = {
+            email: user.email,
+            role: user.role
+        }
+        let access_token = generateToken(payload);
+        let noTeamData = {
+            "id": user.id,
+            "email": user.email,
+            "username": user.username,
+            "role": user.role,
+            "access_token": access_token,
+            "teamName": 'Not updated yet / admin account',
+            "Participants": []
+        }
         return {
             EM: 'Register Success',
             EC: 0,
-            DT: ''
+            DT: noTeamData
         }
+
     } catch (error) {
         return {
             EM: 'Internal Server Error',
@@ -367,7 +384,7 @@ const apiUpdateInfoService = async (data) => {
             }
         ]
     });
-    if (isUpdate['Team.Process.isUpdate'] !== null && isUpdate['Team.Process.isUpdate'] !== 0) {
+    if (isUpdate['Team.Process.isUpdate'] !== null && isUpdate['Team.Process.isUpdate'] !== false) {
         return {
             EM: 'User can update info only once',
             EC: 404,
@@ -396,8 +413,8 @@ const apiUpdateInfoService = async (data) => {
         await db.Process.create({
             teamId: team.id,
             paidImage: data.paidImage ? data.paidImage : null,
-            isPaid: 0,
-            isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
+            isPaid: false,
+            isHighSchool: data.isHighSchool === 'true' ? true : false,
             trainerName: data.trainerName ? data.trainerName : null
         });
 
@@ -412,7 +429,7 @@ const apiUpdateInfoService = async (data) => {
         });
         await db.Process.update({
             paidImage: data.paidImage ? data.paidImage : null,
-            isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
+            isHighSchool: data.isHighSchool === 'true' ? true : false,
             trainerName: data.trainerName ? data.trainerName : null
         }, {
             where: {
@@ -536,7 +553,7 @@ const apiSendHelpRequestService = async (userId, title, data) => {
             teamId: team.id,
             title: title,
             data: data,
-            isSolve: 0
+            isSolve: false
         });
         return {
             EM: 'Send help request success',
@@ -1121,7 +1138,9 @@ const apiSearchByEmailService = async (email) => {
     }
     let user = await db.User.findAndCountAll({
         where: {
-            email: email
+            email: {
+                [Op.like]: `%${email}%`
+            }
         },
         include: [
             {
@@ -1209,9 +1228,9 @@ const apiPrepareCSV = async () => {
                 username: result.username,
                 role: result.role,
                 teamName: result['Team.teamName'] || 'Not updated yet / admin account',
-                isPaid: result['Team.Process.isPaid'] || 0,
-                isUpdate: result['Team.Process.isUpdate'] || 0,
-                isHighSchool: result['Team.Process.isHighSchool'] || 0,
+                isPaid: result['Team.Process.isPaid'] || false,
+                isUpdate: result['Team.Process.isUpdate'] || false,
+                isHighSchool: result['Team.Process.isHighSchool'] || false,
                 trainerName: result['Team.Process.trainerName'],
                 participants: []
             };
@@ -1373,15 +1392,15 @@ const apiUpdateUserByAdminService = async (data) => {
         await db.Process.create({
             teamId: team.id,
             paidImage: data.paidImage ? data.paidImage : null,
-            isPaid: 0,
-            isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
+            isPaid: false,
+            isHighSchool: data.isHighSchool === 'true' ? true : false,
             trainerName: data.trainerName ? data.trainerName : null,
             isUpdate: 1
         });
     } else {
         await db.Process.update({
             paidImage: data.paidImage ? data.paidImage : null,
-            isHighSchool: data.isHighSchool === 'true' ? 1 : 0,
+            isHighSchool: data.isHighSchool === 'true' ? true : false,
             trainerName: data.trainerName ? data.trainerName : null,
             isUpdate: 1
         }, {
@@ -1405,7 +1424,7 @@ const apiGetUnpaidTeamsService = async (isUpdatedImage) => {
                     model: db.Process,
                     where:
                     {
-                        isPaid: { [Op.eq]: 0 },
+                        isPaid: { [Op.eq]: false },
                         paidImage: { [Op.not]: null }, // paidImage khác rỗng ('')
                     }
                 }
@@ -1420,7 +1439,7 @@ const apiGetUnpaidTeamsService = async (isUpdatedImage) => {
                 {
                     model: db.Process,
                     where: {
-                        isPaid: 0
+                        isPaid: false
                     }
                 }
             ],
@@ -1457,16 +1476,21 @@ const apiGetUnpaidTeamsService = async (isUpdatedImage) => {
             teamName: teams.find(team => team.userId === user.id).teamName || 'Not updated yet / admin account'
         }
     });
-    return {
+    console.log('check users: ', users);
+    let resp = {
         EM: 'Get unpaid teams success',
         EC: 0,
-        DT: users
+        DT: {
+            count: users.length,
+            rows: users
+        }
     }
+    return resp
 }
 const apiGetUnSolvedRequestsService = async () => {
     let requests = await db.Request.findAll({
         where: {
-            isSolve: 0
+            isSolve: false
         },
         attributes: ['id', 'title', 'data'],
         include: [
@@ -1503,7 +1527,7 @@ const apiGetHasNotUpdatedInfoService = async () => {
 
     let teamIds = await db.Process.findAll({
         where: {
-            isUpdate: 0
+            isUpdate: false
         },
         attributes: ['teamId'],
         raw: true
@@ -1693,44 +1717,76 @@ const apiGetDashBoardService = async () => {
      * totalPaid
      * 
      */
-    let totalUser = await db.User.count();
-    let totalUpdatedInfo = await db.Process.count({
-        where: {
-            isUpdate: 1
+    try {
+        let totalUser = await db.User.count();
+        if (totalUser === 1) {
+            return {
+                EM: 'There is no user registered',
+                EC: -1,
+                DT: ''
+            }
         }
-    });
-    let totalPaid = await db.Process.count({
-        where: {
-            isPaid: 1
+        console.log("total user: ", totalUser - 1)
+
+
+        let totalUpdatedInfo = await db.Process.count({
+            where: {
+                isUpdate: true
+            }
+        });
+
+        console.log("total updated info: ", totalUpdatedInfo)
+
+        let totalPaid = await db.Process.count({
+            where: {
+                isPaid: true
+            }
+        });
+
+        console.log("total paid: ", totalPaid)
+        let totalUnpaid = await db.Process.count({
+            where: {
+                isPaid: false
+            }
+        });
+
+        console.log("total unpaid: ", totalUnpaid)
+        let totalUnsolvedRequest = await db.Request.count({
+            where: {
+                isSolve: false
+            }
+        });
+
+        console.log("total unsolved request: ", totalUnsolvedRequest)
+        let totalUnupdatedInfo = await db.Process.count({
+            where: {
+                isUpdate: false
+            }
+        });
+
+        console.log("total unupdated info: ", totalUnupdatedInfo)
+        let data = {
+            totalUser: totalUser - 1,
+            totalUpdatedInfo: totalUpdatedInfo,
+            totalPaid: totalPaid,
+            totalUnpaid: totalUnpaid,
+            totalUnsolvedRequest: totalUnsolvedRequest,
+            totalUnupdatedInfo: totalUnupdatedInfo
         }
-    });
-    let totalUnpaid = await db.Process.count({
-        where: {
-            isPaid: 0
+
+        console.log('check data: ', data);
+        return {
+            EM: 'Get dashboard success',
+            EC: 0,
+            DT: data
         }
-    });
-    let totalUnsolvedRequest = await db.Request.count({
-        where: {
-            isSolve: 0
-        }
-    });
-    let totalUnupdatedInfo = await db.Process.count({
-        where: {
-            isUpdate: 0
-        }
-    });
-    let data = {
-        totalUser: totalUser - 1,
-        totalUpdatedInfo: totalUpdatedInfo,
-        totalPaid: totalPaid,
-        totalUnpaid: totalUnpaid,
-        totalUnsolvedRequest: totalUnsolvedRequest,
-        totalUnupdatedInfo: totalUnupdatedInfo
     }
-    return {
-        EM: 'Get dashboard success',
-        EC: 0,
-        DT: data
+    catch (error) {
+        return {
+            EM: 'Get dashboard failed',
+            EC: 500,
+            DT: error
+        }
     }
 }
 const apiGetHelpByUserService = async (userId) => {
@@ -1912,7 +1968,7 @@ const apiSendMailWithTemplateService = async (type, title, id_template) => {
         case 'Unpaid':
             temp = await db.Process.findAll({
                 where: {
-                    isPaid: 0
+                    isPaid: false
                 },
                 attributes: [],
                 include: [
@@ -1933,7 +1989,7 @@ const apiSendMailWithTemplateService = async (type, title, id_template) => {
         case 'Unupdated':
             temp = await db.Process.findAll({
                 where: {
-                    isUpdate: 0
+                    isUpdate: false
                 },
                 attributes: [],
                 include: [
@@ -2041,7 +2097,7 @@ const apiSendEmailExampleService = async (email, id_template) => {
         }
     }
 }
-export {
+module.exports = {
     apiLoginService,
     apiRegisterService,
     apiUpdateInfoService,
