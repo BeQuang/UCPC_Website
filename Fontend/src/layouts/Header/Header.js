@@ -97,7 +97,8 @@ function Header() {
                                     <img src={avt} className={'avatar-image'} />
                                     {account.username}
                                 </Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                <Dropdown.Item href="/user">Thông tin đội</Dropdown.Item>
+                                <Dropdown.Item>Đóng lệ phí</Dropdown.Item>
                                 <Dropdown.Item href="/" onClick={handleLogout}>
                                     Đăng xuất
                                 </Dropdown.Item>

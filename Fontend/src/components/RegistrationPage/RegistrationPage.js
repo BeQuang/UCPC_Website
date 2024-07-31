@@ -3,27 +3,33 @@ import { useState, useEffect } from 'react';
 import Registration_Page from '~/assets/image/Registration_page.jpg';
 import Popup from 'reactjs-popup';
 import Register from '~/components/Popup/Register';
+import { useSelector } from 'react-redux';
 
 function RegistrationPage() {
     const [openRegister, setOpenRegister] = useState(false);
+    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     const handleRegister = () => {
         setOpenRegister(true);
     };
 
     return (
         <div className={'registration'} id={'registration-section'}>
-            <section class={'hero'}>
-                <div class={'hero-content'}>
-                    <h1 className={'hero-title'}>Đăng ký ngay</h1>
-                    <p className={'hero-text'}>And a subheading describing your site, too</p>
-                    <button className={'hero-button'} onClick={handleRegister}>
-                        Đăng ký
-                    </button>
-                </div>
-                <Popup open={openRegister} onClose={() => setOpenRegister(false)}>
-                    <Register />
-                </Popup>
-            </section>
+            {isAuthenticated ? (
+                <></>
+            ) : (
+                <section class={'hero'}>
+                    <div class={'hero-content'}>
+                        <h1 className={'hero-title'}>Đăng ký ngay</h1>
+                        <p className={'hero-text'}>And a subheading describing your site, too</p>
+                        <button className={'hero-button'} onClick={handleRegister}>
+                            Đăng ký
+                        </button>
+                    </div>
+                    <Popup open={openRegister} onClose={() => setOpenRegister(false)}>
+                        <Register />
+                    </Popup>
+                </section>
+            )}
             <section class={'content'}>
                 <div class={'left'}>
                     <p className={'left-text-1'}>

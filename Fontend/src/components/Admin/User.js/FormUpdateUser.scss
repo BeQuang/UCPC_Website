@@ -4,121 +4,128 @@ $black-color: #000; /* Định nghĩa biến màu đen */
 $error-color: red; /* Định nghĩa biến màu đỏ cho lỗi */
 
 .wrapper-form-user {
-  max-width: 100vh;
-  margin: 0 auto;
-  padding: 20px 0px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100vh;
+    margin: 0 auto;
+    padding: 20px 0px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 
 .content-form-user {
-  display: block;
+    display: block;
 
-  span h2 {
-    color: $black-color; /* Màu đen cho tiêu đề trong content */
-  }
+    span h2 {
+        color: $black-color; /* Màu đen cho tiêu đề trong content */
+    }
 }
 
-.content1-form-user, .content2-form-user, .content3-form-user, .content4-form-user {
-  display: block;
-  margin: 0px 0px 10px 20px;
-  padding-bottom: 10px;
-  position: relative;
+.content1-form-user,
+.content2-form-user,
+.content3-form-user,
+.content4-form-user {
+    display: block;
+    margin: 0px 0px 10px 20px;
+    padding-bottom: 10px;
+    position: relative;
 }
 
 .separator {
-  display: block;
-  width: 100%;
-  height: 3px;
-  background-color: $primary-color; /* Đường kẻ ngăn cách với màu chủ đạo */
-  margin-bottom: 20px;
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: $primary-color; /* Đường kẻ ngăn cách với màu chủ đạo */
+    margin-bottom: 20px;
 }
 
 .field-container {
-  display: flex;
-  flex-direction: column;
-  // margin-bottom: 15px;
-  min-height: 120px; 
+    display: flex;
+    flex-direction: column;
+    // margin-bottom: 15px;
+    min-height: 120px;
 
-  label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 2rem;
-    color: $primary-color; /* Màu chủ đạo cho nhãn */
-    margin-left: 5%; /* Di chuyển nhãn sang phải 20px */
-  }
-
-  input {
-    width: 70%;
-    padding: 8px;
-    margin-bottom: 2px;
-    border: 2px solid $primary-color; /* Đường viền với màu chủ đạo */
-    border-radius: 10px;
-    box-sizing: border-box;
-    margin-left: 5%;
-    font: 1rem sans-serif;
-
-    &.input-error {
-      border-color: $error-color; /* Đường viền màu đỏ khi có lỗi */
+    label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 2rem;
+        color: $primary-color; /* Màu chủ đạo cho nhãn */
+        margin-left: 5%; /* Di chuyển nhãn sang phải 20px */
     }
-  }
 
-  .error {
-    color: $error-color;
-    font-size: 0.875em;
-    margin: 0px 0px 5px 7%;
-    display: block;
-  }
-  select {
-    width: 70%; /* Độ rộng của select box */
-    padding: 8px; /* Khoảng cách giữa nội dung và đường viền */
-    margin-bottom: 2px; /* Khoảng cách dưới của select box */
-    border: 2px solid $primary-color; /* Đường viền với màu chủ đạo */
-    border-radius: 10px; /* Độ cong của viền */
-    box-sizing: border-box; /* Bao gồm cả border và padding vào kích thước */
-    margin-left: 5%; /* Canh lề trái */
-    font: 1rem sans-serif; /* Font chữ và kích thước */
-    
-    &.input-error {
-      border-color: $error-color; /* Đường viền màu đỏ khi có lỗi */
+    input {
+        width: 70%;
+        padding: 8px;
+        margin-bottom: 2px;
+        border: 2px solid $primary-color; /* Đường viền với màu chủ đạo */
+        border-radius: 10px;
+        box-sizing: border-box;
+        margin-left: 5%;
+        font: 1rem sans-serif;
+
+        &.input-error {
+            border-color: $error-color; /* Đường viền màu đỏ khi có lỗi */
+        }
     }
-  }
+
+    .error {
+        color: $error-color;
+        font-size: 0.875em;
+        margin: 0px 0px 5px 7%;
+        display: block;
+    }
+    select {
+        width: 70%; /* Độ rộng của select box */
+        padding: 8px; /* Khoảng cách giữa nội dung và đường viền */
+        margin-bottom: 2px; /* Khoảng cách dưới của select box */
+        border: 2px solid $primary-color; /* Đường viền với màu chủ đạo */
+        border-radius: 10px; /* Độ cong của viền */
+        box-sizing: border-box; /* Bao gồm cả border và padding vào kích thước */
+        margin-left: 5%; /* Canh lề trái */
+        font: 1rem sans-serif; /* Font chữ và kích thước */
+
+        &.input-error {
+            border-color: $error-color; /* Đường viền màu đỏ khi có lỗi */
+        }
+    }
 }
 
 .btn-signup {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 
-  button {
-    display: block;
-    width: 40%;
-    padding: 10px;
-    background-color: $primary-color; /* Màu chủ đạo cho nút */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-    
-    &:hover {
-      background-color: darken($primary-color, 10%); /* Làm tối màu khi hover */
+    button {
+        display: block;
+        width: 40%;
+        padding: 10px;
+        background-color: $primary-color; /* Màu chủ đạo cho nút */
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+
+        &:hover {
+            background-color: darken($primary-color, 10%); /* Làm tối màu khi hover */
+        }
+
+        h2 {
+            color: white;
+            margin-bottom: 0;
+        }
     }
-  }
 }
 
-input[type="file"]::file-selector-button {
-  border: 2px solid #6c5ce7;
-  padding: 0.2em 0.4em;
-  border-radius: 0.2em;
-  background-color: #a29bfe;
-  transition: 1s;
+input[type='file']::file-selector-button {
+    border: 2px solid #6c5ce7;
+    padding: 0.2em 0.4em;
+    border-radius: 0.2em;
+    background-color: #a29bfe;
+    transition: 1s;
 }
 
-input[type="file"]::file-selector-button:hover {
-  background-color: #788eef;
-  border: 2px solid #2352df;
+input[type='file']::file-selector-button:hover {
+    background-color: #788eef;
+    border: 2px solid #2352df;
 }

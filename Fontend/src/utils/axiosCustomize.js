@@ -1,5 +1,6 @@
 import axios from 'axios';
 import NProgress from 'nprogress';
+import { store } from '~/redux/store.js';
 
 NProgress.configure({
     showSpinner: false,
@@ -8,16 +9,18 @@ NProgress.configure({
 
 const instance = axios.create({
     baseURL: 'http://localhost:8080/api/v1/',
-    headers: {
-        Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHVpdC5jcyIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyMjM0ODQ5MiwiZXhwIjoxNzIyMzkxNjkyfQ.YRmuLjmTBX43YSp9QRtSboREU67bZ7UNctCmaSpn1tw',
-    }
+    // headers: {
+    //     Authorization:
+    //         'Bearer ' +
+    //         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHVpdC5jcyIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyMjQwNDQzMCwiZXhwIjoxNzIyNDQ3NjMwfQ.yR5IFMIgM0Upt9UKSWep_Dm0AWN5QOV570_VdkpGkR8',
+    // },
 });
 
 // Add a request interceptor
 instance.interceptors.request.use(
     function (config) {
-        // const access_token = store?.getState()?.user?.account?.access_token;
-        // config.headers["Authorization"] = `Bearer ${access_token}`;
+        const access_token = store?.getState()?.user?.account?.access_token;
+        config.headers['Authorization'] = `Bearer ${access_token}`;
         NProgress.start();
         // Do something before request is sent
         return config;
