@@ -1,105 +1,112 @@
-/* Định nghĩa biến màu chủ đạo */
+// Variables for colors
 $primary-color: #4a2882;
-$black-color: #000; /* Định nghĩa biến màu đen */
-$error-color: red; /* Định nghĩa biến màu đỏ cho lỗi */
+$black-color: #000;
+$error-color: red;
+$background-color: #f5f5f5; // Background color for the form
+$button-hover-color: darken($primary-color, 10%); // Button hover color
+$input-focus-color: lighten($primary-color, 20%); // Input focus color
 
+// Wrapper for the entire form
 .wrapper-form-user {
   max-width: 100vh;
   margin: 0 auto;
-  padding: 20px 0px;
+  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 20px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+// Title section of the form
 .title-form-user {
-  text-align: right; /* Căn phải tiêu đề */
+  text-align: right;
   margin-bottom: 10px;
-  padding: 0px 20px 0px 0px;
+  padding: 0 20px;
   color: $primary-color;
 
   h2 {
     font-size: 24px;
     margin: 0;
-    color: $black-color; /* Màu đen cho tiêu đề */
+    color: $black-color;
   }
 }
 
+// Content of the form
 .content-form-user {
   display: block;
+  padding: 10px 20px;
+  background-color: $background-color; // Background for content area
 
   span h2 {
-    color: $black-color; /* Màu đen cho tiêu đề trong content */
+    color: $black-color;
   }
 }
 
-.content1-form-user, .content2-form-user, .content3-form-user, .content4-form-user {
+// Styling each content section
+.content1-form-user,
+.content2-form-user,
+.content3-form-user,
+.content4-form-user {
   display: block;
-  margin: 0px 0px 10px 20px;
+  margin: 0 0 10px 20px;
   padding-bottom: 10px;
   position: relative;
 }
 
+// Separator line between sections
 .separator {
   display: block;
   width: 100%;
   height: 3px;
-  background-color: $primary-color; /* Đường kẻ ngăn cách với màu chủ đạo */
+  background-color: $primary-color;
   margin-bottom: 20px;
 }
 
+// Field container for each form field
 .field-container {
   display: flex;
   flex-direction: column;
-  // margin-bottom: 15px;
-  min-height: 120px; 
+  min-height: 120px;
 
   label {
     margin-bottom: 5px;
     font-weight: bold;
-    font-size: 2rem;
-    color: $primary-color; /* Màu chủ đạo cho nhãn */
-    margin-left: 5%; /* Di chuyển nhãn sang phải 20px */
+    font-size: 1.5rem;
+    color: $primary-color;
+    margin-left: 5%;
   }
 
-  input {
+  input,
+  select {
     width: 70%;
     padding: 8px;
     margin-bottom: 2px;
-    border: 2px solid $primary-color; /* Đường viền với màu chủ đạo */
+    border: 2px solid $primary-color;
     border-radius: 10px;
     box-sizing: border-box;
     margin-left: 5%;
     font: 1rem sans-serif;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+
+    &:focus {
+      border-color: $input-focus-color;
+      background-color: lighten($background-color, 10%);
+    }
 
     &.input-error {
-      border-color: $error-color; /* Đường viền màu đỏ khi có lỗi */
+      border-color: $error-color;
     }
   }
 
   .error {
     color: $error-color;
     font-size: 0.875em;
-    margin: 0px 0px 5px 7%;
+    margin: 0 0 5px 7%;
     display: block;
-  }
-  select {
-    width: 70%; /* Độ rộng của select box */
-    padding: 8px; /* Khoảng cách giữa nội dung và đường viền */
-    margin-bottom: 2px; /* Khoảng cách dưới của select box */
-    border: 2px solid $primary-color; /* Đường viền với màu chủ đạo */
-    border-radius: 10px; /* Độ cong của viền */
-    box-sizing: border-box; /* Bao gồm cả border và padding vào kích thước */
-    margin-left: 5%; /* Canh lề trái */
-    font: 1rem sans-serif; /* Font chữ và kích thước */
-    
-    &.input-error {
-      border-color: $error-color; /* Đường viền màu đỏ khi có lỗi */
-    }
   }
 }
 
+// Button styles
 .btn-signup {
   display: flex;
   justify-content: center;
@@ -108,29 +115,84 @@ $error-color: red; /* Định nghĩa biến màu đỏ cho lỗi */
     display: block;
     width: 40%;
     padding: 10px;
-    background-color: $primary-color; /* Màu chủ đạo cho nút */
+    background-color: $primary-color;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
     margin-top: 10px;
-    
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
     &:hover {
-      background-color: darken($primary-color, 10%); /* Làm tối màu khi hover */
+      background-color: $button-hover-color;
+      transform: translateY(-2px); // Slight lift on hover
+    }
+
+    &:active {
+      background-color: $primary-color;
+      transform: translateY(0); // Reset transform on click
     }
   }
 }
 
+// File input styles
 input[type="file"]::file-selector-button {
   border: 2px solid #6c5ce7;
   padding: 0.2em 0.4em;
   border-radius: 0.2em;
   background-color: #a29bfe;
-  transition: 1s;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    background-color: #788eef;
+    border-color: #2352df;
+  }
 }
 
-input[type="file"]::file-selector-button:hover {
-  background-color: #788eef;
-  border: 2px solid #2352df;
+// Autosuggest input styles
+.react-autosuggest__input {
+  width: 70%;
+  padding: 8px;
+  border: 2px solid $primary-color;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin-left: 5%;
+  font: 1rem sans-serif;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+
+  &:focus {
+    border-color: $input-focus-color;
+    background-color: lighten($background-color, 10%);
+  }
+}
+
+// Autosuggest suggestions container
+.react-autosuggest__suggestions-container {
+  position: absolute;
+  border: 0px solid #ddd;
+  background-color: #fff;
+  z-index: 10;
+  width: calc(70% - 2px);
+  border-radius: 4px;
+  max-height: 200px; // Limit height of the suggestions container
+  overflow-y: auto; // Enable vertical scrolling
+  margin-left: 5%; // Align with the input field
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Individual suggestion styling
+.react-autosuggest__suggestion {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+// Highlighted suggestion styling
+.react-autosuggest__suggestion--highlighted {
+  background-color: #e9ecef;
 }

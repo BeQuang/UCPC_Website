@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Autosuggest from 'react-autosuggest';
+import schools from '~/pages/User/schools';
 import './UserForm.scss';
 
+// Validation Schema
 const validationSchema = Yup.object().shape({
   teamName: Yup.string()
     .matches(/^[A-Z]/, 'Chữ cái đầu tiên phải viết hoa')
@@ -19,40 +22,50 @@ const validationSchema = Yup.object().shape({
     fullName: Yup.string().required('Họ và tên là bắt buộc.'),
     citizenId: Yup.string().matches(/^[a-zA-Z0-9]+$/, 'MSSV/CCCD không hợp lệ.').required('MSSV/CCCD là bắt buộc.'),
     phone: Yup.string().matches(/^[0-9]{10,11}$/, 'Số điện thoại không hợp lệ.').required('Số điện thoại là bắt buộc.'),
-    birth: Yup.string().matches(/^\d{2}\/\d{2}\/\d{4}$/, 'Ngày sinh không hợp lệ.').required('Ngày sinh là bắt buộc.'),
+    birth: Yup.date().required('Ngày sinh là bắt buộc.').nullable(),
     schoolName: Yup.string().required('Tên trường là bắt buộc.'),
   })).min(3, 'Phải có ít nhất 3 thành viên').max(3, 'Phải có đúng 3 thành viên'),
 });
 
-const NumberOfUser = [1, 2, 3];
+const NumberOfUser = [1, 2, 3]
+
+// Get suggestions for Autosuggest
+const getSuggestions = (value) => {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
+  return inputLength === 0 ? [] : schools.filter(
+    school => school.toLowerCase().includes(inputValue)
+  );
+};
+
+// Autosuggest handlers
+const getSuggestionValue = (suggestion) => suggestion;
+const renderSuggestion = (suggestion) => suggestion;
 
 const UserForm = () => {
-  //Fake userID
-  const userID = '12312312'
-
   const [imageBase64, setImageBase64] = useState('');
 
+  // Handle image file change
   const handleImageChange = (event) => {
     const file = event.currentTarget.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageBase64(reader.result);
-      };
+      reader.onloadend = () => setImageBase64(reader.result);
       reader.readAsDataURL(file);
     }
   };
 
+  // Handle form submission
   const handleSubmit = async (values) => {
-    const formData = { ...values, userID, paidImage: imageBase64 };
+    const formData = { ...values, userID: '12312312', paidImage: imageBase64 };
     console.log('Form submitted', formData);
 
-    // Thực hiện gửi dữ liệu lên server hoặc các thao tác khác tại đây
+    // Perform server submission or other actions
     try {
-
+      // Implement submission logic here
     } catch (error) {
       console.error('Error:', error);
-      // Hiển thị thông báo lỗi hoặc thực hiện các thao tác khác khi gặp lỗi
+      // Handle error here
     }
   };
 
@@ -77,7 +90,7 @@ const UserForm = () => {
           });
         }}
       >
-        {({ isSubmitting, touched, errors, setFieldValue }) => (
+        {({ isSubmitting, touched, errors, setFieldValue, values }) => (
           <Form className='form-user-container'>
             <div className='title-form-user'>
               <h1>Đăng kí đội thi UCPC</h1>
@@ -163,6 +176,7 @@ const UserForm = () => {
                     <div className='field-container'>
                       <label htmlFor={`Participants[${num - 1}].citizenId`}><b>MSSV/CCCD:</b></label>
                       <Field
+                        type='text'
                         id={`Participants[${num - 1}].citizenId`}
                         name={`Participants[${num - 1}].citizenId`}
                         placeholder='MSSV bao gồm chữ hoặc số hoặc chữ và số. Ví dụ: 1234abcd'
@@ -174,6 +188,7 @@ const UserForm = () => {
                     <div className='field-container'>
                       <label htmlFor={`Participants[${num - 1}].phone`}><b>Số điện thoại:</b></label>
                       <Field
+                        type='text'
                         id={`Participants[${num - 1}].phone`}
                         name={`Participants[${num - 1}].phone`}
                         placeholder='Số điện thoại có 10 hoặc 11 chữ số. Ví dụ: 0123456789'
@@ -185,9 +200,9 @@ const UserForm = () => {
                     <div className='field-container'>
                       <label htmlFor={`Participants[${num - 1}].birth`}><b>Ngày sinh:</b></label>
                       <Field
+                        type='date'
                         id={`Participants[${num - 1}].birth`}
                         name={`Participants[${num - 1}].birth`}
-                        placeholder='dd/mm/yyyy'
                         className={touched.Participants && touched.Participants[num - 1] && errors.Participants && errors.Participants[num - 1] && errors.Participants[num - 1].birth ? 'input-error' : ''}
                       />
                       <ErrorMessage name={`Participants[${num - 1}].birth`} component="p" className="error" />
@@ -195,12 +210,27 @@ const UserForm = () => {
 
                     <div className='field-container'>
                       <label htmlFor={`Participants[${num - 1}].schoolName`}><b>Tên trường:</b></label>
-                      <Field
-                        id={`Participants[${num - 1}].schoolName`}
-                        name={`Participants[${num - 1}].schoolName`}
-                        placeholder='Ví dụ: Trường Đại học Công nghệ Thông tin'
-                        className={touched.Participants && touched.Participants[num - 1] && errors.Participants && errors.Participants[num - 1] && errors.Participants[num - 1].schoolName ? 'input-error' : ''}
-                      />
+                      <Field name={`Participants[${num - 1}].schoolName`}>
+                        {({ field, form }) => (
+                          <Autosuggest
+                            suggestions={getSuggestions(field.value)}
+                            onSuggestionsFetchRequested={({ value }) => {
+                              form.setFieldValue(`Participants[${num - 1}].schoolName`, value);
+                            }}
+                            onSuggestionsClearRequested={() => { }}
+                            getSuggestionValue={getSuggestionValue}
+                            renderSuggestion={renderSuggestion}
+                            inputProps={{
+                              ...field,
+                              placeholder: 'Ví dụ: Trường Đại học Công nghệ Thông tin',
+                              className: touched.Participants && touched.Participants[num - 1] && errors.Participants && errors.Participants[num - 1] && errors.Participants[num - 1].schoolName ? 'input-error' : '',
+                            }}
+                            onSuggestionSelected={(event, { suggestion }) => {
+                              form.setFieldValue(`Participants[${num - 1}].schoolName`, suggestion);
+                            }}
+                          />
+                        )}
+                      </Field>
                       <ErrorMessage name={`Participants[${num - 1}].schoolName`} component="p" className="error" />
                     </div>
                   </div>
